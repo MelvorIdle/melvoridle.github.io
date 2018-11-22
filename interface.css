@@ -1,0 +1,10 @@
+.progress.active .progress-bar {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+
+body {
+	background-image: url("img/bg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

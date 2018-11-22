@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- Bootstrap core CSS -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Material Design Bootstrap -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/css/mdb.min.css" rel="stylesheet">
+		
+		<!-- Game CSS -->
+		<link rel="stylesheet" type="text/css" href="interface.css" />
+	
+		<title>Melvor Idle - Alpha v0.01</title>
+	</head>
+	
+	<body>
+	
+	<div class="container">
+		<div class="card" style="border: 0px">
+			<ul class="list-inline card-header text-center">
+				<li class="list-inline-item">Melvor Idle - <a href="#" data-toggle="modal" data-target="#changelog">Alpha v0.01</a></li>				
+			</ul>
+			<ul class="list-inline card-header text-center">
+				<li id="current-gp" class="list-inline-item"><image src="img/coins2.png" /> <span id="gp">0</span> gp</li>
+				<li id="current-level" class="list-inline-item"><img src="img/tree_outline.png" /> <span id="current-level-text">1</span> / 99</li>
+				<li id="current-axe" class="list-inline-item"><img id ="current-axe-image" src="img/axe_bronze.png" /> <span id="current-axe-text">Bronze Axe</span></li>
+				<li id="current-bank" class="list-inline-item"><img id ="current-bank-image" src="img/bank.png" /> <span id="current-bank-text">0</span> / <span id="bank-limit-text">83</span></span></li>
+				
+			</ul>
+			
+			<div class="card-body text-center"><small>Total XP: <span id="current-xp">0</span><br>XP required for next level: <span id="xp-required">83</span></small>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-success" id="next-level-progress" style="width:0%"></div>
+				</div>
+				<a id="autosave" href="#" class="btn btn-success btn-sm" onClick="autosaveToggle(); return false;">Autosave: On</a>
+				<a id="save" href="#" class="btn btn-warning btn-sm" onClick="saveData(1); return false;" style="display:none">Save Game</a>
+				<a id="load" href="#" class="btn btn-warning btn-sm" onClick="loadData(); return false;">Load Saved Game</a>
+			</div>
+			
+			
+			<div class="card-body">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="training-tab" data-toggle="tab" href="#training" role="tab" aria-controls="training" aria-selected="true">Training</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="shop-tab" data-toggle="tab" href="#shop" role="tab" aria-controls="shop" aria-selected="false">Shop</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="milestones-tab" data-toggle="tab" href="#milestones" role="tab" aria-controls="milestones" aria-selected="false">Milestones</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="bank-tab" data-toggle="tab" href="#bank" role="tab" aria-controls="bank" aria-selected="false">Bank</a>
+					</li>
+				</ul>
+				
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="training" role="tabpanel" aria-labelledby="training-tab">
+						<div class="row">
+						
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-tree-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/normal_tree.png"><br><span id="normal-tree-name">Normal Tree</span><br><small>Level: 1</small></h5>
+										<p class="card-text" id="cut-tree-desc">A commonly found tree.</p>
+										<a id="cut-tree" href="#" class="btn btn-success" onClick="cutTree(1); return false;">Cut</a>
+										<a id="cut-tree-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(1); return false;">Enable Auto Cut</a>
+										
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-tree-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-oak-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/oak_tree.png"><br><span id="oak-tree-name">Oak Tree</span><br /><small id="oak-level" style="color: red">Level: 15</small></h5>
+										<p class="card-text" id="cut-oak-desc">A beautiful old oak.</p>
+										<a id="cut-oak" href="#" class="btn btn-success disabled" onClick="cutTree(2); return false;">Cut</a>
+										<a id="cut-oak-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(2); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-oak-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-willow-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/willow_tree.png"><br><span id="willow-tree-name">Willow Tree</span><br /><small id="willow-level" style="color: red">Level: 30</small></h5>
+										<p class="card-text" id="cut-willow-desc">A droopy tree.</p>
+										<a id="cut-willow" href="#" class="btn btn-success disabled" onClick="cutTree(3); return false;">Cut</a>
+										<a id="cut-willow-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(3); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-willow-progress" style="width:0%"></div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-teak-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/teak_tree.png"><br><span id="teak-tree-name">Teak Tree</span><br /><small id="teak-level" style="color: red">Level: 35</small></h5>
+										<p class="card-text" id="cut-teak-desc">A beautiful old teak tree.</p>
+										<a id="cut-teak" href="#" class="btn btn-success disabled" onClick="cutTree(4); return false;">Cut</a>
+										<a id="cut-teak-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(4); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-teak-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-maple-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/maple_tree.png"><br><span id="maple-tree-name">Maple Tree</span><br /><small id="maple-level" style="color: red">Level: 45</small></h5>
+										<p class="card-text" id="cut-maple-desc">I bet this makes good syrup!</p>
+										<a id="cut-maple" href="#" class="btn btn-success disabled" onClick="cutTree(5); return false;">Cut</a>
+										<a id="cut-maple-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(5); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-maple-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-mahogany-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/mahogany_tree.png"><br><span id="mahogany-tree-name">Mahogany Tree</span><br /><small id="mahogany-level" style="color: red">Level: 50</small></h5>
+										<p class="card-text" id="cut-mahogany-desc">A beautiful, old mahogany tree.</p>
+										<a id="cut-mahogany" href="#" class="btn btn-success disabled" onClick="cutTree(6); return false;">Cut</a>
+										<a id="cut-mahogany-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(6); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-mahogany-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-yew-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/yew_tree.png"><br><span id="yew-tree-name">Yew Tree</span><br /><small id="yew-level" style="color: red">Level: 60</small></h5>
+										<p class="card-text" id="cut-yew-desc">A splendid tree.</p>
+										<a id="cut-yew" href="#" class="btn btn-success disabled" onClick="cutTree(7); return false;">Cut</a>
+										<a id="cut-yew-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(7); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-yew-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-magic-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/magic_tree.png"><br><span id="magic-tree-name">Magic Tree</span><br /><small id="magic-level" style="color: red">Level: 75</small></h5>
+										<p class="card-text" id="cut-magic-desc">The tree shimmers with a magical force.</p>
+										<a id="cut-magic" href="#" class="btn btn-success disabled" onClick="cutTree(8); return false;">Cut</a>
+										<a id="cut-magic-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(8); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-magic-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center" id="cut-redwood-card">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/redwood_tree.png"><br><span id="redwood-tree-name">Redwood Tree</span><br /><small id="redwood-level" style="color: red">Level: 90</small></h5>
+										<p class="card-text" id="cut-redwood-desc">An enormous majestic tree.</p>
+										<a id="cut-redwood" href="#" class="btn btn-success disabled" onClick="cutTree(9); return false;">Cut</a>
+										<a id="cut-redwood-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(9); return false;">Enable Auto Cut</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-redwood-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-6">
+								<div class="card text-center">
+									<div class="card-body">
+										<h5 class="card-title"><img src="img/unknown_tree.png"><br><span id="unknown-tree-name">???</span><br /><small id="unknown-level" style="color: red">Level: 99</small></h5>
+										<p class="card-text">???</p>
+										<a id="cut-unknown" href="#" class="btn btn-success disabled">Cut?</a>
+									</div>
+									<div class="card-footer text-muted">
+										<div class="progress active">
+											<div class="progress-bar bg-success" id="cut-redwood-progress" style="width:0%"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="shop" role="tabpanel" aria-labelledby="shop-tab">
+						<table class="table">
+							<thead>
+								<tr class="table-info">
+									<th scope="col"><strong>Axes</strong></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Level</th>
+									<th scope="col">Item</th>
+									<th scope="col">Cost (gp)</th>
+									<th scope="col">Purchase</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td>As useless as a pool noodle...</td>
+									<td>0</td>
+									<td><button type="button" class="btn btn-success btn-sm disabled">Upgraded</button></td>
+								</tr>
+								<tr>
+									<th scope="row">1</th>
+									<td><span id="iron-axe-level-text" class="badge badge-primary">Available</span> Iron Axe<br>+5% XP<br>+5% Cut Speed</td>
+									<td>50</td>
+									<td><button id="iron-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(2)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">10</th>
+									<td><span id="steel-axe-level-text" class="badge badge-danger">Insufficient Level</span> Steel Axe<br>+10% XP<br>+10% Cut Speed</td>
+									<td>750</td>
+									<td><button id="steel-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(3)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">20</th>
+									<td><span id="black-axe-level-text" class="badge badge-danger">Insufficient Level</span> Black Axe<br>+15% XP<br>+15% Cut Speed</td>
+									<td>2,500</td>
+									<td><button id="black-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(4)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">35</th>
+									<td><span id="mithril-axe-level-text" class="badge badge-danger">Insufficient Level</span> Mithril Axe<br>+20% XP<br>+20% Cut Speed</td>
+									<td>10,000</td>
+									<td><button id="mithril-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(5)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">50</th>
+									<td><span id="adamant-axe-level-text" class="badge badge-danger">Insufficient Level</span> Adamant Axe<br>+25% XP<br>+25% Cut Speed</td>
+									<td>50,000</td>
+									<td><button id="adamant-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(6)">Upgrade</button></td>
+								</tr><tr>
+									<th scope="row">60</th>
+									<td><span id="rune-axe-level-text" class="badge badge-danger">Insufficient Level</span> Rune Axe<br>+30% XP<br>+30% Cut Speed</td>
+									<td>200,000</td>
+									<td><button id="rune-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(7)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">80</th>
+									<td><span id="dragon-axe-level-text" class="badge badge-danger">Insufficient Level</span> Dragon Axe<br>+35% XP<br>+35% Cut Speed</td>
+									<td>750,000</td>
+									<td><button id="dragon-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(8)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">95</th>
+									<td><span id="3rdage-axe-level-text" class="badge badge-danger">Insufficient Level</span> 3rd Age Axe<br>+40% XP<br>+40% Cut Speed</td>
+									<td>2,000,000</td>
+									<td><button id="3rdage-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(9)">Upgrade</button></td>
+								</tr>
+							</tbody>
+							
+							<thead>
+								<tr class="table-info">
+									<th scope="col"><strong>Bank</strong></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Level</th>
+									<th scope="col">Item</th>
+									<th scope="col">Cost (gp)</th>
+									<th scope="col">Purchase</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<tr>
+									<th scope="row">10</th>
+									<td><span id="bank-1-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 100</td>
+									<td>1,000</td>
+									<td><button id="bank-1-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(1)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">20</th>
+									<td><span id="bank-2-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 150</td>
+									<td>10,000</td>
+									<td><button id="bank-2-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(2)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">30</th>
+									<td><span id="bank-3-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 200</td>
+									<td>25,000</td>
+									<td><button id="bank-3-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(3)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">40</th>
+									<td><span id="bank-4-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 250</td>
+									<td>75,000</td>
+									<td><button id="bank-4-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(4)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">50</th>
+									<td><span id="bank-5-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 300</td>
+									<td>125,000</td>
+									<td><button id="bank-5-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(5)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">60</th>
+									<td><span id="bank-6-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 350</td>
+									<td>250,000</td>
+									<td><button id="bank-6-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(6)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">70</th>
+									<td><span id="bank-7-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 400</td>
+									<td>500,000</td>
+									<td><button id="bank-7-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(7)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">80</th>
+									<td><span id="bank-8-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 450</td>
+									<td>1,000,000</td>
+									<td><button id="bank-8-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(8)">Upgrade</button></td>
+								</tr>
+								<tr>
+									<th scope="row">90</th>
+									<td><span id="bank-9-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 500</td>
+									<td>2,000,000</td>
+									<td><button id="bank-9-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(9)">Upgrade</button></td>
+								</tr>
+							</tbody>
+							
+						</table>	
+					</div>
+			
+					<div class="tab-pane fade" id="milestones" role="tabpanel" aria-labelledby="milestones-tab">
+					<table class="table">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Level</th>
+									<th scope="col">Reward</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<tr>
+									<th scope="row">2</th>
+									<td><span id="m-auto-cut-tree" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Normal Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">20</th>
+									<td><span id="m-auto-cut-oak" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Oak Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">35</th>
+									<td><span id="m-auto-cut-willow" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Willow Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">40</th>
+									<td><span id="m-auto-cut-teak" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Teak Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">50</th>
+									<td><span id="m-auto-cut-maple" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Maple Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">55</th>
+									<td><span id="m-auto-cut-mahogany" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Mahogany Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">65</th>
+									<td><span id="m-auto-cut-yew" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Yew Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">80</th>
+									<td><span id="m-auto-cut-magic" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Magic Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">95</th>
+									<td><span id="m-auto-cut-redwood" class="badge badge-danger">Locked</span> Allow "Auto Cut" for Redwood Tree</td>
+								</tr>
+								<tr>
+									<th scope="row">99</th>
+									<td><span id="m-skill-mastery" class="badge badge-danger">Locked</span> Skill Mastery</td>
+								</tr>
+							</tbody>
+							
+						</table>	
+					</div>
+					
+					<div class="tab-pane fade" id="bank" role="tabpanel" aria-labelledby="bank-tab">
+					<table class="table">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Qty</th>
+									<th scope="col">Item</th>
+									<th scope="col">Sell</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<tr id="b-normal-logs" class="d-none">
+									<th scope="row"><span id="b-normal-qty"></span></th>
+									<th>Normal Logs (1gp)</th>
+									<th><button id="b-normal-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(0); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-oak-logs" class="d-none">
+									<th scope="row"><span id="b-oak-qty"></span></th>
+									<th>Oak Logs (5gp)</th>
+									<th><button id="b-oak-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(1); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-willow-logs" class="d-none">
+									<th scope="row"><span id="b-willow-qty"></span></th>
+									<th>Willow Logs (10gp)</th>
+									<th><button id="b-willow-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(2); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-teak-logs" class="d-none">
+									<th scope="row"><span id="b-teak-qty"></span></th>
+									<th>Teak Logs (20gp)</th>
+									<th><button id="b-teak-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(3); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-maple-logs" class="d-none">
+									<th scope="row"><span id="b-maple-qty"></span></th>
+									<th>Maple Logs (40gp)</th>
+									<th><button id="b-maple-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(4); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-mahogany-logs" class="d-none">
+									<th scope="row"><span id="b-mahogany-qty"></span></th>
+									<th>Mahogany Logs (100gp)</th>
+									<th><button id="b-mahogany-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(5); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-yew-logs" class="d-none">
+									<th scope="row"><span id="b-yew-qty"></span></th>
+									<th>Yew Logs (250gp)</th>
+									<th><button id="b-yew-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(6); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-magic-logs" class="d-none">
+									<th scope="row"><span id="b-magic-qty"></span></th>
+									<th>Magic Logs (500gp)</th>
+									<th><button id="b-magic-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(7); return false;">Sell</button></th>
+								</tr>
+								<tr id="b-redwood-logs" class="d-none">
+									<th scope="row"><span id="b-redwood-qty"></span></th>
+									<th>Redwood Logs (1000gp)</th>
+									<th><button id="b-redwood-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(8); return false;">Sell</button></th>
+								</tr>
+							</tbody>
+							
+						</table>	
+					</div>
+			
+				
+		</div>
+		
+		</div>
+		
+		</div>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteSave">
+		Delete Save Data
+		</button>
+
+		<!-- Delete Save -->
+		<div class="modal fade" id="deleteSave" tabindex="-1" role="dialog" aria-labelledby="deleteSave" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Confirm - Delete Save Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				WARNING! This will reset ALL of your save data.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-danger" onClick="deleteData(); location.reload();">Confirm Delete</button>
+			</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		
+		<!-- Changelog -->
+		<div class="modal fade" id="changelog" tabindex="-1" role="dialog" aria-labelledby="changelog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Changelog</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="h5">Alpha v0.01</p>
+				<footer class="blockquote-footer">Initial Release</footer>
+				<p>Welcome the the initial release of <em>Melvor Idle</em>. This is an ever-expanding "idle" game where the aim is to level up your skills and reach skill mastery!</p>
+				<p><strong>Skill Release: Woodcutting</strong></p>
+				<p>Explore the vast landscape, where you will discover 9 different species of trees awaiting the fury of your axe. Cut down trees with a selection of 9 powerful axes, and earn GP to master the skill of <em>Woodcutting</em>.</p>
+				<p><strong>Auto Cutting</strong></p>
+				<p>Tired of clicking? Lazy? Just let the game do it for you. However, you need to earn that ability via Milestones.</p>
+				<p><strong>Random Events</strong></p>
+				<p>There is a 1 in 100 chance of a random event taking place when a tree is cut. These random events last for 20 seconds, and provide various benefits if you chose to participate. These benefits include:</p>
+				<ul>
+					<li>Double XP</li>
+					<li>Double Logs acquired from a fallen tree</li>
+					<li>Faster Cutting</li>
+				</ul>
+				<p>Random events are optional, however some actions are disabled during the duration of the event. It's up to you to decide what to do.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+			</div>
+		</div>
+		</div>
+
+		<!-- JQuery -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- Bootstrap tooltips -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		<!-- MDB core JavaScript -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/js/mdb.min.js"></script>	
+		<!-- NotifyJS -->
+		<script type="text/javascript" src="js/notify.js"></script>	
+		
+		<!-- Game JS -->
+		<script type="text/javascript" src="js/save.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		
+	</body>
+	
+</html>
