@@ -158,6 +158,8 @@ function cutTree(tree) {
 			randomEventCheck(randomEventChance);
 		}
 		
+		logsMultiplier = 1;
+		xpMultiplier = 1;
 		interval = 2000;
 		resetInterval();
 		
