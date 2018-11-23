@@ -40,7 +40,9 @@ function loadData() {
 	
 	//UPDATES FOR OLD SAVES
 	//Update bank upgrade values
-	bankMax = bankUpgradeValues[currentBankUpgrade-1];
+	if(currentBankUpgrade != 0) {
+		bankMax = bankUpgradeValues[currentBankUpgrade-1];
+	}
 	
 	
 	
