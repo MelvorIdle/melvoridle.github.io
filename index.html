@@ -27,7 +27,7 @@
 		<!-- Game CSS -->
 		<link rel="stylesheet" type="text/css" href="interface.css" />
 	
-		<title>Melvor Idle - Alpha v0.01</title>
+		<title>Melvor Idle - Alpha v0.01.1</title>
 	</head>
 	
 	<body>
@@ -35,7 +35,7 @@
 	<div class="container">
 		<div class="card" style="border: 0px">
 			<ul class="list-inline card-header text-center">
-				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="#" data-toggle="modal" data-target="#changelog">Alpha v0.01</a></li>				
+				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="changelog.txt" target="_blank">Alpha v0.01.1</a></li>				
 			</ul>
 			<ul class="list-inline card-header text-center">
 				<li id="current-gp" class="list-inline-item"><image src="img/coins2.png" /> <span id="gp">0</span> gp</li>
@@ -267,49 +267,49 @@
 								</tr>
 								<tr>
 									<th scope="row">1</th>
-									<td><span id="iron-axe-level-text" class="badge badge-primary">Available</span> Iron Axe<br>+5% XP<br>+5% Cut Speed</td>
+									<td><span id="iron-axe-level-text" class="badge badge-primary">Available</span> Iron Axe<br>(Base XP) +5%<br>(Base Speed) +5%</td>
 									<td>50</td>
 									<td><button id="iron-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(2)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">10</th>
-									<td><span id="steel-axe-level-text" class="badge badge-danger">Insufficient Level</span> Steel Axe<br>+10% XP<br>+10% Cut Speed</td>
+									<td><span id="steel-axe-level-text" class="badge badge-danger">Insufficient Level</span> Steel Axe<br>(Base XP) +10%<br>(Base Speed) +10%</td>
 									<td>750</td>
 									<td><button id="steel-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(3)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">20</th>
-									<td><span id="black-axe-level-text" class="badge badge-danger">Insufficient Level</span> Black Axe<br>+15% XP<br>+15% Cut Speed</td>
+									<td><span id="black-axe-level-text" class="badge badge-danger">Insufficient Level</span> Black Axe<br>(Base XP) +15%<br>(Base Speed) +15%</td>
 									<td>2,500</td>
 									<td><button id="black-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(4)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">35</th>
-									<td><span id="mithril-axe-level-text" class="badge badge-danger">Insufficient Level</span> Mithril Axe<br>+20% XP<br>+20% Cut Speed</td>
+									<td><span id="mithril-axe-level-text" class="badge badge-danger">Insufficient Level</span> Mithril Axe<br>(Base XP) +20%<br>(Base Speed) +20%</td>
 									<td>10,000</td>
 									<td><button id="mithril-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(5)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">50</th>
-									<td><span id="adamant-axe-level-text" class="badge badge-danger">Insufficient Level</span> Adamant Axe<br>+25% XP<br>+25% Cut Speed</td>
+									<td><span id="adamant-axe-level-text" class="badge badge-danger">Insufficient Level</span> Adamant Axe<br>(Base XP) +25%<br>(Base Speed) +25%</td>
 									<td>50,000</td>
 									<td><button id="adamant-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(6)">Upgrade</button></td>
 								</tr><tr>
 									<th scope="row">60</th>
-									<td><span id="rune-axe-level-text" class="badge badge-danger">Insufficient Level</span> Rune Axe<br>+30% XP<br>+30% Cut Speed</td>
+									<td><span id="rune-axe-level-text" class="badge badge-danger">Insufficient Level</span> Rune Axe<br>(Base XP) +30%<br>(Base Speed) +30%</td>
 									<td>200,000</td>
 									<td><button id="rune-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(7)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">80</th>
-									<td><span id="dragon-axe-level-text" class="badge badge-danger">Insufficient Level</span> Dragon Axe<br>+35% XP<br>+35% Cut Speed</td>
+									<td><span id="dragon-axe-level-text" class="badge badge-danger">Insufficient Level</span> Dragon Axe<br>(Base XP) +35%<br>(Base Speed) +35%</td>
 									<td>750,000</td>
 									<td><button id="dragon-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(8)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">95</th>
-									<td><span id="3rdage-axe-level-text" class="badge badge-danger">Insufficient Level</span> 3rd Age Axe<br>+40% XP<br>+40% Cut Speed</td>
-									<td>2,000,000</td>
+									<td><span id="3rdage-axe-level-text" class="badge badge-danger">Insufficient Level</span> 3rd Age Axe<br>(Base XP) +40%<br>(Base Speed) +40%<br>Magic Ability: ???</td>
+									<td>5,000,000</td>
 									<td><button id="3rdage-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(9)">Upgrade</button></td>
 								</tr>
 							</tbody>
@@ -334,55 +334,55 @@
 							<tbody>
 								<tr>
 									<th scope="row">10</th>
-									<td><span id="bank-1-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 100</td>
+									<td><span id="bank-1-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 200</td>
 									<td>1,000</td>
 									<td><button id="bank-1-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(1)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">20</th>
-									<td><span id="bank-2-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 150</td>
+									<td><span id="bank-2-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 400</td>
 									<td>10,000</td>
 									<td><button id="bank-2-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(2)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">30</th>
-									<td><span id="bank-3-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 200</td>
+									<td><span id="bank-3-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 600</td>
 									<td>25,000</td>
 									<td><button id="bank-3-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(3)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">40</th>
-									<td><span id="bank-4-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 250</td>
+									<td><span id="bank-4-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 1,000</td>
 									<td>75,000</td>
 									<td><button id="bank-4-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(4)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">50</th>
-									<td><span id="bank-5-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 300</td>
+									<td><span id="bank-5-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 1,500</td>
 									<td>125,000</td>
 									<td><button id="bank-5-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(5)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">60</th>
-									<td><span id="bank-6-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 350</td>
+									<td><span id="bank-6-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 2,250</td>
 									<td>250,000</td>
 									<td><button id="bank-6-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(6)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">70</th>
-									<td><span id="bank-7-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 400</td>
+									<td><span id="bank-7-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 3,000</td>
 									<td>500,000</td>
 									<td><button id="bank-7-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(7)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">80</th>
-									<td><span id="bank-8-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 450</td>
+									<td><span id="bank-8-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 4,000</td>
 									<td>1,000,000</td>
 									<td><button id="bank-8-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(8)">Upgrade</button></td>
 								</tr>
 								<tr>
 									<th scope="row">90</th>
-									<td><span id="bank-9-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 500</td>
+									<td><span id="bank-9-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 5,000</td>
 									<td>2,000,000</td>
 									<td><button id="bank-9-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(9)">Upgrade</button></td>
 								</tr>
@@ -537,44 +537,6 @@
 			</div>
 			</div>
 		</div>
-		</div>
-		</div>
-		
-		<!-- Changelog -->
-		<div class="modal fade" id="changelog" tabindex="-1" role="dialog" aria-labelledby="changelog" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Changelog</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="h5">Alpha v0.01</p>
-				<footer class="blockquote-footer">23rd November 2018</footer>
-				<p>Welcome the the initial release of <em>Melvor Idle</em>. This is an ever-expanding "idle" game, based on the popular MMORPG "Runescape", where the aim is to level up your skills and reach skill mastery along the way.</p>
-				<p><strong>Skill Release: Woodcutting</strong></p>
-				<p>Explore the vast landscape, where you will discover 9 different species of trees awaiting the fury of your axe. Cut down trees with a selection of 9 powerful axes, and earn GP to master the skill of <em>Woodcutting</em>.</p>
-				<p><strong>Auto Cutting</strong></p>
-				<p>Tired of clicking? Lazy? Just let the game do it for you. However, you need to earn that ability via Milestones.</p>
-				<p><strong>Random Events</strong></p>
-				<p>There is a 1 in 100 chance of a random event taking place when a tree is cut. These random events last for 20 seconds, and provide various benefits if you chose to participate. These benefits include:</p>
-				<ul>
-					<li>Double XP</li>
-					<li>Double Logs acquired from a fallen tree</li>
-					<li>Faster Cutting</li>
-				</ul>
-				<p>Random events are optional, however some actions are disabled during the duration of the event. It's up to you to decide what to do.</p>
-				<p><strong>Autosave</strong></p>
-				<p>This game includes an autosave feature, so you don't have to worry about losing your progress! After every action, your progress will save. You may disabled the autosave feature if you wish.</p>
-				<p><strong>The Future</strong></p>
-				<p>This game will be updated on a consistent basis, with new features added with every new version. The vision for this game is quite large in scale, hoping to provide the player with a sense of reward for leveling up skills. Alpha v0.02 is already almost complete in terms of features. Check back next week to see what has been added/changed! </p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-			</div>
-			</div>
 		</div>
 		</div>
 

@@ -38,6 +38,12 @@ function loadData() {
         };
     };
 	
+	//UPDATES FOR OLD SAVES
+	//Update bank upgrade values
+	bankMax = bankUpgradeValues[currentBankUpgrade-1];
+	
+	
+	
 	eventInProgress = false;
 	if(eventTimeout){ clearTimeout(eventTimeout)};
 	updateScreen();

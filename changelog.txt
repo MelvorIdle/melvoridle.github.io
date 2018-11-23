@@ -1,0 +1,53 @@
+==============
+Alpha v0.01.1
+==============
+23rd November 2018
+
+These changes come from my recent Reddit post in /r/incremental_games Feedback Friday 2018-11-23.
+
+Changes:
+- Updated bank capacity upgrade values to promote more "Idle" gameplay. New values, 
+in order of upgrade, are 200, 400, 600, 1000, 1500, 2250, 3000, 4000, 5000.
+- Axe upgrades are now more clear as to what bonuses they provide.
+- Updated 3rd Age Axe price and Magic Ability in preparation for Alpha v0.02.
+- Updated changelog link to directly show .txt document. Saves me from editing multiple documents.
+ 
+===========
+Alpha v0.01
+===========
+23rd November 2018
+
+Welcome the the initial release of Melvor Idle. This is an ever-expanding "idle" game, 
+based on the popular MMORPG "Runescape", where the aim is to level up your skills and 
+reach skill mastery along the way.
+
+FIRST SKILL RELEASE: WOODCUTTING
+- Explore the vast landscape, where you will discover 9 different species of trees 
+awaiting the fury of your axe. Cut down trees with a selection of 9 powerful axes, 
+and earn GP to master the skill of Woodcutting.
+
+Auto Cutting
+- Tired of clicking? Lazy? Just let the game do it for you. However, you need to 
+earn that ability via Milestones.
+
+Random Events
+- There is a 1 in 100 chance of a random event taking place when a tree is cut. These 
+random events last for 20 seconds, and provide various benefits if you chose to participate. 
+These benefits include:
+	- Double XP
+	- Double Logs acquired from a fallen tree
+	- Faster Cutting
+
+- Random events are optional, however some actions are disabled during the duration of 
+the event. It's up to you to decide what to do.
+
+Autosave
+- This game includes an autosave feature, so you don't have to worry about losing your 
+progress! After every action, your progress will save. You may disabled the autosave 
+feature if you wish.
+
+The Future
+- This game will be updated on a consistent basis, with new features added with every 
+new version. The vision for this game is quite large in scale, hoping to provide the 
+player with a sense of reward for leveling up skills. Alpha v0.02 is already almost 
+complete in terms of features. Check back next week to see what has been added/changed!
