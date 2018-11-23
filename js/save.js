@@ -43,6 +43,9 @@ function loadData() {
 	if(currentBankUpgrade != 0) {
 		bankMax = bankUpgradeValues[currentBankUpgrade-1];
 	}
+	if(bankMax == undefined) {
+		bankMax = 83;
+	}
 	
 	
 	
