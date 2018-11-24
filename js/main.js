@@ -149,6 +149,9 @@ function cutTree(tree) {
 			isCutting = false;
 		}
 		
+		//Reset the progress bar and clear animation queue, to avoid build up of animation
+		$("#cut-"+treeID[treeIdToKeep]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
+		
 		//Apply screen updates
 		updateScreen();
 		
@@ -170,10 +173,9 @@ function cutTree(tree) {
 	//Animate the progress bar for cutting trees
 	if (currentBank < bankMax) {
 		$("#cut-"+treeID[treeArray]+"-progress").animate({width: "100%"}, interval, "linear");
-		$("#cut-"+treeID[treeArray]+"-progress").animate({width: "0%"}, 0, "linear");
 	}
 	else {
-		$("#cut-"+treeID[treeArray]+"-progress").stop().animate({width: "0%"}, 0, "linear");
+		$("#cut-"+treeID[treeArray]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
 		notify("bankFull");
 	}
 	
