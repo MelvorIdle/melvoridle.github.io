@@ -645,7 +645,7 @@ function exp(){
 
 function updateScreen() {
 	
-	if (xp == 14000000) {
+	if (xp > 14000000) {
 		xp = 15500000;		
 	}
 	
