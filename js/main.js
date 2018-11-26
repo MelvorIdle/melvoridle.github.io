@@ -645,9 +645,6 @@ function exp(){
 
 function updateScreen() {
 	
-	if (xp > 14000000) {
-		xp = 15500000;		
-	}
 	
 	//This function updates the data on the screen
 	$("#gp").text(gp);
