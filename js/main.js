@@ -1927,13 +1927,3 @@ function randomEventCheck(chance) {
 	
 	
 }
-
-function resetMySave() {
-	
-	currentLevel=102;
-	xp=18000000;
-	nextLevelXP=exp.level_to_xp(currentLevel+1);
-	updateLevelProgress();
-	updateScreen();
-	
-}
