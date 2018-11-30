@@ -8,3 +8,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+.border-warning {
+	border-width:2px !important;
+}

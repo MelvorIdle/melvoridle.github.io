@@ -22,11 +22,10 @@ function saveData(notify) {
 		);
 	}
 	
-    console.log("Game Saved");
 };
 function loadData() {
 	
-	//Remove all vars that are no longer needed
+	//Remove all vars that are no longer needed from previous versions of the game
 	if (getItem(key + "treeLevelAchieved") != null) {
 		localStorage.removeItem(key + "treeLevelAchieved");
 		console.log(key + "treeLevelAchieved Removed Successfully");
@@ -43,14 +42,16 @@ function loadData() {
 	if(currentBankUpgrade != 0) {
 		bankMax = bankUpgradeValues[currentBankUpgrade-1];
 	}
-	if(bankMax == undefined) {
-		bankMax = 83;
+	
+	//Check if end-game activated on load and update logs cost respectively.
+	if(endGameActivated) {
+		logsCost = [100,150,250,280,340,400,475,550,650];
 	}
-	
-	
 	
 	eventInProgress = false;
 	if(eventTimeout){ clearTimeout(eventTimeout)};
+	interval = 2000;
+	resetInterval();
 	updateScreen();
 	$.notify(
 		"Progress Loaded!",

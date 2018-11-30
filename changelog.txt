@@ -1,3 +1,82 @@
+===========
+Alpha v0.02
+===========
+30th November 2018
+
+==CONTENT UPDATE: WOODCUTTING PRESTIGE==
+This update includes the implementation of Woodcutting Prestige. Achieving Skill Mastery not enough?
+Continue into prestige ranks and achieve levels far beyond originally possible.
+		
+- Entering Woodcutting Prestige allows you to level passed Level 99.
+- All Woodcutting XP Rates are multiplied by 10.
+- Logs are worth much more GP.
+
+Once you prestige, you will be required to unlock the higher level trees again through leveling. Woodcutting becomes quite
+profitable later on if you make it that far.
+				
+Woodcutting Prestige is optional. However, once you prestige there is no way of returning. Decide wisely!
+
+==Birds Nests==
+- Added the chance of receiving a "Birds Nest" from a tree when cut. These nests have a 1 in 250 chance
+of being acquired. They provide an instant GP increase of 20 times that of the tree you got it from.
+- These become quite valuable in Woodcutting Prestige.
+- Bird nests will be a feature expanded upon in the future.
+
+==Woodcutting Statistics==
+- Added some small statistics for those who like to keep track of numbers. Unfortunately this does 
+not include your stats prior to Alpha v0.02.
+
+==Changes to Woodcutting Random Events==
+- Previously, a random event would cause all cut buttons to be disabled until the event finished. 
+Throughout testing, I believe this is an unfair and frustrating disadvantage to the player, especially
+if they do not wish to participate in the event.
+- All cut buttons are now enabled during random events.
+- You are also able to Auto Cut the random event.
+
+==Tree XP/GP Balancing==
+The amount of XP and GP earned from trees later on in the game has been reduced.
+(In order of tree based on level)
+
+Old XP Rates - [10,20,30,50,80,120,200,320,500]
+New XP Rates - [10,20,30,50,80,100,140,180,250]
+
+Old GP Rates - [1,5,10,20,40,100,250,500,1000]
+New GP Rates - [1,5,10,20,40,80,125,200,275]
+
+==An Update on Trees Becoming Useless==
+Just thought I'd address this issue. Common feedback received showed a dislike for trees becoming redundant
+as you level up. I completely agree with this feedback, and have thought about how I can make better use
+of these redundant trees.
+
+I have decided to leave it as is for now until the introduction of Firemaking. This skill will require
+logs as the main source to level it up. Hopefully this will provide a use for the redundant trees when released.
+Upon release of this skill, I will gather feedback to see if this is a suitable trade-off.
+
+As the game progresses, more and more skills will be added to the game. If you follow RuneScape at all, you
+are probably farmiliar with what new skills will eventually be introduced, and how they all interact with
+one-another.
+
+==SKILLS PREVIEW: FISHING & FIREMAKING==
+This update includes a preview for the two upcoming skills, Fishing & Firemaking. The preview is designed to ahoq
+what the new skills will consist of, and provide an insight into a new mechanic.
+
+Fishing: Self explanatory. Select a location to catch the designated fish assigned to that area to level up.
+Firemaking: Burn the logs collected from Woodcutting to level up the skill. This skill introduces a bonfire
+mechanic to reward consistent gameplay. More information to come...
+
+Along with this preview you can see there has been a UI change to cater for the new skills.
+
+Fishing & Firemaking is due for release in Alpha v0.03.
+
+==OTHER CHANGES:==
+- Your save game now automatically loads, rather than requiring you to press the "Load Game" button.
+- Moved position of "GP" & "Bank" to top of screen. This is due to the upcoming skill released planned for the future.
+- Removed the image for you current axe. This information is now displayed above your experience bar.
+- Added the axe images to the "Shop".
+- Updated "Insufficient Level" badges for axes in the shop to display the level requirement instead.
+- Reduced Level Requirement for 3rd Age Axe to Level 90 (Down from Level 95)
+
+
 =============
 Alpha v0.01.2
 =============

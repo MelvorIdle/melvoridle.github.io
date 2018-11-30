@@ -5,8 +5,15 @@ var exp = new exp();
 var automate = null;
 var eventTimeout = null;
 var autoSave = true;
+var cuttingUnknownTimeout = null;
 
-var treeID = ["tree","oak","willow","teak","maple","mahogany","yew","magic","redwood"];	
+var isCutting = false;
+var isCuttingUnknown = false;
+var keepButtonDisabled = false;
+var eventInProgress = false;
+var endGameActivated = false;
+
+var treeID = ["tree","oak","willow","teak","maple","mahogany","yew","magic","redwood","unknown"];	
 
 var gp = 0;
 var xp = 0;
@@ -19,34 +26,56 @@ var currentAxe = 1;
 var currentBank = 0;
 var currentBankUpgrade = 0;
 var bankMax = 83;
-var treeLevelAchieved = [0,0,0,0,0,0,0,0];
+var treeLevelAchieved = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 var axePurchased = [0,0,0,0,0,0,0,0];
 var bankUpgradePurchased = [0,0,0,0,0,0,0,0,0];
 var milestoneAchieved = [0,0,0,0,0,0,0,0,0,0];
 var isAutomating = [0,0,0,0,0,0,0,0,0];
-var isCutting = false;
-var keepButtonDisabled = false;
-var eventInProgress = false;
-var treeXP = [10,20,30,50,80,120,200,320,500];
+var treeXP = [10,20,30,50,80,100,140,180,250];
 var axeBonusInterval = [0,0,5,10,15,20,25,30,35,40];
 var axeBonusXP = [0,0,5,10,15,20,25,30,35,40];
 var logsInBank = [0,0,0,0,0,0,0,0,0];
-var logsCost = [1,5,10,20,40,100,250,500,1000];
+var logsCost = [1,5,10,20,40,80,125,200,275,380];
 var axeCost = [0,0,50,750,2500,10000,50000,200000,750000,5000000];
 var bankCost = [1000,10000,25000,75000,125000,250000,500000,1000000,2000000];
 var bankUpgradeValues = [200,400,600,1000,1500,2250,3000,4000,5000];
 
 var eventTreeID;
-var randomEventID = 0;
 var randomEventChance;
+var randomEventID = 0;
 var xpMultiplier = 1;
 var logsMultiplier = 1;
+var endGameMultiplier = 1;
+
+var wcStatTreesCut = 0;
+var wcStatLogsSold = 0;
+var wcStatGPEarned = 0;
+var wcStatBirdNestsFound = 0;
+var wcStatRandomEvents = 0;
+
+var fishingCurrentLocation = 0;
+var fishingLocations = ["lumbridge","draynor","karamja","barbarian","seers","fishingguild","taverley","deepseas"];
 
 var allVars = [
 	"gp", "xp", "nextLevelProgress", "currentLevel", "currentLevelXP", "nextLevelXP",
 	"currentAxe", "currentBank", "bankMax", "axePurchased", "milestoneAchieved",
-	"logsInBank", "bankUpgradePurchased", "currentBankUpgrade"
+	"logsInBank", "bankUpgradePurchased", "currentBankUpgrade", "endGameActivated",
+	"wcStatTreesCut", "wcStatLogsSold", "wcStatGPEarned", "wcStatBirdNestsFound", "wcStatRandomEvents"
 ];
+
+$("ul.nav-tabs a").click(function (e) {
+  e.preventDefault();  
+    $(this).tab('show');
+});
+
+$("ul.nav-pills a").click(function (e) {
+  e.preventDefault();  
+    $(this).tab('show');
+});
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 function cutTree(tree) {
 	
@@ -58,127 +87,186 @@ function cutTree(tree) {
 	
 	updateScreen();
 	
-	
-	//Disable the all cut buttons, so you can't click them all and powerfarm. Also add a check for auto cutting so it doesn't ruin everything like always
-	if (isAutomating[treeArray] == 0) {
+	//Check if cutting the unknown tree
+	if (tree == 10) {
 		
-		isCutting = true;
-		updateScreen();
-		
-	}
-	else {
-		$("#cut-"+treeID[treeArray]).attr("class", "btn btn-success disabled");
-	}
-
-	if(eventInProgress && eventTreeID == treeArray && randomEventID == 4) {
-		interval = 500;
-	}
-	
-	
-		
-	//Initiate function after set time as defined by interval
-	window.setTimeout(function(treeIdToKeep) { return function() {
-		
-		if(eventInProgress && eventTreeID == treeIdToKeep) {
+		//Check if you are already cutting it. If you are, stop it and reset.
+		if (isCuttingUnknown) {
 			
-			if(randomEventID == 2) {
-				xpMultiplier = 2;
+			isCutting = false;
+			isCuttingUnknown = false;
+			
+			if(cuttingUnknownTimeout) {
+				clearTimeout(cuttingUnknownTimeout);
 			}
 			
-			if(randomEventID == 3) {
-				logsMultiplier = 2;
-			}
-			
-			
-			
-		}
-		
-		//Check if there is space in the bank, if yes check which axe is being used and apply additional xp, then check how many spaces are left in bank so double logs doesn't go over the limit.
-		if (currentBank < bankMax) {
-			
-			if (axeBonusXP[currentAxe] == 0) {
-				xp = xp + (xpMultiplier * treeXP[treeIdToKeep]);
-			}
-			else {
-				xp = Math.floor(xp + (xpMultiplier * (treeXP[treeIdToKeep] + (axeBonusXP[currentAxe] / 100 * treeXP[treeIdToKeep]))));
-			}
-			
-			var spaceLeftInBank = bankMax - currentBank;
-			
-			if (spaceLeftInBank > 1) {
-				logsInBank[treeIdToKeep] = logsInBank[treeIdToKeep] + logsMultiplier;
-				console.log(logsMultiplier + " Logs Received");
-			}
-			else {
-				logsInBank[treeIdToKeep]++;
-				console.log(logsMultiplier + " Logs Received");
-			}
+			$("#cut-"+treeID[treeArray]+"-progress").stop().animate({width: "0%"}, 0, "linear");
+			updateScreen();
+			interval = 2000;
+			resetInterval();
 			
 		}
 		else {
-			if(automate) {
-				automation(treeIdToKeep+1);
-			}
-		}
-		
-	
-		//Get XP required for next level
-		nextLevelXP = exp.level_to_xp(currentLevel+1);
-		
-		//If current XP is greater than the required xp for next level, perform the level up function
-		if (xp >= nextLevelXP) {
-			levelUp(xp);
-		}
-		else {				
-			updateLevelProgress();
-		}
-		
-		/*if(isAutomating[treeIdToKeep] == 0) {
-			for (i=0; i<=8; ++i) {
-				if (isAutomating[i] == 0) {
-					$("#cut-"+treeID[i]).attr("class", "btn btn-success");
-				}
-			}
-		}*/
-		
-		if(isAutomating[treeIdToKeep] == 1 && !isCutting && !keepButtonDisabled) {
-			$("#cut-"+treeID[treeIdToKeep]+"-auto").attr("class", "btn btn-info");
-		}
-	
-		if (isAutomating[treeIdToKeep] == 0) {
-			isCutting = false;
-		}
-		
-		//Reset the progress bar and clear animation queue, to avoid build up of animation
-		$("#cut-"+treeID[treeIdToKeep]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
-		
-		//Apply screen updates
-		updateScreen();
-		
-		//Random event? 1 in 100 chance
-		if (!eventInProgress) {
-			randomEventChance = Math.floor(Math.random()*(100)) + 1;
-			randomEventCheck(randomEventChance);
-		}
-		
-		logsMultiplier = 1;
-		xpMultiplier = 1;
-		interval = 2000;
-		resetInterval();
-		
-		
 			
-	}} (treeArray), interval);
+			isCutting = true;
+			isCuttingUnknown = true;
+			
+			//Check for current automations, stop respective automation for other trees and update its button
+			for (i = 0; i <= 8; ++i) {
+				if (isAutomating[i] == 1) {
+					automation(i+1);
+				}	
+			}
+			
+			updateScreen();
+			interval = 20000;
+			$("#cut-"+treeID[treeArray]+"-progress").animate({width: "100%"}, interval, "linear");
+			$("#cut-"+treeID[treeArray]+"-progress").animate({width: "0%"}, 0, "linear");
+			
+			cuttingUnknownTimeout = setTimeout(function () {
+				endGameActivated = true;
+				isCutting = false;
+				isCuttingUnknown = false;
+				treeLevelAchieved[9] = 1;
+				endGameMultiplier = 10;
+				interval = 2000;
+				resetInterval();
+				updateScreen();
+				$.notify(
+					"WOODCUTTING PRESTIGE ACTIVATED",
+					{ position: 'top', className: 'error', showDuration: 400, autoHideDelay: 5000 }
+				);
+			}, interval);
+			
+		}
 		
-	//Animate the progress bar for cutting trees
-	if (currentBank < bankMax) {
-		$("#cut-"+treeID[treeArray]+"-progress").animate({width: "100%"}, interval, "linear");
 	}
 	else {
-		$("#cut-"+treeID[treeArray]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
-		notify("bankFull");
-	}
 	
+		//Disable the all cut buttons, so you can't click them all and powerfarm. Also add a check for auto cutting so it doesn't ruin everything like always
+		if (isAutomating[treeArray] == 0) {
+		
+			isCutting = true;
+			updateScreen();
+		
+		}
+		else {
+			$("#cut-"+treeID[treeArray]).attr("class", "btn btn-success disabled");
+		}
+
+		if(eventInProgress && eventTreeID == treeArray && randomEventID == 4 && !isCuttingUnknown) {
+			interval = 500;
+		}
+		
+		//Initiate function after set time as defined by interval
+		window.setTimeout(function(treeIdToKeep) { return function() {
+			
+			if (endGameActivated) {
+				endGameMultiplier = 10;
+			}
+		
+			if(eventInProgress && eventTreeID == treeIdToKeep) {
+			
+				if(randomEventID == 2) {
+					xpMultiplier = 2;
+				}
+			
+				if(randomEventID == 3) {
+					logsMultiplier = 2;
+				}
+			
+			
+			}
+		
+			//Check if there is space in the bank, if yes check which axe is being used and apply additional xp, then check how many spaces are left in bank so double logs doesn't go over the limit.
+			if (currentBank < bankMax) {
+			
+				if (axeBonusXP[currentAxe] == 0) {
+					xp = xp + (xpMultiplier * (endGameMultiplier * treeXP[treeIdToKeep]));
+				}
+				else {
+					xp = Math.floor(xp + (xpMultiplier * (endGameMultiplier * (treeXP[treeIdToKeep] + (axeBonusXP[currentAxe] / 100 * treeXP[treeIdToKeep])))));
+				}
+			
+				var spaceLeftInBank = bankMax - currentBank;
+				
+				if (spaceLeftInBank > 1) {
+					logsInBank[treeIdToKeep] = logsInBank[treeIdToKeep] + logsMultiplier;
+				}
+				else {
+					logsInBank[treeIdToKeep]++;
+				}
+				
+				//Check for bird nest. 1 in 250 chance
+				var birdNestChance = Math.floor(Math.random()*(250)) + 1;
+				birdNest(treeIdToKeep, birdNestChance);
+			
+			}
+			else {
+				if(automate) {
+					automation(treeIdToKeep+1);
+				}
+			}
+		
+	
+			//Get XP required for next level
+			nextLevelXP = exp.level_to_xp(currentLevel+1);
+		
+			//If current XP is greater than the required xp for next level, perform the level up function
+			if (xp >= nextLevelXP) {
+				levelUp(xp);
+			}
+			else {				
+				updateLevelProgress();
+			}
+		
+			if(isAutomating[treeIdToKeep] == 1 && !isCutting && !keepButtonDisabled) {
+				$("#cut-"+treeID[treeIdToKeep]+"-auto").attr("class", "btn btn-info");
+			}
+	
+			if (isAutomating[treeIdToKeep] == 0) {
+				isCutting = false;
+			}
+			
+			//Reset the progress bar and clear animation queue, to avoid build up of animation
+			$("#cut-"+treeID[treeIdToKeep]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
+			
+			//Update trees cut stat
+			wcStatTreesCut++;
+		
+			//Apply screen updates
+			updateScreen();
+		
+			//Random event? 1 in 100 chance
+			if (!eventInProgress) {
+				randomEventChance = Math.floor(Math.random()*(100)) + 1;
+				randomEventCheck(randomEventChance);
+			}
+			
+			//$("#cut-"+treeID[treeArray]+"-progress").stop(false, false).animate({width: "0%"}, 0, "linear");
+			//$("#cut-"+treeID[treeArray]+"-progress").css("width", "0%");
+			
+			//Reset values
+			logsMultiplier = 1;
+			xpMultiplier = 1;
+			interval = 2000;
+			resetInterval();
+			
+		}} (treeArray), interval);
+		
+		//Animate the progress bar for cutting trees
+		if (currentBank < bankMax) {
+			
+			$("#cut-"+treeID[treeArray]+"-progress").animate({width: "100%"}, interval, "linear");
+			
+		}
+		else {
+			$("#cut-"+treeID[treeArray]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
+			notify("bankFull");
+		}
+		
+	
+	}
 	
 };
 
@@ -436,6 +524,7 @@ function upgradeAxe(axe) {
 				currentAxe = 9;
 				resetInterval();
 				updateAxe();
+				updateScreen();
 				notify("axe");
 				break;
 		}
@@ -612,6 +701,13 @@ function notify(type) {
 			);
 			break;
 			
+		case "birdNest":
+			$.notify(
+				"You found a Birds Nest!",
+				{ position: 'top right', className: 'success', showDuration: 400, autoHideDelay: 3000, showAnimation: 'slideDown', hideAnimation: 'slideUp', }
+			);
+			break;
+			
 	}
 	
 }
@@ -645,7 +741,6 @@ function exp(){
 
 function updateScreen() {
 	
-	
 	//This function updates the data on the screen
 	$("#gp").text(gp);
 	$("#current-xp").text(xp);
@@ -661,10 +756,15 @@ function updateScreen() {
 	updateAxe();
 	updateMilestone();
 	updateBankUpgrades()
+	updateStats();
 	
 	//Calculate how many logs are in the bank
 	currentBank = logsInBank.reduce(function(logsInBank, b) { return logsInBank + b; }, 0);
 	$("#current-bank-text").text(currentBank);
+	
+	if(endGameActivated) {
+		$("#end-game-header").attr("style", "");
+	}
 		
 	updateBank();
 	
@@ -685,6 +785,8 @@ function updateScreen() {
 
 function updateTrees() {
 	
+	if(!endGameActivated) {
+		
 	//Handle level requirements for trees
 	if (currentLevel > 0) {
 		
@@ -716,7 +818,12 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-tree").attr("class", "btn btn-success disabled");
+				if (isCutting || keepButtonDisabled || isAutomating[0]) {
+					$("#cut-tree").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-tree").attr("class", "btn btn-success");
+				}
 				$("#cut-tree-desc").text("A commonly found tree.");
 				$("#cut-tree-desc").attr("class", "card-text");
 				$("#cut-tree-card").attr("class", "card text-center");
@@ -779,10 +886,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-oak").attr("class", "btn btn-success disabled");
-			$("#cut-oak-desc").text("A commonly found tree.");
-			$("#cut-oak-desc").attr("class", "card-text");
-			$("#cut-oak-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[1]) {
+					$("#cut-oak").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-oak").attr("class", "btn btn-success");
+				}
+				$("#cut-oak-desc").text("A commonly found tree.");
+				$("#cut-oak-desc").attr("class", "card-text");
+				$("#cut-oak-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -842,10 +954,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-willow").attr("class", "btn btn-success disabled");
-			$("#cut-willow-desc").text("A commonly found tree.");
-			$("#cut-willow-desc").attr("class", "card-text");
-			$("#cut-willow-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[2]) {
+					$("#cut-willow").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-willow").attr("class", "btn btn-success");
+				}
+				$("#cut-willow-desc").text("A commonly found tree.");
+				$("#cut-willow-desc").attr("class", "card-text");
+				$("#cut-willow-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -905,10 +1022,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-teak").attr("class", "btn btn-success disabled");
-			$("#cut-teak-desc").text("A commonly found tree.");
-			$("#cut-teak-desc").attr("class", "card-text");
-			$("#cut-teak-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[3]) {
+					$("#cut-teak").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-teak").attr("class", "btn btn-success");
+				}
+				$("#cut-teak-desc").text("A commonly found tree.");
+				$("#cut-teak-desc").attr("class", "card-text");
+				$("#cut-teak-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -968,10 +1090,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-maple").attr("class", "btn btn-success disabled");
-			$("#cut-maple-desc").text("A commonly found tree.");
-			$("#cut-maple-desc").attr("class", "card-text");
-			$("#cut-maple-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[4]) {
+					$("#cut-maple").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-maple").attr("class", "btn btn-success");
+				}
+				$("#cut-maple-desc").text("A commonly found tree.");
+				$("#cut-maple-desc").attr("class", "card-text");
+				$("#cut-maple-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -1031,10 +1158,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-mahogany").attr("class", "btn btn-success disabled");
-			$("#cut-mahogany-desc").text("A commonly found tree.");
-			$("#cut-mahogany-desc").attr("class", "card-text");
-			$("#cut-mahogany-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[5]) {
+					$("#cut-mahogany").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-mahogany").attr("class", "btn btn-success");
+				}
+				$("#cut-mahogany-desc").text("A commonly found tree.");
+				$("#cut-mahogany-desc").attr("class", "card-text");
+				$("#cut-mahogany-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -1094,10 +1226,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-yew").attr("class", "btn btn-success disabled");
-			$("#cut-yew-desc").text("A commonly found tree.");
-			$("#cut-yew-desc").attr("class", "card-text");
-			$("#cut-yew-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[6]) {
+					$("#cut-yew").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-yew").attr("class", "btn btn-success");
+				}
+				$("#cut-yew-desc").text("A commonly found tree.");
+				$("#cut-yew-desc").attr("class", "card-text");
+				$("#cut-yew-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -1157,10 +1294,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-magic").attr("class", "btn btn-success disabled");
-			$("#cut-magic-desc").text("A commonly found tree.");
-			$("#cut-magic-desc").attr("class", "card-text");
-			$("#cut-magic-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[7]) {
+					$("#cut-magic").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-magic").attr("class", "btn btn-success");
+				}
+				$("#cut-magic-desc").text("A commonly found tree.");
+				$("#cut-magic-desc").attr("class", "card-text");
+				$("#cut-magic-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -1220,10 +1362,15 @@ function updateTrees() {
 				}
 				
 			} else {
-				$("#cut-redwood").attr("class", "btn btn-success disabled");
-			$("#cut-redwood-desc").text("A commonly found tree.");
-			$("#cut-redwood-desc").attr("class", "card-text");
-			$("#cut-redwood-card").attr("class", "card text-center");
+				if (isCutting || keepButtonDisabled || isAutomating[8]) {
+					$("#cut-redwood").attr("class", "btn btn-success disabled");
+				}
+				else {
+					$("#cut-redwood").attr("class", "btn btn-success");
+				}
+				$("#cut-redwood-desc").text("A commonly found tree.");
+				$("#cut-redwood-desc").attr("class", "card-text");
+				$("#cut-redwood-card").attr("class", "card text-center");
 			}
 		}
 		else {
@@ -1235,11 +1382,738 @@ function updateTrees() {
 		
 	}
 	
+	//Unknown Tree - Level 99
+	if (currentLevel < 99 || currentAxe < 9) {
+		$("#cut-unknown").attr("class", "btn btn-success disabled");
+	}
+	else {
+		
+		$("#cut-unknown-desc").text("Woodcutting Prestige");
+		
+		//Check if the tree level value has been updated. This is for loading a save or leveling up
+		if (treeLevelAchieved[8] == 0) {
+			treeLevelAchieved[8] = 1;
+			$("#unknown-level").attr("style", "");
+		}
+		
+		//Check if any variables are true that can alter the buttons
+		if (isCutting || keepButtonDisabled || eventInProgress) {
+			
+			if (isCuttingUnknown) {
+				$("#cut-unknown").text("Stop Cutting?");
+			}
+			else {
+				$("#cut-unknown").attr("class", "btn btn-success disabled");
+			}
+			
+		}
+		else {
+			
+			$("#cut-unknown").attr("class", "btn btn-success");
+			$("#cut-unknown").text("Cut?");
+			
+		}
+		
+	}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	//If end game IS activated
+	else {
+		
+		//Hide unknown tree
+		$("#cut-unknown-card").hide();
+		
+		//NORMAL
+		if (currentLevel < 99) {
+			$("#cut-tree").attr("class", "btn btn-success disabled");
+			$("#cut-tree-card").attr("class", "card text-center");
+			$("#tree-level").text("Level: 99");
+			$("#tree-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[9] == 0) {
+				treeLevelAchieved[9] = 1;
+				$("#tree-level").attr("style", "");
+				$("#tree-level").text("Level: 99");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 0) {
+					$("#cut-tree").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-tree").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[0] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 0) {
+					$("#cut-tree-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-tree-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-tree-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-tree-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-tree-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-tree").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-tree").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[0]) {
+						$("#cut-tree").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-tree").attr("class", "btn btn-success");
+					}
+					$("#cut-tree-desc").text("A commonly found tree.");
+					$("#cut-tree-desc").attr("class", "card-text");
+					$("#cut-tree-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-tree").attr("class", "btn btn-success");
+				$("#cut-tree-desc").text("A commonly found tree.");
+				$("#cut-tree-desc").attr("class", "card-text");
+				$("#tree-level").text("Level: 99");
+				$("#normal-tree-name").attr("class", "text-warning");
+				$("#cut-tree-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//OAK
+		if (currentLevel < 100) {
+			$("#cut-oak").attr("class", "btn btn-success disabled");
+			$("#cut-oak-card").attr("class", "card text-center");
+			$("#oak-level").text("Level: 100");
+			$("#oak-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[10] == 0) {
+				treeLevelAchieved[10] = 1;
+				$("#oak-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 1) {
+					$("#cut-oak").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-oak").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[1] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 1) {
+					$("#cut-oak-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-oak-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-oak-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-oak-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-oak-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-oak").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-oak").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[1]) {
+						$("#cut-oak").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-oak").attr("class", "btn btn-success");
+					}
+					$("#cut-oak-desc").text("A commonly found tree.");
+					$("#cut-oak-desc").attr("class", "card-text");
+					$("#cut-oak-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-oak").attr("class", "btn btn-success");
+				$("#cut-oak-desc").text("A commonly found tree.");
+				$("#cut-oak-desc").attr("class", "card-text");
+				$("#oak-level").text("Level: 100");
+				$("#oak-tree-name").attr("class", "text-warning");
+				$("#cut-oak-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//WILLOW
+		if (currentLevel < 102) {
+			$("#cut-willow").attr("class", "btn btn-success disabled");
+			$("#cut-willow-card").attr("class", "card text-center");
+			$("#willow-level").text("Level: 102");
+			$("#willow-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[11] == 0) {
+				treeLevelAchieved[11] = 1;
+				$("#willow-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 2) {
+					$("#cut-willow").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-willow").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[2] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 2) {
+					$("#cut-willow-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-willow-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-willow-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-willow-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-willow-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-willow").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-willow").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[2]) {
+						$("#cut-willow").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-willow").attr("class", "btn btn-success");
+					}
+					$("#cut-willow-desc").text("A commonly found tree.");
+					$("#cut-willow-desc").attr("class", "card-text");
+					$("#cut-willow-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-willow").attr("class", "btn btn-success");
+				$("#cut-willow-desc").text("A commonly found tree.");
+				$("#cut-willow-desc").attr("class", "card-text");
+				$("#willow-level").text("Level: 102");
+				$("#willow-tree-name").attr("class", "text-warning");
+				$("#cut-willow-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//teak
+		if (currentLevel < 104) {
+			$("#cut-teak").attr("class", "btn btn-success disabled");
+			$("#cut-teak-card").attr("class", "card text-center");
+			$("#teak-level").text("Level: 104");
+			$("#teak-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[12] == 0) {
+				treeLevelAchieved[12] = 1;
+				$("#teak-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 3) {
+					$("#cut-teak").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-teak").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[3] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 3) {
+					$("#cut-teak-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-teak-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-teak-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-teak-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-teak-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-teak").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-teak").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[3]) {
+						$("#cut-teak").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-teak").attr("class", "btn btn-success");
+					}
+					$("#cut-teak-desc").text("A commonly found tree.");
+					$("#cut-teak-desc").attr("class", "card-text");
+					$("#cut-teak-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-teak").attr("class", "btn btn-success");
+				$("#cut-teak-desc").text("A commonly found tree.");
+				$("#cut-teak-desc").attr("class", "card-text");
+				$("#teak-level").text("Level: 104");
+				$("#teak-tree-name").attr("class", "text-warning");
+				$("#cut-teak-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//maple
+		if (currentLevel < 106) {
+			$("#cut-maple").attr("class", "btn btn-success disabled");
+			$("#cut-maple-card").attr("class", "card text-center");
+			$("#maple-level").text("Level: 106");
+			$("#maple-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[13] == 0) {
+				treeLevelAchieved[13] = 1;
+				$("#maple-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 4) {
+					$("#cut-maple").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-maple").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[4] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 4) {
+					$("#cut-maple-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-maple-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-maple-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-maple-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-maple-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-maple").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-maple").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[4]) {
+						$("#cut-maple").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-maple").attr("class", "btn btn-success");
+					}
+					$("#cut-maple-desc").text("A commonly found tree.");
+					$("#cut-maple-desc").attr("class", "card-text");
+					$("#cut-maple-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-maple").attr("class", "btn btn-success");
+				$("#cut-maple-desc").text("A commonly found tree.");
+				$("#cut-maple-desc").attr("class", "card-text");
+				$("#maple-level").text("Level: 106");
+				$("#maple-tree-name").attr("class", "text-warning");
+				$("#cut-maple-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//mahogany
+		if (currentLevel < 108) {
+			$("#cut-mahogany").attr("class", "btn btn-success disabled");
+			$("#cut-mahogany-card").attr("class", "card text-center");
+			$("#mahogany-level").text("Level: 108");
+			$("#mahogany-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[14] == 0) {
+				treeLevelAchieved[14] = 1;
+				$("#mahogany-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 5) {
+					$("#cut-mahogany").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-mahogany").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[5] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 5) {
+					$("#cut-mahogany-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-mahogany-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-mahogany-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-mahogany-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-mahogany-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-mahogany").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-mahogany").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[5]) {
+						$("#cut-mahogany").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-mahogany").attr("class", "btn btn-success");
+					}
+					$("#cut-mahogany-desc").text("A commonly found tree.");
+					$("#cut-mahogany-desc").attr("class", "card-text");
+					$("#cut-mahogany-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-mahogany").attr("class", "btn btn-success");
+				$("#cut-mahogany-desc").text("A commonly found tree.");
+				$("#cut-mahogany-desc").attr("class", "card-text");
+				$("#mahogany-level").text("Level: 108");
+				$("#mahogany-tree-name").attr("class", "text-warning");
+				$("#cut-mahogany-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//yew
+		if (currentLevel < 110) {
+			$("#cut-yew").attr("class", "btn btn-success disabled");
+			$("#cut-yew-card").attr("class", "card text-center");
+			$("#yew-level").text("Level: 110");
+			$("#yew-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[15] == 0) {
+				treeLevelAchieved[15] = 1;
+				$("#yew-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 6) {
+					$("#cut-yew").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-yew").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[6] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 6) {
+					$("#cut-yew-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-yew-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-yew-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-yew-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-yew-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-yew").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-yew").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[6]) {
+						$("#cut-yew").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-yew").attr("class", "btn btn-success");
+					}
+					$("#cut-yew-desc").text("A commonly found tree.");
+					$("#cut-yew-desc").attr("class", "card-text");
+					$("#cut-yew-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-yew").attr("class", "btn btn-success");
+				$("#cut-yew-desc").text("A commonly found tree.");
+				$("#cut-yew-desc").attr("class", "card-text");
+				$("#yew-level").text("Level: 110");
+				$("#yew-tree-name").attr("class", "text-warning");
+				$("#cut-yew-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//magic
+		if (currentLevel < 112) {
+			$("#cut-magic").attr("class", "btn btn-success disabled");
+			$("#cut-magic-card").attr("class", "card text-center");
+			$("#magic-level").text("Level: 112");
+			$("#magic-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[16] == 0) {
+				treeLevelAchieved[16] = 1;
+				$("#magic-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 7) {
+					$("#cut-magic").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-magic").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[7] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 7) {
+					$("#cut-magic-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-magic-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-magic-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-magic-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-magic-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-magic").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-magic").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[7]) {
+						$("#cut-magic").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-magic").attr("class", "btn btn-success");
+					}
+					$("#cut-magic-desc").text("A commonly found tree.");
+					$("#cut-magic-desc").attr("class", "card-text");
+					$("#cut-magic-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-magic").attr("class", "btn btn-success");
+				$("#cut-magic-desc").text("A commonly found tree.");
+				$("#cut-magic-desc").attr("class", "card-text");
+				$("#magic-level").text("Level: 112");
+				$("#magic-tree-name").attr("class", "text-warning");
+				$("#cut-magic-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		//redwood
+		if (currentLevel < 114) {
+			$("#cut-redwood").attr("class", "btn btn-success disabled");
+			$("#cut-redwood-card").attr("class", "card text-center");
+			$("#redwood-level").text("Level: 114");
+			$("#redwood-level").attr("style", "color:red");
+		}
+		else {
+					
+			//Check if the tree level value has been updated. This is for loading a save or leveling up
+			if (treeLevelAchieved[17] == 0) {
+				treeLevelAchieved[17] = 1;
+				$("#redwood-level").attr("style", "");
+			
+				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
+				if(!eventInProgress && eventTreeID != 8) {
+					$("#cut-redwood").attr("class", "btn btn-success");
+				}
+				else {
+					$("#cut-redwood").attr("class", "btn btn-warning");
+				}
+			}
+		
+			//Check if any variables are true that can alter the buttons
+			if (isCutting || keepButtonDisabled || isAutomating[8] || eventInProgress) {
+			
+				//Check if an event is in progress, and if the tree ID is this tree
+				if (eventInProgress && eventTreeID == 8) {
+					$("#cut-redwood-card").attr("class", "card text-center tempting-azure-gradient");
+					$("#cut-redwood-desc").attr("class", "card-text text-warning");
+				
+					//Check which random event is active, update text to suit
+					if (randomEventID == 2) {
+						$("#cut-redwood-desc").text("DOUBLE XP");
+					}
+					else if (randomEventID == 3) {
+						$("#cut-redwood-desc").text("DOUBLE LOGS");
+					}
+					else if (randomEventID == 4) {
+						$("#cut-redwood-desc").text("FAST CUT");
+					}
+				
+					//Check if the player is cutting during the event, disable button accordingly
+					if (isCutting) {
+						$("#cut-redwood").attr("class", "btn btn-warning disabled");
+					}
+					else {
+						$("#cut-redwood").attr("class", "btn btn-warning");
+					}
+				
+				}
+				else {
+					if (isCutting || keepButtonDisabled || isAutomating[8]) {
+						$("#cut-redwood").attr("class", "btn btn-success disabled");
+					}
+					else {
+						$("#cut-redwood").attr("class", "btn btn-success");
+					}
+					$("#cut-redwood-desc").text("A commonly found tree.");
+					$("#cut-redwood-desc").attr("class", "card-text");
+					$("#cut-redwood-card").attr("class", "card text-center border border-warning");
+				}
+			}
+			else {
+				$("#cut-redwood").attr("class", "btn btn-success");
+				$("#cut-redwood-desc").text("A commonly found tree.");
+				$("#cut-redwood-desc").attr("class", "card-text");
+				$("#redwood-level").text("Level: 114");
+				$("#redwood-tree-name").attr("class", "text-warning");
+				$("#cut-redwood-card").attr("class", "card text-center border border-warning");
+			}
+			
+		}
+		
+		
+		
+	}
+	
 }
 
 function updateMilestone() {
 	
-	//Handle milestones
+	//Handle milestones	
 	if (currentLevel >= 2) {
 		$("#m-auto-cut-tree").attr("class", "badge badge-success");
 		$("#m-auto-cut-tree").text("Unlocked");
@@ -1248,7 +2122,7 @@ function updateMilestone() {
 			$("#cut-tree-auto").attr("class", "btn btn-outline-info");
 		}
 		
-		if (isAutomating[0] != 1 && keepButtonDisabled || isCutting || eventInProgress) {
+		if (isAutomating[0] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-tree-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1263,10 +2137,22 @@ function updateMilestone() {
 		$("#m-auto-cut-oak").text("Unlocked");
 		
 		if (isAutomating[1] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-oak-auto").attr("class", "btn btn-outline-info");
+			
+			if(endGameActivated && currentLevel >= 100) {
+				$("#cut-oak-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 100) {
+				$("#cut-oak-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-oak-auto").attr("class", "btn btn-outline-info");
+			}
+			
 		}
 		
-		if (isAutomating[1] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[1] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-oak-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1280,10 +2166,20 @@ function updateMilestone() {
 		$("#m-auto-cut-willow").text("Unlocked");
 		
 		if (isAutomating[2] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-willow-auto").attr("class", "btn btn-outline-info");
+			if(endGameActivated && currentLevel >= 102) {
+				$("#cut-willow-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 102) {
+				$("#cut-willow-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-willow-auto").attr("class", "btn btn-outline-info");
+			}
 		}
 		
-		if (isAutomating[2] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[2] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-willow-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1297,10 +2193,20 @@ function updateMilestone() {
 		$("#m-auto-cut-teak").text("Unlocked");
 		
 		if (isAutomating[3] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-teak-auto").attr("class", "btn btn-outline-info");
+			if(endGameActivated && currentLevel >= 104) {
+				$("#cut-teak-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 104) {
+				$("#cut-teak-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-teak-auto").attr("class", "btn btn-outline-info");
+			}
 		}
 		
-		if (isAutomating[3] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[3] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-teak-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1314,10 +2220,20 @@ function updateMilestone() {
 		$("#m-auto-cut-maple").text("Unlocked");
 		
 		if (isAutomating[4] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-maple-auto").attr("class", "btn btn-outline-info");
+			if(endGameActivated && currentLevel >= 106) {
+				$("#cut-maple-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 106) {
+				$("#cut-maple-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-maple-auto").attr("class", "btn btn-outline-info");
+			}
 		}
 		
-		if (isAutomating[4] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[4] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-maple-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1331,10 +2247,20 @@ function updateMilestone() {
 		$("#m-auto-cut-mahogany").text("Unlocked");
 		
 		if (isAutomating[5] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-mahogany-auto").attr("class", "btn btn-outline-info");
+			if(endGameActivated && currentLevel >= 108) {
+				$("#cut-mahogany-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 108) {
+				$("#cut-mahogany-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-mahogany-auto").attr("class", "btn btn-outline-info");
+			}
 		}
 		
-		if (isAutomating[5] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[5] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-mahogany-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1348,10 +2274,20 @@ function updateMilestone() {
 		$("#m-auto-cut-yew").text("Unlocked");
 		
 		if (isAutomating[6] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-yew-auto").attr("class", "btn btn-outline-info");
+			if(endGameActivated && currentLevel >= 110) {
+				$("#cut-yew-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 110) {
+				$("#cut-yew-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-yew-auto").attr("class", "btn btn-outline-info");
+			}
 		}
 		
-		if (isAutomating[6] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[6] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-yew-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1365,10 +2301,20 @@ function updateMilestone() {
 		$("#m-auto-cut-magic").text("Unlocked");
 		
 		if (isAutomating[7] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-magic-auto").attr("class", "btn btn-outline-info");
+			if(endGameActivated && currentLevel >= 112) {
+				$("#cut-magic-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 112) {
+				$("#cut-magic-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-magic-auto").attr("class", "btn btn-outline-info");
+			}
 		}
 		
-		if (isAutomating[7] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[7] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-magic-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1382,10 +2328,20 @@ function updateMilestone() {
 		$("#m-auto-cut-redwood").text("Unlocked");
 		
 		if (isAutomating[8] != 1 && !keepButtonDisabled && !isCutting) {
-			$("#cut-redwood-auto").attr("class", "btn btn-outline-info");
+			if(endGameActivated && currentLevel >= 114) {
+				$("#cut-redwood-auto").attr("class", "btn btn-outline-info");
+			}
+			
+			if(endGameActivated && currentLevel < 114) {
+				$("#cut-redwood-auto").attr("class", "btn btn-outline-info disabled");
+			}
+			
+			if(!endGameActivated) {
+				$("#cut-redwood-auto").attr("class", "btn btn-outline-info");
+			}
 		}
 		
-		if (isAutomating[8] != 1 && (keepButtonDisabled || isCutting || eventInProgress)) {
+		if (isAutomating[8] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-redwood-auto").attr("class", "btn btn-outline-info disabled");
 		}
 		
@@ -1394,6 +2350,17 @@ function updateMilestone() {
 			milestoneNotify();
 		}
 	}
+	
+	if (currentLevel >= 99) {
+		$("#m-skill-mastery").attr("class", "badge badge-success");
+		$("#m-skill-mastery").text("Unlocked");
+		
+		if (milestoneAchieved[9] == 0) {
+			milestoneAchieved[9] = 1;
+			milestoneNotify();
+		}
+	}
+	
 	
 }
 
@@ -1433,7 +2400,7 @@ function updateAxe() {
 	if (currentLevel < 10) {
 		$("#steel-axe-button").attr("class", "btn btn-primary btn-sm disabled");
 		$("#steel-axe-level-text").attr("class", "badge badge-danger");
-		$("#steel-axe-level-text").text("Insufficient Level");
+		$("#steel-axe-level-text").text("Level 10");
 	}
 	else {
 		if (axePurchased[1] == 0) {
@@ -1454,7 +2421,7 @@ function updateAxe() {
 	if (currentLevel < 20) {
 		$("#black-axe-button").attr("class", "btn btn-primary btn-sm disabled");
 		$("#black-axe-level-text").attr("class", "badge badge-danger");
-		$("#black-axe-level-text").text("Insufficient Level");
+		$("#black-axe-level-text").text("Level 20");
 	}
 	else {
 		if (axePurchased[2] == 0) {
@@ -1475,7 +2442,7 @@ function updateAxe() {
 	if (currentLevel < 35) {
 		$("#mithril-axe-button").attr("class", "btn btn-primary btn-sm disabled");
 		$("#mithril-axe-level-text").attr("class", "badge badge-danger");
-		$("#mithril-axe-level-text").text("Insufficient Level");
+		$("#mithril-axe-level-text").text("Level 35");
 	}
 	else {
 		if (axePurchased[3] == 0) {
@@ -1496,7 +2463,7 @@ function updateAxe() {
 	if (currentLevel < 50) {
 		$("#adamant-axe-button").attr("class", "btn btn-primary btn-sm disabled");
 		$("#adamant-axe-level-text").attr("class", "badge badge-danger");
-		$("#adamant-axe-level-text").text("Insufficient Level");
+		$("#adamant-axe-level-text").text("Level 50");
 	}
 	else {
 		if (axePurchased[4] == 0) {
@@ -1517,7 +2484,7 @@ function updateAxe() {
 	if (currentLevel < 60) {
 		$("#rune-axe-button").attr("class", "btn btn-primary btn-sm disabled");
 		$("#rune-axe-level-text").attr("class", "badge badge-danger");
-		$("#rune-axe-level-text").text("Insufficient Level");
+		$("#rune-axe-level-text").text("Level 60");
 	}
 	else {
 		if (axePurchased[5] == 0) {
@@ -1538,7 +2505,7 @@ function updateAxe() {
 	if (currentLevel < 80) {
 		$("#dragon-axe-button").attr("class", "btn btn-primary btn-sm disabled");
 		$("#dragon-axe-level-text").attr("class", "badge badge-danger");
-		$("#dragon-axe-level-text").text("Insufficient Level");
+		$("#dragon-axe-level-text").text("Level 80");
 	}
 	else {
 		if (axePurchased[6] == 0) {
@@ -1556,10 +2523,10 @@ function updateAxe() {
 		}
 	}
 	
-	if (currentLevel < 95) {
+	if (currentLevel < 90) {
 		$("#3rdage-axe-button").attr("class", "btn btn-primary btn-sm disabled");
 		$("#3rdage-axe-level-text").attr("class", "badge badge-danger");
-		$("#3rdage-axe-level-text").text("Insufficient Level");
+		$("#3rdage-axe-level-text").text("Level 90");
 	}
 	else {
 		if (axePurchased[7] == 0) {
@@ -1581,6 +2548,16 @@ function updateAxe() {
 
 //Handle screen display for buying bank upgrades
 function updateBankUpgrades() {
+	
+	$("#b-normal-cost").text(logsCost[0]);
+	$("#b-oak-cost").text(logsCost[1]);
+	$("#b-willow-cost").text(logsCost[2]);
+	$("#b-teak-cost").text(logsCost[3]);
+	$("#b-maple-cost").text(logsCost[4]);
+	$("#b-mahogany-cost").text(logsCost[5]);
+	$("#b-yew-cost").text(logsCost[6]);
+	$("#b-magic-cost").text(logsCost[7]);
+	$("#b-redwood-cost").text(logsCost[8]);
 	
 	if (currentLevel < 10) {
 		$("#bank-1-button").attr("class", "btn btn-primary btn-sm disabled");
@@ -1833,12 +2810,21 @@ function updateBank() {
 
 function sellLogs(tree) {
 	
+	//Award GP for log selling
 	gp = gp + (logsCost[tree] * logsInBank[tree]);
+	//Update GP earned
+	wcStatGPEarned = wcStatGPEarned + (logsCost[tree] * logsInBank[tree]);
+	//Update amount of logs in bank
 	currentBank = currentBank - logsInBank[tree];
+	//Update logs sold stat
+	wcStatLogsSold = wcStatLogsSold + logsInBank[tree];
+	//Set logs to 0
 	logsInBank[tree] = 0;
+	//Update text on screen
 	$("#current-bank-text").text(currentBank);
 	$("#gp").text(gp);
 	updateBank();
+	updateStats();
 	
 }
 
@@ -1862,10 +2848,19 @@ function randomEvent(eventID) {
 	if (!eventInProgress) {
 		//Figure out what trees can be cut
 		var treesCanCut = 0;
-			
-		for (i=0; i<=8; ++i) {
-			if (treeLevelAchieved[i] == 1) {
-				treesCanCut++;
+		
+		if(!endGameActivated) {
+			for (i=0; i<=8; ++i) {
+				if (treeLevelAchieved[i] == 1) {
+					treesCanCut++;
+				}
+			}
+		}
+		else {
+			for (i=9; i<=17; ++i) {
+				if (treeLevelAchieved[i] == 1) {
+					treesCanCut++;
+				}
 			}
 		}
 			
@@ -1876,7 +2871,12 @@ function randomEvent(eventID) {
 			
 		//Update Event variables, while defining a random tree for event
 		randomEventID = eventID;
-		eventTreeID = Math.floor(Math.random()*(treesCanCut+1));
+		//if(!endGameActivated){
+		//	eventTreeID = Math.floor(Math.random()*(treesCanCut+1));
+		//}
+		//else {
+			eventTreeID = Math.floor(Math.random()*(treesCanCut+1));
+		//}
 			
 		//Update the screen
 		updateScreen();
@@ -1921,9 +2921,82 @@ function randomEvent(eventID) {
 function randomEventCheck(chance) {
 	
 	if (chance == 1) {
+		//Pick a random event
 		var randomEventToRun = Math.floor(Math.random()*(3))+2;
+		//Update random event stat
+		wcStatRandomEvents++;
+		//Update stats
+		updateStats();
+		//Run the event
 		randomEvent(randomEventToRun);
 	}
 	
+	
+}
+
+function updateStats() {
+	
+	$("#s-trees-cut").text(wcStatTreesCut);
+	$("#s-logs-sold").text(wcStatLogsSold);
+	$("#s-gp-earned").text(wcStatGPEarned);
+	$("#s-bird-nests").text(wcStatBirdNestsFound);
+	$("#s-random-events").text(wcStatRandomEvents);
+	
+}
+
+function birdNest(tree, chance) {
+	
+	//Check if you get a bird nest
+	if (chance == 1) {
+		
+		//check which tree it came from and award respective GP
+		gp = gp + (20 * logsCost[tree]);
+		//notify the player
+		notify("birdNest");
+		//update stats
+		wcStatBirdNestsFound++;
+		//update screen
+		updateScreen();
+		
+	}
+	
+}
+
+function setLocation(locationToSet) {
+	
+	currentLocation = locationToSet;
+	
+	if (currentLocation == 1) {
+		$("#fishing-location").text("Draynor Village");
+	}
+	if (currentLocation == 3) {
+		$("#fishing-location").text("Barbarian Outpost");
+	}
+	if (currentLocation == 4) {
+		$("#fishing-location").text("Seers' Village");
+	}
+	if (currentLocation == 5) {
+		$("#fishing-location").text("Fishing Guild");
+	}
+	if (currentLocation == 6) {
+		$("#fishing-location").text("Taverley Dungeon");
+	}
+	if (currentLocation == 7) {
+		$("#fishing-location").text("Deep Seas");
+	}
+	if (currentLocation == 0 || currentLocation == 2) {
+		$("#fishing-location").text(fishingLocations[currentLocation].charAt(0).toUpperCase() + fishingLocations[currentLocation].slice(1));
+	}
+	
+	for(i=0; i<8; i++) {
+		if(i != currentLocation) {
+			$("#location-"+fishingLocations[i]).attr("class", "d-none");
+			$("#location-"+fishingLocations[i]+"-progress").attr("class", "card-footer text-muted d-none");
+		}
+		else {
+			$("#location-"+fishingLocations[i]).attr("class", "");
+			$("#location-"+fishingLocations[i]+"-progress").attr("class", "card-footer text-muted");
+		}
+	}
 	
 }
