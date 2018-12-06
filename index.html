@@ -28,18 +28,20 @@
 		<!-- Game CSS -->
 		<link rel="stylesheet" type="text/css" href="interface.css" />
 	
-		<title>Melvor Idle - Alpha v0.02</title>
+		<title>Melvor Idle - Alpha v0.03</title>
 	</head>
 	
-	<body onload="loadData()">
+	<body>
 	
 	<div class="container">
 		<div class="card" style="border: 0px">
 			<ul class="list-inline card-header text-center">
-				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="changelog.txt" target="_blank">Alpha v0.02</a></li>
+				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="changelog.txt" target="_blank">Alpha v0.03</a></li>
 				<li class="list-inline-item">&nbsp;</li>
-				<li id="current-gp" class="list-inline-item"><image src="img/coins2.png" /> <span id="gp">0</span> gp</li>
-				<li id="current-bank" class="list-inline-item"><img id ="current-bank-image" src="img/bank.png" /> <span id="current-bank-text">0</span> / <span id="bank-limit-text">83</span></span></li>
+				<li id="current-gp" class="list-inline-item"><image src="img/coins2.png" /> <span id="gp" data-toggle="tooltip" data-placement="bottom" title="0"></span></li>
+				<li class="list-inline-item" id="current-bank"><a href="#set4" class="nav-link" data-toggle="modal" data-target="#bankTab"><img id ="current-bank-image" src="img/bank.png" /> <span id="current-bank-text">0</span> / <span id="bank-limit-text">83</span></span></a>
+				</li>
+				<li class="list-inline-item"><a id="load" href="#" class="btn btn-warning btn-sm" onClick="loadData(); return false;">Load Saved Game</a></li>
 			</ul>
 		</div>
 			
@@ -47,11 +49,11 @@
 		<div class="card" style="border: 0px">
 		<div class="tabbable boxed parentTabs p-1 card-header">
 			<ul class="nav nav-pills">
-				<li><a href="#set1" class="nav-link active show"><img src="img/woodcutting.png"> <span id="current-level-text" >1</span> / 99</a>
+				<li><a href="#set1" class="nav-link"><img src="img/woodcutting.png" id="current-level"> <span id="current-level-text">1</span> / 99</a>
 				</li>
-				<li><a href="#set2" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Fishing: Skill Preview (Alpha v0.03)"><img src="img/fishing.png"> 1 / 99</a>
+				<li><a href="#set2" class="nav-link"><img src="img/fishing.png" id="current-fishing-level"> <span id="fishing-current-level-text">1</span> / 99</a>
 				</li>
-				<li><a href="#set3" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Firemaking: Skill Preview (Alpha v0.03)"><img src="img/firemaking.png" id="current-firemaking-level"> <span id="firemaking-current-level-text">1</span> / 99</a>
+				<li><a href="#set3" class="nav-link active show"><img src="img/firemaking.png" id="current-fm-level"> <span id="fm-current-level-text">1</span> / 99</a>
 				</li>
 			</ul>
 		</div>		
@@ -71,7 +73,7 @@
 			WOODCUTTING
 			WOODCUTTING
 			-->
-				<div class="tab-pane fade active show" id="set1">
+				<div class="tab-pane fade" id="set1">
 					<ul class="list-inline card-header text-center" id="end-game-header" style="display:none">
 						<li class="list-inline-item"><span style="color:orange">Woodcutting Prestige Activated</span></a></li>				
 					</ul>
@@ -80,9 +82,6 @@
 					<div class="progress progress-striped active">
 						<div class="progress-bar progress-bar-success" id="next-level-progress" style="width:0%"></div>
 					</div>
-					<a id="autosave" href="#" class="btn btn-success btn-sm" onClick="autosaveToggle(); return false;">Autosave: On</a>
-					<a id="save" href="#" class="btn btn-warning btn-sm" onClick="saveData(1); return false;" style="display:none">Save Game</a>
-					<a id="load" href="#" class="btn btn-warning btn-sm" onClick="loadData(); return false;">Load Saved Game</a>
 				</div>
 				
 				
@@ -93,8 +92,6 @@
 							<li><a href="#sub12" class="nav-link">Shop</a>
 							</li>
 							<li><a href="#sub13" class="nav-link">Milestone</a>
-							</li>
-							<li><a href="#sub14" class="nav-link">Bank</a>
 							</li>
 							<li><a href="#sub15" class="nav-link">Stats</a>
 							</li>
@@ -270,160 +267,141 @@
 								
 							</div>
 							<div class="tab-pane fade" id="sub12">
+							
+							
+							<div class="card" style="padding: 0px 10px 10px 10px">
+				
+								<div class="row">
 								
-								<table class="table">
-							<thead>
-								<tr class="table-info">
-									<th scope="col"><strong>Axes</strong></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">Image</th>
-									<th scope="col">Item</th>
-									<th scope="col">Cost (gp)</th>
-									<th scope="col">Purchase</th>
-								</tr>
-							</thead>
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Bronze Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_bronze.png"><br>
+											<span class="badge badge-success">Upgraded</span><br>
+											<small>Useless<br><br></small></p>
+											<strong><p class="card-text"><img src="img/coins2.png"> 0</strong></p>
+											<button type="button" class="btn btn-success btn-sm disabled">Upgraded</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Iron Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_iron.png"><br>
+											<span id="iron-axe-level-text" class="badge badge-danger">Level 1</span><br>
+											<small>(Base XP) +5%<br>(Base Speed) +5%</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 1,000</strong></p>
+											<button id="iron-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(2)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Steel Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_steel.png"><br>
+											<span id="steel-axe-level-text" class="badge badge-danger">Level 10</span><br>
+											<small>(Base XP) +10%<br>(Base Speed) +10%</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 10,000</strong></p>
+											<button id="steel-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(3)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Black Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_black.png"><br>
+											<span id="black-axe-level-text" class="badge badge-danger">Level 20</span><br>
+											<small>(Base XP) +15%<br>(Base Speed) +15%</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 25,000</strong></p>
+											<button id="black-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(4)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Mirthil Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_mithril.png"><br>
+											<span id="mithril-axe-level-text" class="badge badge-danger">Level 35</span><br>
+											<small>(Base XP) +20%<br>(Base Speed) +20%</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 100K</strong></p>
+											<button id="mithril-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(5)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Adamant Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_adamant.png"><br>
+											<span id="adamant-axe-level-text" class="badge badge-danger">Level 50</span><br>
+											<small>(Base XP) +25%<br>(Base Speed) +25%</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 500K</strong></p>
+											<button id="adamant-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(6)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Rune Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_rune.png"><br>
+											<span id="rune-axe-level-text" class="badge badge-danger">Level 60</span><br>
+											<small>(Base XP) +30%<br>(Base Speed) +30%</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 1,000K</strong></p>
+											<button id="rune-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(7)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Dragon Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_dragon.png"><br>
+											<span id="dragon-axe-level-text" class="badge badge-danger">Level 80</span><br>
+											<small>(Base XP) +40%<br>(Base Speed) +40%</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 5,000K</strong></p>
+											<button id="dragon-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(8)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>3rd Age Axe</strong></h6>
+											<p class="card-text"><img src="img/axe_3rdage.png"><br>
+											<span id="3rdage-axe-level-text" class="badge badge-danger">Level 95</span><br>
+											<small>(Base XP) +45%<br>(Base Speed) +45%<br>Magic Ability ???</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 10M</strong></p>
+											<button id="3rdage-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(9)">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+								  
+								</div>
+				
+							</div>
 							
-							<tbody>
-								<tr>
-									<th scope="row"><img src="img/axe_bronze.png"></th>
-									<td><span id="bronze-axe-level-text" class="badge badge-success">Upgraded</span> Bronze Axe<br>As useless as a pool noodle...</td>
-									<td>0</td>
-									<td><button type="button" class="btn btn-success btn-sm disabled">Upgraded</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/axe_iron.png"></th>
-									<td><span id="iron-axe-level-text" class="badge badge-primary">Available</span> Iron Axe<br>(Base XP) +5%<br>(Base Speed) +5%</td>
-									<td>50</td>
-									<td><button id="iron-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(2)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/axe_steel.png"></th>
-									<td><span id="steel-axe-level-text" class="badge badge-danger">Level 10</span> Steel Axe<br>(Base XP) +10%<br>(Base Speed) +10%</td>
-									<td>750</td>
-									<td><button id="steel-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(3)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/axe_black.png"></th>
-									<td><span id="black-axe-level-text" class="badge badge-danger">Level 20</span> Black Axe<br>(Base XP) +15%<br>(Base Speed) +15%</td>
-									<td>2,500</td>
-									<td><button id="black-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(4)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/axe_mithril.png"></th>
-									<td><span id="mithril-axe-level-text" class="badge badge-danger">Level 35</span> Mithril Axe<br>(Base XP) +20%<br>(Base Speed) +20%</td>
-									<td>10,000</td>
-									<td><button id="mithril-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(5)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/axe_adamant.png"></th>
-									<td><span id="adamant-axe-level-text" class="badge badge-danger">Level 50</span> Adamant Axe<br>(Base XP) +25%<br>(Base Speed) +25%</td>
-									<td>50,000</td>
-									<td><button id="adamant-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(6)">Upgrade</button></td>
-								</tr><tr>
-									<th scope="row"><img src="img/axe_rune.png"></th>
-									<td><span id="rune-axe-level-text" class="badge badge-danger">Level 60</span> Rune Axe<br>(Base XP) +30%<br>(Base Speed) +30%</td>
-									<td>200,000</td>
-									<td><button id="rune-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(7)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/axe_dragon.png"></th>
-									<td><span id="dragon-axe-level-text" class="badge badge-danger">Level 80</span> Dragon Axe<br>(Base XP) +35%<br>(Base Speed) +35%</td>
-									<td>750,000</td>
-									<td><button id="dragon-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(8)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/axe_3rdage.png"></th>
-									<td><span id="3rdage-axe-level-text" class="badge badge-danger">Level 90</span> 3rd Age Axe<br>(Base XP) +40%<br>(Base Speed) +40%<br>Magic Ability: ???</td>
-									<td>5,000,000</td>
-									<td><button id="3rdage-axe-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeAxe(9)">Upgrade</button></td>
-								</tr>
-							</tbody>
-							
-							<thead>
-								<tr class="table-info">
-									<th scope="col"><strong>Bank</strong></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">Level</th>
-									<th scope="col">Item</th>
-									<th scope="col">Cost (gp)</th>
-									<th scope="col">Purchase</th>
-								</tr>
-							</thead>
-							
-							<tbody>
-								<tr>
-									<th scope="row">10</th>
-									<td><span id="bank-1-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 200</td>
-									<td>1,000</td>
-									<td><button id="bank-1-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(1)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">20</th>
-									<td><span id="bank-2-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 400</td>
-									<td>10,000</td>
-									<td><button id="bank-2-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(2)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">30</th>
-									<td><span id="bank-3-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 600</td>
-									<td>25,000</td>
-									<td><button id="bank-3-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(3)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">40</th>
-									<td><span id="bank-4-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 1,000</td>
-									<td>75,000</td>
-									<td><button id="bank-4-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(4)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">50</th>
-									<td><span id="bank-5-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 1,500</td>
-									<td>125,000</td>
-									<td><button id="bank-5-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(5)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">60</th>
-									<td><span id="bank-6-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 2,250</td>
-									<td>250,000</td>
-									<td><button id="bank-6-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(6)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">70</th>
-									<td><span id="bank-7-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 3,000</td>
-									<td>500,000</td>
-									<td><button id="bank-7-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(7)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">80</th>
-									<td><span id="bank-8-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 4,000</td>
-									<td>1,000,000</td>
-									<td><button id="bank-8-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(8)">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">90</th>
-									<td><span id="bank-9-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity = 5,000</td>
-									<td>2,000,000</td>
-									<td><button id="bank-9-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeBank(9)">Upgrade</button></td>
-								</tr>
-							</tbody>
-							
-						</table>
+								
+								
 								
 							</div>
 							
 							<div class="tab-pane fade" id="sub13">
+							
+							
 							
 							<table class="table">
 							<thead class="thead-light">
@@ -479,67 +457,6 @@
 						</table>	
 							
 							</div>
-							
-							<div class="tab-pane fade" id="sub14">
-							<table class="table">
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">Qty</th>
-									<th scope="col">Item</th>
-									<th scope="col">Sell</th>
-								</tr>
-							</thead>
-							
-							<tbody>
-								<tr id="b-normal-logs" class="d-none">
-									<th scope="row"><span id="b-normal-qty"></span></th>
-									<th>Normal Logs (<span id="b-normal-cost">1</span>gp)</th>
-									<th><button id="b-normal-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(0); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-oak-logs" class="d-none">
-									<th scope="row"><span id="b-oak-qty"></span></th>
-									<th>Oak Logs (<span id="b-oak-cost">5</span>gp)</th>
-									<th><button id="b-oak-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(1); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-willow-logs" class="d-none">
-									<th scope="row"><span id="b-willow-qty"></span></th>
-									<th>Willow Logs (<span id="b-willow-cost">10</span>gp)</th>
-									<th><button id="b-willow-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(2); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-teak-logs" class="d-none">
-									<th scope="row"><span id="b-teak-qty"></span></th>
-									<th>Teak Logs (<span id="b-teak-cost">20</span>gp)</th>
-									<th><button id="b-teak-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(3); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-maple-logs" class="d-none">
-									<th scope="row"><span id="b-maple-qty"></span></th>
-									<th>Maple Logs (<span id="b-maple-cost">40</span>gp)</th>
-									<th><button id="b-maple-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(4); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-mahogany-logs" class="d-none">
-									<th scope="row"><span id="b-mahogany-qty"></span></th>
-									<th>Mahogany Logs (<span id="b-mahogany-cost">100</span>gp)</th>
-									<th><button id="b-mahogany-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(5); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-yew-logs" class="d-none">
-									<th scope="row"><span id="b-yew-qty"></span></th>
-									<th>Yew Logs (<span id="b-yew-cost">250</span>gp)</th>
-									<th><button id="b-yew-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(6); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-magic-logs" class="d-none">
-									<th scope="row"><span id="b-magic-qty"></span></th>
-									<th>Magic Logs (<span id="b-magic-cost">500</span>gp)</th>
-									<th><button id="b-magic-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(7); return false;">Sell</button></th>
-								</tr>
-								<tr id="b-redwood-logs" class="d-none">
-									<th scope="row"><span id="b-redwood-qty"></span></th>
-									<th>Redwood Logs (<span id="b-redwood-cost">1000</span>gp)</th>
-									<th><button id="b-redwood-sell" type="button" class="btn btn-primary btn-sm" onClick="sellLogs(8); return false;">Sell</button></th>
-								</tr>
-							</tbody>
-							
-						</table>
-						</div>
 						
 						<div class="tab-pane fade" id="sub15">
 						
@@ -547,9 +464,9 @@
 						<p>
 						Trees Cut: <span id="s-trees-cut">0</span><br>
 						Logs Sold: <span id="s-logs-sold">0</span><br>
-						GP Earned: <span id="s-gp-earned">0</span><br>
+						GP Earned from Woodcutting: <span id="s-gp-earned">0</span><br>
 						Bird Nests Found: <span id="s-bird-nests">0</span><br>
-						Random Events: <span id="s-random-events">0</span></p>
+						Random Events Encounted: <span id="s-random-events">0</span></p>
 						
 						</div>
 							
@@ -571,16 +488,10 @@
 				FISHING
 				-->
 				<div class="tab-pane fade" id="set2">
-				<ul class="list-inline card-header text-center">
-					<li class="list-inline-item"><span style="color:red">This is a Skill Preview for Fishing, due for release in Alpha V0.03.<br>PLEASE NOTE: This is not the final design of fishing. This may change upon release of Alpha v0.03.</span></a></li>				
-				</ul>
-				<div class="card-body text-center"><small>Total Fishing XP: <span id="current-xp">0</span><br>Fishing XP required for next level: <span id="xp-required">83</span></small>
+				<div class="card-body text-center"><small>Total Fishing XP: <span id="fishing-current-xp">0</span><br>Fishing XP required for next level: <span id="fishing-xp-required">83</span></small>
 					<div class="progress progress-striped active">
-						<div class="progress-bar progress-bar-success" id="next-level-progress" style="width:0%"></div>
+						<div class="progress-bar progress-bar-success" id="fishing-next-level-progress" style="width:0%"></div>
 					</div>
-					<a id="autosave" href="#" class="btn btn-success btn-sm" onClick="autosaveToggle(); return false;">Autosave: On</a>
-					<a id="save" href="#" class="btn btn-warning btn-sm" onClick="saveData(1); return false;" style="display:none">Save Game</a>
-					<a id="load" href="#" class="btn btn-warning btn-sm" onClick="loadData(); return false;">Load Saved Game</a>
 				</div>
 				
 				
@@ -629,8 +540,8 @@
 																<p class="card-text" id="fishing-desc"><small>Available Fish:</small><br>
 																<img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp" id="shrimp">
 																<img src="img/sardine-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 5: Sardine" id="sardine"></p>
-																<a id="fish-lumbridge" href="#" class="btn btn-success">Fish</a>
-																<a id="fish-lumbridge-auto" href="#" class="btn btn-outline-info">Enable Auto Fish</a>
+																<a id="fish-lumbridge" href="#" class="btn btn-success" onclick="startFishing(0); return false;">Fish</a>
+																<a id="fish-lumbridge-auto" href="#" class="btn btn-outline-info" onclick="startAutoFishing(0); return false;">Enable Auto Fish</a>
 															</div>
 															
 															<div id="location-draynor" class="d-none">
@@ -638,7 +549,7 @@
 																<img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp" id="shrimp-2">
 																<img src="img/herring-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 10: Herring" id="herring"></p>
 																<a id="fish-draynor" href="#" class="btn btn-success" onclick="startFishing(1); return false;">Fish</a>
-																<a id="fish-draynor-auto" href="#" class="btn btn-outline-danger disabled">Enable Auto Fish</a>
+																<a id="fish-draynor-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(1); return false;">Enable Auto Fish</a>
 															</div>
 															
 															<div id="location-karamja" class="d-none">
@@ -647,8 +558,8 @@
 																<img src="img/herring-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 10: Herring" id="herring-2">
 																<img src="img/trout-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 20: Trout" id="trout">
 																<img src="img/salmon-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 35: Salmon" id="salmon"></p>
-																<a id="fish-karamja" href="#" class="btn btn-success">Fish</a>
-																<a id="fish-karamja-auto" href="#" class="btn btn-outline-danger disabled">Enable Auto Fish</a>
+																<a id="fish-karamja" href="#" class="btn btn-success" onclick="startFishing(2); return false;">Fish</a>
+																<a id="fish-karamja-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(2); return false;">Enable Auto Fish</a>
 															</div>
 															
 															<div id="location-barbarian" class="d-none">
@@ -656,8 +567,8 @@
 																<img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp" id="shrimp-3">
 																<img src="img/trout-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 20: Trout" id="trout-2">
 																<img src="img/salmon-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 35: Salmon" id="salmon-2"></p>
-																<a id="fish-barbarian" href="#" class="btn btn-success">Fish</a>
-																<a id="fish-barbarian-auto" href="#" class="btn btn-outline-danger disabled">Enable Auto Fish</a>
+																<a id="fish-barbarian" href="#" class="btn btn-success" onclick="startFishing(3); return false;">Fish</a>
+																<a id="fish-barbarian-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(3); return false;">Enable Auto Fish</a>
 															</div>
 															
 															<div id="location-seers" class="d-none">
@@ -665,8 +576,8 @@
 																<img src="img/herring-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 10: Herring" id="herring-3">
 																<img src="img/lobster-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 40: Lobster" id="lobster">
 																<img src="img/shark-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 70: Shark" id="shark"></p>
-																<a id="fish-seers" href="#" class="btn btn-success">Fish</a>
-																<a id="fish-seers-auto" href="#" class="btn btn-outline-danger disabled">Enable Auto Fish</a>
+																<a id="fish-seers" href="#" class="btn btn-success" onclick="startFishing(4); return false;">Fish</a>
+																<a id="fish-seers-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(4); return false;">Enable Auto Fish</a>
 															</div>
 															
 															<div id="location-fishingguild" class="d-none">
@@ -675,24 +586,24 @@
 																<img src="img/lobster-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 40: Lobster" id="lobster-2">
 																<img src="img/swordfish-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 50: Swordfish" id="swordfish">
 																<img src="img/shark-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 70: Shark" id="shark-2"></p>
-																<a id="fish-fishingguild" href="#" class="btn btn-success">Fish</a>
-																<a id="fish-fishingguild-auto" href="#" class="btn btn-outline-danger disabled">Enable Auto Fish</a>
+																<a id="fish-fishingguild" href="#" class="btn btn-success" onclick="startFishing(5); return false;">Fish</a>
+																<a id="fish-fishingguild-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(5); return false;">Enable Auto Fish</a>
 															</div>
 															
 															<div id="location-taverley" class="d-none">
 																<p class="card-text" id="fishing-desc"><small>Available Fish:</small><br>
 																<img src="img/crab-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 60: Crab" id="crab">
 																<img src="img/cave-fish-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 75: Cave Fish" id="cavefish"></p>
-																<a id="fish-taverley" href="#" class="btn btn-success">Fish</a>
-																<a id="fish-taverley-auto" href="#" class="btn btn-outline-danger disabled">Enable Auto Fish</a>
+																<a id="fish-taverley" href="#" class="btn btn-success" onclick="startFishing(6); return false;">Fish</a>
+																<a id="fish-taverley-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(6); return false;">Enable Auto Fish</a>
 															</div>
 															
 															<div id="location-deepseas" class="d-none">
 																<p class="card-text" id="fishing-desc"><small>Available Fish:</small><br>
 																<img src="img/manta-ray-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 85: Manta Ray" id="mantaray">
 																<img src="img/whale-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 95: Whale" id="whale"></p>
-																<a id="fish-deepseas" href="#" class="btn btn-success">Fish</a>
-																<a id="fish-deepseas-auto" href="#" class="btn btn-outline-danger disabled">Enable Auto Fish</a>
+																<a id="fish-deepseas" href="#" class="btn btn-success" onclick="startFishing(7); return false;">Fish</a>
+																<a id="fish-deepseas-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(7); return false;">Enable Auto Fish</a>
 															</div>
 										
 														</div>
@@ -755,155 +666,134 @@
 							
 							
 							<div class="tab-pane fade" id="sub22">
-								<table class="table">
-							<thead>
-								<tr class="table-info">
-									<th scope="col"><strong>Fishing Rods</strong></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">Level</th>
-									<th scope="col">Item</th>
-									<th scope="col">Cost (gp)</th>
-									<th scope="col">Purchase</th>
-								</tr>
-							</thead>
 							
-							<tbody>
-								<tr>
-									<th scope="row"><img src="img/fishing_bronze2.png" height="48px" width="48px"></th>
-									<td><span id="bronze-fish-level-text" class="badge badge-success">Upgraded</span> Bronze Fishing Rod<br>As useless as a pool noodle...</td>
-									<td>0</td>
-									<td><button type="button" class="btn btn-success btn-sm disabled">Upgraded</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/fishing_iron2.png" height="48px" width="48px"></th>
-									<td><span id="iron-fish-level-text" class="badge badge-danger">Level 5</span> Iron Fishing Rod<br>(Base XP) +5%<br>(Base Speed) +5%</td>
-									<td>Undefined</td>
-									<td><button id="iron-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/fishing_steel2.png" height="48px" width="48px"></th>
-									<td><span id="steel-fish-level-text" class="badge badge-danger">Level 10</span> Steel Fishing Rod<br>(Base XP) +10%<br>(Base Speed) +10%</td>
-									<td>Undefined</td>
-									<td><button id="steel-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/fishing_black2.png" height="48px" width="48px"></th>
-									<td><span id="black-fish-level-text" class="badge badge-danger">Level 20</span> Black Fishing Rod<br>(Base XP) +15%<br>(Base Speed) +15%</td>
-									<td>Undefined</td>
-									<td><button id="black-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/fishing_mithril2.png" height="48px" width="48px"></th>
-									<td><span id="mithril-fish-level-text" class="badge badge-danger">Level 35</span> Mithril Fishing Rod<br>(Base XP) +20%<br>(Base Speed) +20%</td>
-									<td>Undefined</td>
-									<td><button id="mithril-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/fishing_adamant2.png" height="48px" width="48px"></th>
-									<td><span id="adamant-fish-level-text" class="badge badge-danger">Level 50</span> Adamant Fishing Rod<br>(Base XP) +25%<br>(Base Speed) +25%</td>
-									<td>Undefined</td>
-									<td><button id="adamant-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr><tr>
-									<th scope="row"><img src="img/fishing_rune2.png" height="48px" width="48px"></th>
-									<td><span id="rune-fish-level-text" class="badge badge-danger">Level 60</span> Rune Fishing Rod<br>(Base XP) +30%<br>(Base Speed) +30%</td>
-									<td>Undefined</td>
-									<td><button id="rune-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/fishing_dragon2.png" height="48px" width="48px"></th>
-									<td><span id="dragon-fish-level-text" class="badge badge-danger">Level 80</span> Dragon Fishing Rod<br>(Base XP) +35%<br>(Base Speed) +35%</td>
-									<td>Undefined</td>
-									<td><button id="dragon-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row"><img src="img/fishing_3rdage2.png" height="48px" width="48px"></th>
-									<td><span id="3rdage-fish-level-text" class="badge badge-danger">Level 90</span> 3rd Age Fishing Rod<br>(Base XP) +40%<br>(Base Speed) +40%<br>Magic Ability: ???</td>
-									<td>Undefined</td>
-									<td><button id="3rdage-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-							</tbody>
+							<div class="card" style="padding: 0px 10px 10px 10px">
+				
+								<div class="row">
+								
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Bronze Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_bronze.png"><br>
+											<span class="badge badge-success">Upgraded</span><br>
+											<small>Useless<br><br><br></small></p>
+											<strong><p class="card-text"><img src="img/coins2.png"> 0</strong></p>
+											<button type="button" class="btn btn-success btn-sm disabled">Upgraded</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Iron Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_iron.png"><br>
+											<span id="iron-fish-level-text" class="badge badge-danger">Level 5</span><br>
+											<small>(Base XP) +5%<br>(Base Speed) +5%<br>Enable Auto Cut in Lumbridge</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 1,000</strong></p>
+											<button id="iron-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(1); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Steel Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_steel.png"><br>
+											<span id="steel-fish-level-text" class="badge badge-danger">Level 10</span><br>
+											<small>(Base XP) +10%<br>(Base Speed) +10%<br>Enable Auto Cut in Draynor Village</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 10,000</strong></p>
+											<button id="steel-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(2); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Black Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_black.png"><br>
+											<span id="black-fish-level-text" class="badge badge-danger">Level 20</span><br>
+											<small>(Base XP) +15%<br>(Base Speed) +15%<br>Enable Auto Cut in Karamja</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 25,000</strong></p>
+											<button id="black-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(3); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Mirthil Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_mithril.png"><br>
+											<span id="mithril-fish-level-text" class="badge badge-danger">Level 35</span><br>
+											<small>(Base XP) +20%<br>(Base Speed) +20%<br>Enable Auto Cut in Barbarian Outpost</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 100K</strong></p>
+											<button id="mithril-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(4); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Adamant Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_adamant.png"><br>
+											<span id="adamant-fish-level-text" class="badge badge-danger">Level 50</span><br>
+											<small>(Base XP) +25%<br>(Base Speed) +25%<br>Enable Auto Cut in Seers' Village</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 500K</strong></p>
+											<button id="adamant-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(5); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Rune Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_rune.png"><br>
+											<span id="rune-fish-level-text" class="badge badge-danger">Level 60</span><br>
+											<small>(Base XP) +30%<br>(Base Speed) +30%<br>Enable Auto Cut in Fishing Guild</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 1,000K</strong></p>
+											<button id="rune-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(6); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>Dragon Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_dragon.png"><br>
+											<span id="dragon-fish-level-text" class="badge badge-danger">Level 80</span><br>
+											<small>(Base XP) +40%<br>(Base Speed) +40%<br>Enable Auto Cut in Taverly Dungeon</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 5,000K</strong></p>
+											<button id="dragon-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(7); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="col-sm-3" style="padding-top: 10px">
+										<div class="card text-center">
+										  <div class="card-body">
+											<h6 class="card-title"><strong>3rd Age Fishing Rod</strong></h6>
+											<p class="card-text"><img src="img/fishing_3rdage.png"><br>
+											<span id="3rdage-fish-level-text" class="badge badge-danger">Level 90</span><br>
+											<small>(Base XP) +45%<br>(Base Speed) +45%<br>Enable Auto Cut in Deep Seas<br>Magic Ability ???</small></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 10M</strong></p>
+											<button id="3rdage-fish-button" type="button" class="btn btn-primary btn-sm disabled" onClick="upgradeFishingRod(8); return false;">Upgrade</button>
+										  </div>
+										</div>
+									</div>
+								  
+								</div>
+				
+							</div>
 							
-							<thead>
-								<tr class="table-info">
-									<th scope="col"><strong>Bank</strong></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">Level</th>
-									<th scope="col">Item</th>
-									<th scope="col">Cost (gp)</th>
-									<th scope="col">Purchase</th>
-								</tr>
-							</thead>
 							
-							<tbody>
-								<tr>
-									<th scope="row">10</th>
-									<td><span id="bank-1-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-1-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">20</th>
-									<td><span id="bank-2-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-2-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">30</th>
-									<td><span id="bank-3-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-3-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">40</th>
-									<td><span id="bank-4-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-4-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">50</th>
-									<td><span id="bank-5-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-5-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">60</th>
-									<td><span id="bank-6-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-6-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">70</th>
-									<td><span id="bank-7-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-7-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">80</th>
-									<td><span id="bank-8-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-8-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-								<tr>
-									<th scope="row">90</th>
-									<td><span id="bank-9-fish-level-text" class="badge badge-danger">Insufficient Level</span> Bank Capacity + Undefined</td>
-									<td>Undefined</td>
-									<td><button id="bank-9-button" type="button" class="btn btn-primary btn-sm disabled" onClick="">Upgrade</button></td>
-								</tr>
-							</tbody>
 							
-						</table>
 							</div>
 							
 							
@@ -923,19 +813,19 @@
 								</tr>
 								<tr>
 									<th scope="row">35</th>
-									<td><span id="" class="badge badge-danger">Locked</span> No longer catch <img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp"> at Barbarian Outpost</td>
+									<td><span id="m-fishing-milestone-1" class="badge badge-danger">Locked</span> No longer catch <img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp"> at Barbarian Outpost</td>
 								</tr>
 								<tr>
 									<th scope="row">60</th>
-									<td><span id="" class="badge badge-danger">Locked</span> No longer catch <img src="img/herring.png" data-toggle="tooltip" data-placement="bottom" title="Level 5: Herring"> at Seers' Village</td>
+									<td><span id="m-fishing-milestone-2" class="badge badge-danger">Locked</span> No longer catch <img src="img/herring.png" data-toggle="tooltip" data-placement="bottom" title="Level 5: Herring"> at Seers' Village</td>
 								</tr>
 								<tr>
 									<th scope="row">70</th>
-									<td><span id="" class="badge badge-danger">Locked</span> No longer catch <img src="img/herring.png" data-toggle="tooltip" data-placement="bottom" title="Level 5: Herring"> at Fishing Guild</td>
+									<td><span id="m-fishing-milestone-3" class="badge badge-danger">Locked</span> No longer catch <img src="img/herring.png" data-toggle="tooltip" data-placement="bottom" title="Level 5: Herring"> at Fishing Guild</td>
 								</tr>
 								<tr>
 									<th scope="row">99</th>
-									<td><span id="m-fish-skill-mastery" class="badge badge-danger">Locked</span> Skill Mastery</td>
+									<td><span id="m-fishing-skill-mastery" class="badge badge-danger">Locked</span> Skill Mastery</td>
 								</tr>
 							</tbody>
 							
@@ -943,14 +833,20 @@
 							</div>
 							
 							
+							
 							<div class="tab-pane fade" id="sub25">
-								<p>Stats for Fishing</p>
+								<p>Fish Caught: <span id="s-fish-caught">0</span><br>
+								Fish Sold: <span id="s-fish-sold">0</span><br>
+								GP Earned from Fishing: <span id="s-fish-gp-earned">0</span><br></p>
 							</div>
 							
 							
 						</div>
 					</div>
 				</div>
+				
+				
+				
 				
 				<!-- 
 				FIREMAKING 
@@ -963,13 +859,11 @@
 				FIREMAKING 
 				FIREMAKING
 				-->
-				<div class="tab-pane fade" id="set3">
-				<ul class="list-inline card-header text-center">
-					<li class="list-inline-item"><span style="color:red">This is a Skill Preview for Firemaking, due for release in Alpha V0.03.<br>PLEASE NOTE: This is not the final design of firemaking. This may change upon release of Alpha v0.03.</span></a></li>				
-				</ul>
-				<div class="card-body text-center"><small>Total Firemaking XP: <span id="firemaking-current-xp">0</span><br>Firemaking XP required for next level: <span id="firemaking-xp-required">83</span></small>
+				<div class="tab-pane fade active show" id="set3">
+				
+				<div class="card-body text-center"><small>Total Firemaking XP: <span id="fm-current-xp">0</span><br>Firemaking XP required for next level: <span id="fm-xp-required">83</span></small>
 					<div class="progress progress-striped active">
-						<div class="progress-bar progress-bar-success" id="firemaking-next-level-progress" style="width:0%"></div>
+						<div class="progress-bar progress-bar-success" id="fm-next-level-progress" style="width:0%"></div>
 					</div>
 				</div>
 				
@@ -995,35 +889,48 @@
 						<div class="card-body col-3 text-center">
 							<ul class="nav v w-100 justify-content-center">
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" id="fm-logs-selected" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Normal Logs</a>
+								<a class="nav-link dropdown-toggle" id="fm-setlogs-selected" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Normal Logs</a>
 									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">Normal Logs</a>
-										<a class="dropdown-item" href="#">Oak Logs</a>
-										<a class="dropdown-item" href="#">Willow Logs</a>
-										<a class="dropdown-item" href="#">Teak Logs</a>
-										<a class="dropdown-item" href="#">Maple Logs</a>
-										<a class="dropdown-item" href="#">Mahogany Logs</a>
-										<a class="dropdown-item" href="#">Yew Logs</a>
-										<a class="dropdown-item" href="#">Magic Logs</a>
-										<a class="dropdown-item" href="#">Redwood Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(0); return false;">Normal Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(1); return false;">Oak Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(2); return false;">Willow Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(3); return false;">Teak Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(4); return false;">Maple Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(5); return false;">Mahogany Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(6); return false;">Yew Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(7); return false;">Magic Logs</a>
+										<a class="dropdown-item" href="#" onclick="fmSetLogs(8); return false;">Redwood Logs</a>
 									</div>
 								  </li>
 								</ul>
-							<p class="card-text"><img src="img/normal_logs.png" height="48px" width="48px"><br>Qty: <span id="fm-mahogany-qty">4</span><br>
+							<p class="card-text"><img id="fm-setlogs-img" src="img/normal_logs.png" height="48px" width="48px"><br>
+							Qty: <span id="fm-setlogs-qty">0</span><br>
+							<span id="fm-setlogs-level">Level: 1</span></p>
 							</div>
 							<div class="card-body col-3">
-							<a href="#" class="btn btn-warning">Burn</a><br>
-							<a href="#" class="btn btn-outline-warning">Auto Burn</a><br>
-							<a href="#" class="btn btn-primary btn-sm">Add to Bonfire</a>
+							<a href="#" class="btn btn-warning" id="fm-burn-logs" onClick="burnLogs(0); return false;">Burn</a><br>
+							<a href="#" class="btn btn-outline-warning btn-sm" id="fm-autoburn" onClick="startAutoBurn(); return false;">Auto Burn</a>
+							<small id="fm-autoburn-log"></small>
+							<a href="#" class="btn btn-primary btn-sm disabled" id="fm-light-bonfire" onClick="lightBonfire(); return false;">Light Bonfire</a>
+							<small id="fm-bonfire-cost"></small>
 							</div>
 						  <div class="card-body col-6 text-center">
 							<h5 class="card-title">Bonfire</h5>
-							<p class="card-text"><img id="fm-status-image" src="img/bonfire_inactive.png"><br>Status: <span id="fm-status-text" style="color:red">Inactive</span> <br>Logs in Bonfire: <span id="fm-logs-in-bonfire">0</span><br>
+							<p class="card-text"><img id="fm-bonfire-status-image" src="img/bonfire_inactive.png"><br>
+							Level: <span id="fm-bonfire-level-text">0</span> <br>
+							Status: <span id="fm-bonfire-status-text" style="color:red">Inactive</span> <br>
+							XP Bonus when active: <span id="fm-bonfire-bonus" style="color:red">0%</span></p>
 						  </div>
+						   
 						  </div>
 						  <div class="card-footer text-muted">
 							<div class="progress active">
-								<div class="progress-bar bg-warning" id="fm-bonfire-progress" style="width:0%"></div>
+								<div class="progress-bar bg-warning" id="fm-burn-progress" style="width:0%"></div>
+							</div>
+						</div>
+						  <div class="card-footer text-muted">
+							<div class="progress active">
+								<div class="progress-bar bg-danger" id="fm-bonfire-progress" style="width:0%"></div>
 							</div>
 						</div>
 						</div>
@@ -1031,19 +938,94 @@
 							</div>
 							<div class="tab-pane fade" id="sub32">
 								
-								Shop for Firemaking
+								<div class="card" style="padding: 0px 10px 10px 10px">
+				
+					<div class="row">
+					
+						<div class="col-sm-3" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title"><strong>Upgrade Bonfire</strong></h6>
+							<p class="card-text"><img src="img/bonfire_active.png"><br>
+							<strong><span id="bonfire-level-upgrade">Upgrade to Level 1</span></strong><br>
+							<small><span id="bonfire-upgrade-bonus-text">XP Bonus: 5%</span><br>
+							<span id="bonfire-upgrade-duration-text">Duration: 15 Seconds</span><br>
+							<span id="bonfire-upgrade-logs-2">Requires 10 Normal Logs to light</span> </small></p>
+							<strong><p class="card-text"><img id="bonfire-upgrade-cost-image" src="img/willow_logs.png" height="48px" width="48px"><span id="bonfire-upgrade-cost">100</span> <span id="bonfire-upgrade-logs">Normal Logs</span></strong></p>
+							<a href="#" class="btn btn-warning btn-sm" id="bonfire-upgrade-button" onClick="fmUpgradeBonfire(); return false;">Upgrade</a>
+						  </div>
+						</div>
+					  </div>
+					  
+					</div>
+				
+				</div>
 								
 							</div>
 							
 							<div class="tab-pane fade" id="sub33">
 							
-							Milestones for Firemaking
+							<table class="table">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Level</th>
+									<th scope="col">Reward</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<tr>
+									<th scope="row">5</th>
+									<td><span id="m-auto-burn-tree" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Normal Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">20</th>
+									<td><span id="m-auto-burn-oak" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Oak Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">35</th>
+									<td><span id="m-auto-burn-willow" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Willow Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">40</th>
+									<td><span id="m-auto-burn-teak" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Teak Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">50</th>
+									<td><span id="m-auto-burn-maple" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Maple Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">55</th>
+									<td><span id="m-auto-burn-mahogany" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Mahogany Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">65</th>
+									<td><span id="m-auto-burn-yew" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Yew Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">80</th>
+									<td><span id="m-auto-burn-magic" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Magic Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">95</th>
+									<td><span id="m-auto-burn-redwood" class="badge badge-danger">Locked</span> Allow "Auto Burn" for Redwood Logs</td>
+								</tr>
+								<tr>
+									<th scope="row">99</th>
+									<td><span id="m-fm-skill-mastery" class="badge badge-danger">Locked</span> Skill Mastery</td>
+								</tr>
+							</tbody>
+							
+						</table>	
 							
 							</div>
 						
 						<div class="tab-pane fade" id="sub35">
 						
 						<p><strong>Firemaking Statistics</strong><p>
+						<p>
+						Logs Burnt: <span id="s-logs-burnt">0</span><br>
+						GP Burnt: <span id="s-gp-burnt">0</span></p>
 						
 						</div>
 							
@@ -1052,6 +1034,26 @@
 					</div>
 				</div>
 				
+				
+				
+				<!--
+				BANK
+				BANK
+				BANK
+				BANK
+				BANK
+				BANK
+				BANK
+				BANK
+				BANK
+				-->
+				<div class="tab-pane fade" id="set4">
+				
+				
+				
+				
+				
+				</div>
 			</div>
 		
 			
@@ -1069,6 +1071,284 @@
 		Delete Save Data
 		</button>
 		</div>
+		
+		
+		<!-- Bank -->
+		<div class="modal fade bd-example-modal-lg" id="bankTab" tabindex="-1" role="dialog" aria-labelledby="bankTab" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Bank</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+				
+				
+				
+					<div class="row">
+					
+						<div class="col-sm-3" style="padding-top: 10px">
+						<div class="card text-center text-white bg-info mb-3">
+						  <div class="card-body">
+							<h6 class="card-title">Upgrade Bank</h6>
+							<p class="card-text text-white"><img src="img/bank2.png"><br>Capacity: +<span id="bank-capacity"></span><br>
+							<span id="bank-upgrade-cost"></span></p>
+							<a href="#" id="bank-upgrade-button" class="btn btn-warning btn-sm" onClick="upgradeBank(); return false;">Upgrade</a>
+						  </div>
+						</div>
+					  </div>
+					
+					  <div class="col-sm-3" id="b-mahogany-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Mahogany Logs</h6>
+							<p class="card-text"><img src="img/mahogany_logs.png" height="48px" width="48px"><br>Qty: <span id="b-mahogany-qty"></span><br>
+							<span id="b-mahogany-gp"></span> gp</p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(5); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(5); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-maple-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Maple Logs</h6>
+							<p class="card-text"><img src="img/maple_logs.png" height="48px" width="48px"><br>Qty: <span id="b-maple-qty"></span><br>
+							<span id="b-maple-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(4); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(4); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-magic-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Magic Logs</h6>
+							<p class="card-text"><img src="img/magic_logs.png" height="48px" width="48px"><br>Qty: <span id="b-magic-qty"></span><br>
+							<span id="b-magic-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(7); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(7); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					<div class="col-sm-3" id="b-normal-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Normal Logs</h6>
+							<p class="card-text"><img src="img/normal_logs.png" height="48px" width="48px"><br>Qty: <span id="b-normal-qty"></span><br>
+							<span id="b-normal-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(0); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(0); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-oak-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Oak Logs</h6>
+							<p class="card-text"><img src="img/oak_logs.png" height="48px" width="48px"><br>Qty: <span id="b-oak-qty"></span><br>
+							<span id="b-oak-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(1); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(1); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					<div class="col-sm-3" id="b-cavefish" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Cave Fish</h6>
+							<p class="card-text"><img src="img/cavefish.png"><br>Qty: <span id="b-cavefish-qty"></span><br>
+							<span id="b-cavefish-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(9); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(9); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					<div class="col-sm-3" id="b-crab" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Crab</h6>
+							<p class="card-text"><img src="img/crab.png"><br>Qty: <span id="b-crab-qty"></span><br>
+							<span id="b-crab-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(7); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(7); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					   <div class="col-sm-3" id="b-herring" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Herring</h6>
+							<p class="card-text"><img src="img/herring.png"><br>Qty: <span id="b-herring-qty"></span><br>
+							<span id="b-herring-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(2); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(2); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-lobster" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Lobster</h6>
+							<p class="card-text"><img src="img/lobster.png"><br>Qty: <span id="b-lobster-qty"></span><br>
+							<span id="b-lobster-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(5); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(5); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-mantaray" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Manta Ray</h6>
+							<p class="card-text"><img src="img/mantaray.png"><br>Qty: <span id="b-mantaray-qty"></span><br>
+							<span id="b-mantaray-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(10); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(10); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-salmon" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Salmon</h6>
+							<p class="card-text"><img src="img/salmon.png"><br>Qty: <span id="b-salmon-qty"></span><br>
+							<span id="b-salmon-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(4); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(4); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					   <div class="col-sm-3" id="b-sardine" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Sardine</h6>
+							<p class="card-text"><img src="img/sardine.png"><br>Qty: <span id="b-sardine-qty"></span><br>
+							<span id="b-sardine-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(1); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(1); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-shark" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Shark</h6>
+							<p class="card-text"><img src="img/shark.png"><br>Qty: <span id="b-shark-qty"></span><br>
+							<span id="b-shark-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(8); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(8); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-shrimp" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Shrimp</h6>
+							<p class="card-text"><img src="img/shrimp.png"><br>Qty: <span id="b-shrimp-qty"></span><br>
+							<span id="b-shrimp-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(0); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(0); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-swordfish" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Swordfish</h6>
+							<p class="card-text"><img src="img/swordfish.png"><br>Qty: <span id="b-swordfish-qty"></span><br>
+							<span id="b-swordfish-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(6); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(6); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-trout" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Trout</h6>
+							<p class="card-text"><img src="img/trout.png"><br>Qty: <span id="b-trout-qty"></span><br>
+							<span id="b-trout-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(3); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(3); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-whale" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Raw Whale</h6>
+							<p class="card-text"><img src="img/whale.png"><br>Qty: <span id="b-whale-qty"></span><br>
+							<span id="b-whale-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenFish(11); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellFish(11); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-redwood-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Redwood Logs</h6>
+							<p class="card-text"><img src="img/redwood_logs.png" height="48px" width="48px"><br>Qty: <span id="b-redwood-qty"></span><br>
+							<span id="b-redwood-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(8); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(8); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-teak-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Teak Logs</h6>
+							<p class="card-text"><img src="img/teak_logs.png" height="48px" width="48px"><br>Qty: <span id="b-teak-qty"></span><br>
+							<span id="b-teak-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(3); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(3); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-willow-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Willow Logs</h6>
+							<p class="card-text"><img src="img/willow_logs.png" height="48px" width="48px"><br>Qty: <span id="b-willow-qty"></span><br>
+							<span id="b-willow-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(2); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(2); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  <div class="col-sm-3" id="b-yew-logs" style="padding-top: 10px">
+						<div class="card text-center">
+						  <div class="card-body">
+							<h6 class="card-title">Yew Logs</h6>
+							<p class="card-text"><img src="img/yew_logs.png" height="48px" width="48px"><br>Qty: <span id="b-yew-qty"></span><br>
+							<span id="b-yew-gp"></span> gp</p></p>
+							<a href="#" class="btn btn-outline-primary btn-sm" onClick="sellTenLogs(6); return false;">Sell 10</a>
+							<a href="#" class="btn btn-primary btn-sm" onClick="sellLogs(6); return false;">Sell All</a>
+						  </div>
+						</div>
+					  </div>
+					  
+					</div>
+				
+				
+				
+				
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+			</div>
+		</div>
+		</div>
+		
+		
+		
 		<!-- Delete Save -->
 		<div class="modal fade" id="deleteSave" tabindex="-1" role="dialog" aria-labelledby="deleteSave" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -1106,6 +1386,9 @@
 		<!-- Game JS -->
 		<script type="text/javascript" src="js/save.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/woodcutting.js"></script>
+		<script type="text/javascript" src="js/fishing.js"></script>
+		<script type="text/javascript" src="js/firemaking.js"></script>
 		
 	</body>
 	

@@ -1,3 +1,5 @@
+var autoSave = true;
+
 function setItem(key, value) {
 	localStorage.setItem(key, JSON.stringify(value));
 };
@@ -30,6 +32,10 @@ function loadData() {
 		localStorage.removeItem(key + "treeLevelAchieved");
 		console.log(key + "treeLevelAchieved Removed Successfully");
 	}
+	if (getItem(key + "bankUpgradePurchased") != null) {
+		localStorage.removeItem(key + "bankUpgradePurchased");
+		console.log(key + "bankUpgradePurchased Removed Successfully");
+	}
 	
     for (var i = 0; i < allVars.length; i++) {
         if (getItem(key + allVars[i]) != null && getItem(key + allVars[i]) != undefined) {
@@ -39,19 +45,19 @@ function loadData() {
 	
 	//UPDATES FOR OLD SAVES
 	//Update bank upgrade values
-	if(currentBankUpgrade != 0) {
-		bankMax = bankUpgradeValues[currentBankUpgrade-1];
-	}
+	bankMax = bankUpgrades[currentBankUpgrade];
 	
-	//Check if end-game activated on load and update logs cost respectively.
-	if(endGameActivated) {
-		logsCost = [100,150,250,280,340,400,475,550,650];
+	//Update fish costs
+	for (i=0; i<12; i++) {
+		$("#b-"+fish[i]+"-cost").text(fishCost[i]);
 	}
-	
 	eventInProgress = false;
 	if(eventTimeout){ clearTimeout(eventTimeout)};
 	interval = 2000;
 	resetInterval();
+	updateBankUpgrades();
+	fishingUpdateScreen();
+	fmUpdateScreen();
 	updateScreen();
 	$.notify(
 		"Progress Loaded!",
@@ -87,4 +93,8 @@ function autosaveToggle() {
 		$("#autosave").text("Autosave: On");
 	}
 	
+}
+
+window.onload = function() {
+	loadData();
 }

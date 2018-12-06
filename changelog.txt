@@ -1,4 +1,33 @@
 ===========
+Alpha v0.03
+===========
+7th December 2018
+
+==NEW SKILLS: FISHING & FIREMAKING==
+This update introduces two new skills, Fishing & Firemaking!
+
+FISHING
+- Cast your rod into the vast lakes and oceans to discover difference species of fish to acquire! A very peaceful skill to be expanded upon in the future.
+
+FIREMAKING
+- Burn the logs acquired from Woodcutting to acquire experience. Watch your potential GP earnings light up in flames right before your eyes. A worthy sacrifice if I say so myself.
+- Increase your XP potential by upgrading your bonfire. Nothing better than lighting fires on top of more fires!
+
+==NEW BANK UI==
+I have redesign the bank to better suit the design of the game. Selecting the bank now brings up all items you have, and also provides the potential to upgrade as well.
+
+Bank upgrades are now also additive. Maximum bank capacity currently set at 7,000. Your current bank upgrades will update accordingly with this update.
+
+==NEW SHOP UI==
+The shop for each skills looks a bit different. This is to correlate with the new bank UI to keep it similar. Please let me know what you think.
+
+==OTHER CHANGES==
+- GP values have been updated and now display in a similar form to Runescape. Hover over your GP to view the exact amount.
+- Base Woodcutting interval has been increased from 2000 to 3000.
+- Removed the ability to disabled Auto Save.
+
+
+===========
 Alpha v0.02
 ===========
 30th November 2018
