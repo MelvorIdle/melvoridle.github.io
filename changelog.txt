@@ -4,7 +4,7 @@ Aplha v0.03.1
 7th December 2018
 
 - Fixed error where maximum level bonfire would not activate.
-
+- When Auto-Burning logs; if you run out of logs, it will now wait for your stock to replentish and start again. It will no longer disable.
 
 ===========
 Alpha v0.03

@@ -7,6 +7,7 @@ var fmInterval = 4000;
 var fmBonfireInterval = [0,15000,30000,60000,120000,300000,600000,900000,1200000];
 var bonfireLevel = 0;
 var selectedLog = 0;
+var autoBurnLog = 0;
 
 var fmBonfireActive = false;
 var isBurning = false;
@@ -73,7 +74,7 @@ function burnLogs(log) {
 		
 	}
 	else {
-		if (isAutoBurning) { startAutoBurn(); }
+		if (isAutoBurning) { automateBurn(log); }
 	}
 	
 }
@@ -95,6 +96,7 @@ function startAutoBurn() {
 		
 		isAutoBurning = false;
 		fmAutomate = null;
+		autoBurnLog = null;
 						
 	}
 	else {
@@ -104,12 +106,12 @@ function startAutoBurn() {
 		
 		//Update auto button text and disable the burn button
 		$("#fm-autoburn").attr("class", "btn btn-warning btn-sm");
-		$("#fm-autoburn-log").text(fmLogs[selectedLog].charAt(0).toUpperCase() + fmLogs[selectedLog].slice(1) + " Logs");
 		isAutoBurning = true;
 		fmUpdateScreen();
+		autoBurningLog = selectedLog;
 		
 		//Set new automation to selected tree, but start it straight away
-		automateBurn(selectedLog);
+		automateBurn(autoBurningLog);
 			
 	}
 	
@@ -117,14 +119,16 @@ function startAutoBurn() {
 	
 }
 
-function automateBurn(logTest) {
+function automateBurn() {
 	
-	if (logsInBank[logTest] > 0) {
-		burnLogs(logTest);
-		fmAutomate = setTimeout(function() { automateBurn(logTest); }, fmInterval);	
+	if (logsInBank[autoBurningLog] > 0) {
+		$("#fm-autoburn-log").text(fmLogs[autoBurningLog].charAt(0).toUpperCase() + fmLogs[autoBurningLog].slice(1) + " Logs");
+		burnLogs(autoBurningLog);
+		fmAutomate = setTimeout(function() { automateBurn(autoBurningLog); }, fmInterval);	
 	}
 	else {
-		startAutoBurn();
+		$("#fm-autoburn-log").text("Waiting for Logs");
+		fmAutomate = setTimeout(function() { automateBurn(autoBurningLog); }, fmInterval);	
 	}
 	return fmAutomate;
 }
@@ -258,7 +262,7 @@ function fmUpdateScreen() {
 
 function fmUpdateLogs() {
 	
-	if (logsInBank[selectedLog] == 0 || fmCurrentLevel < fmLogsLevel[selectedLog] || isBurning) {
+	if (logsInBank[selectedLog] == 0 || fmCurrentLevel < fmLogsLevel[selectedLog] || isBurning || isAutoBurning) {
 		$("#fm-burn-logs").attr("class", "btn btn-warning disabled");		
 	}
 	else {
