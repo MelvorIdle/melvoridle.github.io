@@ -49,11 +49,11 @@
 		<div class="card" style="border: 0px">
 		<div class="tabbable boxed parentTabs p-1 card-header">
 			<ul class="nav nav-pills">
-				<li><a href="#set1" class="nav-link active show"><img src="img/woodcutting.png" id="current-level"> <span id="current-level-text">1</span> / 99</a>
+				<li><a href="#set1" class="nav-link"><img src="img/woodcutting.png" id="current-level"> <span id="current-level-text">1</span> / 99</a>
 				</li>
 				<li><a href="#set2" class="nav-link"><img src="img/fishing.png" id="current-fishing-level"> <span id="fishing-current-level-text">1</span> / 99</a>
 				</li>
-				<li><a href="#set3" class="nav-link"><img src="img/firemaking.png" id="current-fm-level"> <span id="fm-current-level-text">1</span> / 99</a>
+				<li><a href="#set3" class="nav-link active show"><img src="img/firemaking.png" id="current-fm-level"> <span id="fm-current-level-text">1</span> / 99</a>
 				</li>
 			</ul>
 		</div>		
@@ -73,7 +73,7 @@
 			WOODCUTTING
 			WOODCUTTING
 			-->
-				<div class="tab-pane fade active show" id="set1">
+				<div class="tab-pane fade" id="set1">
 					<ul class="list-inline card-header text-center" id="end-game-header" style="display:none">
 						<li class="list-inline-item"><span style="color:orange">Woodcutting Prestige Activated</span></a></li>				
 					</ul>
@@ -293,7 +293,7 @@
 											<p class="card-text"><img src="img/axe_iron.png"><br>
 											<span id="iron-axe-level-text" class="badge badge-danger">Level 1</span><br>
 											<small>(Base XP) +5%<br>(Base Speed) +5%</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 1,000</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 50</strong></p>
 											<button id="iron-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(2)">Upgrade</button>
 										  </div>
 										</div>
@@ -306,7 +306,7 @@
 											<p class="card-text"><img src="img/axe_steel.png"><br>
 											<span id="steel-axe-level-text" class="badge badge-danger">Level 10</span><br>
 											<small>(Base XP) +10%<br>(Base Speed) +10%</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 10,000</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 750</strong></p>
 											<button id="steel-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(3)">Upgrade</button>
 										  </div>
 										</div>
@@ -319,7 +319,7 @@
 											<p class="card-text"><img src="img/axe_black.png"><br>
 											<span id="black-axe-level-text" class="badge badge-danger">Level 20</span><br>
 											<small>(Base XP) +15%<br>(Base Speed) +15%</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 25,000</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 2,500</strong></p>
 											<button id="black-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(4)">Upgrade</button>
 										  </div>
 										</div>
@@ -332,7 +332,7 @@
 											<p class="card-text"><img src="img/axe_mithril.png"><br>
 											<span id="mithril-axe-level-text" class="badge badge-danger">Level 35</span><br>
 											<small>(Base XP) +20%<br>(Base Speed) +20%</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 100K</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 10,000</strong></p>
 											<button id="mithril-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(5)">Upgrade</button>
 										  </div>
 										</div>
@@ -345,7 +345,7 @@
 											<p class="card-text"><img src="img/axe_adamant.png"><br>
 											<span id="adamant-axe-level-text" class="badge badge-danger">Level 50</span><br>
 											<small>(Base XP) +25%<br>(Base Speed) +25%</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 500K</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 50,000</strong></p>
 											<button id="adamant-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(6)">Upgrade</button>
 										  </div>
 										</div>
@@ -358,7 +358,7 @@
 											<p class="card-text"><img src="img/axe_rune.png"><br>
 											<span id="rune-axe-level-text" class="badge badge-danger">Level 60</span><br>
 											<small>(Base XP) +30%<br>(Base Speed) +30%</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 1,000K</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 200K</strong></p>
 											<button id="rune-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(7)">Upgrade</button>
 										  </div>
 										</div>
@@ -371,7 +371,7 @@
 											<p class="card-text"><img src="img/axe_dragon.png"><br>
 											<span id="dragon-axe-level-text" class="badge badge-danger">Level 80</span><br>
 											<small>(Base XP) +40%<br>(Base Speed) +40%</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 5,000K</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 750K</strong></p>
 											<button id="dragon-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(8)">Upgrade</button>
 										  </div>
 										</div>
@@ -384,7 +384,7 @@
 											<p class="card-text"><img src="img/axe_3rdage.png"><br>
 											<span id="3rdage-axe-level-text" class="badge badge-danger">Level 95</span><br>
 											<small>(Base XP) +45%<br>(Base Speed) +45%<br>Magic Ability ???</small></p>
-											<strong><p class="card-text "><img src="img/coins2.png"> 10M</strong></p>
+											<strong><p class="card-text "><img src="img/coins2.png"> 5,000K</strong></p>
 											<button id="3rdage-axe-button" type="button" class="btn btn-primary btn-sm" onClick="upgradeAxe(9)">Upgrade</button>
 										  </div>
 										</div>
@@ -859,7 +859,7 @@
 				FIREMAKING 
 				FIREMAKING
 				-->
-				<div class="tab-pane fade" id="set3">
+				<div class="tab-pane fade active show" id="set3">
 				
 				<div class="card-body text-center"><small>Total Firemaking XP: <span id="fm-current-xp">0</span><br>Firemaking XP required for next level: <span id="fm-xp-required">83</span></small>
 					<div class="progress progress-striped active">
