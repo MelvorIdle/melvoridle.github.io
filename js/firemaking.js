@@ -135,7 +135,7 @@ function lightBonfire() {
 		
 		logsInBank[bonfireLevel-1]-=10;
 		$("#fm-bonfire-progress").attr("style", "width:100%");
-		$("#fm-bonfire-progress").animate({width: "0%"}, fmBonfireInterval[bonfireLevel], "linear");
+		$("#fm-bonfire-progress").animate({width: "0%"}, fmBonfireInterval[bonfireLevel-1], "linear");
 		$("#fm-bonfire-status-image").attr("src", "img/bonfire_active.png");
 		$("#fm-bonfire-status-text").text("Active");
 		$("#fm-bonfire-status-text").attr("style", "color:green");
@@ -151,7 +151,7 @@ function lightBonfire() {
 			fmBonfireActive = false;
 			fmUpdateScreen();
 			
-		}, fmBonfireInterval[bonfireLevel]);
+		}, fmBonfireInterval[bonfireLevel-1]);
 		
 	}
 	
