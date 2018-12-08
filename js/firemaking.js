@@ -279,7 +279,7 @@ function fmUpdateLogs() {
 		$("#fm-autoburn").attr("class", "btn btn-outline-warning btn-sm");
 	}
 	
-	if (bonfireLevel > 0 && !fmBonfireActive && logsInBank[bonfireLevel-1] > 10) {
+	if (bonfireLevel > 0 && !fmBonfireActive && logsInBank[bonfireLevel-1] >= 10) {
 		$("#fm-light-bonfire").attr("class", "btn btn-primary btn-sm");
 	}
 	else {
