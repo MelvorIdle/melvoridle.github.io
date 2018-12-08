@@ -1,4 +1,11 @@
 =============
+Aplha v0.03.3
+=============
+8th December 2018
+
+- Fixed an error where level 1 bonfire would not work.
+
+=============
 Aplha v0.03.2
 =============
 8th December 2018
