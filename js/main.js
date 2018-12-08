@@ -18,7 +18,8 @@ var allVars = [
 	"fishInBank", "currentFishingRod", "fishingRodPurchased", "fishingRodImage", "fishingNextLevelXP",
 	"statFishCaught", "statFishSold", "statFishGPEarned", "fishingMilestoneAchieved",
 	"fmXP", "fmNextLevelProgress", "fmCurrentLevel", "fmCurrentLevelXP", "fmNextLevelXP",
-	"bonfireLevel", "fmStatGPBurnt", "fmStatLogsBurnt", "fmMilestoneAchieved"
+	"bonfireLevel", "fmStatGPBurnt", "fmStatLogsBurnt", "fmMilestoneAchieved",
+	"fishingCurrentLocation", "selectedLog"
 ];
 
 //Exerience equation

@@ -47,104 +47,106 @@ function cutTree(tree) {
 	
 	//Set var to correspond with array values
 	treeArray = tree - 1;
+	
+	if (currentBank < bankMax) {
 
-	//Check how many logs are in the bank
-	//currentBank = logsInBank.reduce(function(logsInBank, b) { return logsInBank + b; }, 0);
-	
-	updateScreen();
-	
-	//Check if cutting the unknown tree
-	if (tree == 10) {
+		//Check how many logs are in the bank
+		//currentBank = logsInBank.reduce(function(logsInBank, b) { return logsInBank + b; }, 0);
 		
-		//Check if you are already cutting it. If you are, stop it and reset.
-		if (isCuttingUnknown) {
+		updateScreen();
+		
+		//Check if cutting the unknown tree
+		if (tree == 10) {
 			
-			isCutting = false;
-			isCuttingUnknown = false;
-			
-			if(cuttingUnknownTimeout) {
-				clearTimeout(cuttingUnknownTimeout);
-			}
-			
-			$("#cut-"+treeID[treeArray]+"-progress").stop().animate({width: "0%"}, 0, "linear");
-			updateScreen();
-			interval = wcOriginalInterval;
-			resetInterval();
-			
-		}
-		else {
-			
-			isCutting = true;
-			isCuttingUnknown = true;
-			
-			//Check for current automations, stop respective automation for other trees and update its button
-			for (i = 0; i <= 8; ++i) {
-				if (isAutomating[i] == 1) {
-					automation(i+1);
-				}	
-			}
-			
-			updateScreen();
-			interval = 20000;
-			$("#cut-"+treeID[treeArray]+"-progress").animate({width: "100%"}, interval, "linear");
-			$("#cut-"+treeID[treeArray]+"-progress").animate({width: "0%"}, 0, "linear");
-			
-			cuttingUnknownTimeout = setTimeout(function () {
-				endGameActivated = true;
+			//Check if you are already cutting it. If you are, stop it and reset.
+			if (isCuttingUnknown) {
+				
 				isCutting = false;
 				isCuttingUnknown = false;
-				treeLevelAchieved[9] = 1;
-				endGameMultiplier = 10;
+				
+				if(cuttingUnknownTimeout) {
+					clearTimeout(cuttingUnknownTimeout);
+				}
+				
+				$("#cut-"+treeID[treeArray]+"-progress").stop().animate({width: "0%"}, 0, "linear");
+				updateScreen();
 				interval = wcOriginalInterval;
 				resetInterval();
+				
+			}
+			else {
+				
+				isCutting = true;
+				isCuttingUnknown = true;
+				
+				//Check for current automations, stop respective automation for other trees and update its button
+				for (i = 0; i <= 8; ++i) {
+					if (isAutomating[i] == 1) {
+						automation(i+1);
+					}	
+				}
+				
 				updateScreen();
-				$.notify(
-					"WOODCUTTING PRESTIGE ACTIVATED",
-					{ position: 'top', className: 'error', showDuration: 400, autoHideDelay: 5000 }
-				);
-			}, interval);
+				interval = 20000;
+				$("#cut-"+treeID[treeArray]+"-progress").animate({width: "100%"}, interval, "linear");
+				$("#cut-"+treeID[treeArray]+"-progress").animate({width: "0%"}, 0, "linear");
+				
+				cuttingUnknownTimeout = setTimeout(function () {
+					endGameActivated = true;
+					isCutting = false;
+					isCuttingUnknown = false;
+					treeLevelAchieved[9] = 1;
+					endGameMultiplier = 10;
+					interval = wcOriginalInterval;
+					resetInterval();
+					updateScreen();
+					$.notify(
+						"WOODCUTTING PRESTIGE ACTIVATED",
+						{ position: 'top', className: 'error', showDuration: 400, autoHideDelay: 5000 }
+					);
+				}, interval);
+				
+			}
 			
-		}
-		
-	}
-	else {
-	
-		//Disable the all cut buttons, so you can't click them all and powerfarm. Also add a check for auto cutting so it doesn't ruin everything like always
-		if (isAutomating[treeArray] == 0) {
-		
-			isCutting = true;
-			updateScreen();
-		
 		}
 		else {
-			$("#cut-"+treeID[treeArray]).attr("class", "btn btn-success disabled");
-		}
+		
+			//Disable the all cut buttons, so you can't click them all and powerfarm. Also add a check for auto cutting so it doesn't ruin everything like always
+			if (isAutomating[treeArray] == 0) {
+			
+				isCutting = true;
+				updateScreen();
+			
+			}
+			else {
+				$("#cut-"+treeID[treeArray]).attr("class", "btn btn-success disabled");
+			}
 
-		if(eventInProgress && eventTreeID == treeArray && randomEventID == 4 && !isCuttingUnknown) {
-			interval = 500;
-		}
-		
-		//Initiate function after set time as defined by interval
-		window.setTimeout(function(treeIdToKeep) { return function() {
-			
-			if (endGameActivated) {
-				endGameMultiplier = 10;
+			if(eventInProgress && eventTreeID == treeArray && randomEventID == 4 && !isCuttingUnknown) {
+				interval = 500;
 			}
-		
-			if(eventInProgress && eventTreeID == treeIdToKeep) {
 			
-				if(randomEventID == 2) {
-					xpMultiplier = 2;
+			//Initiate function after set time as defined by interval
+			window.setTimeout(function(treeIdToKeep) { return function() {
+				
+				if (endGameActivated) {
+					endGameMultiplier = 10;
 				}
 			
-				if(randomEventID == 3) {
-					logsMultiplier = 2;
+				if(eventInProgress && eventTreeID == treeIdToKeep) {
+				
+					if(randomEventID == 2) {
+						xpMultiplier = 2;
+					}
+				
+					if(randomEventID == 3) {
+						logsMultiplier = 2;
+					}
+				
+				
 				}
 			
-			
-			}
-		
-			//Check if there is space in the bank, if yes check which axe is being used and apply additional xp, then check how many spaces are left in bank so double logs doesn't go over the limit.
+				//Check if there is space in the bank, if yes check which axe is being used and apply additional xp, then check how many spaces are left in bank so double logs doesn't go over the limit.
 			if (currentBank < bankMax) {
 			
 				if (axeBonusXP[currentAxe] == 0) {
@@ -176,59 +178,65 @@ function cutTree(tree) {
 					automation(treeIdToKeep+1);
 				}
 			}
-		
-	
-			//Get XP required for next level
-			nextLevelXP = exp.level_to_xp(currentLevel+1);
-		
-			//If current XP is greater than the required xp for next level, perform the level up function
-			if (xp >= nextLevelXP) {
-				levelUp(xp);
-			}
-			else {				
-				updateLevelProgress();
-			}
-		
-			if(isAutomating[treeIdToKeep] == 1 && !isCutting && !keepButtonDisabled) {
-				$("#cut-"+treeID[treeIdToKeep]+"-auto").attr("class", "btn btn-info");
-			}
-	
-			if (isAutomating[treeIdToKeep] == 0) {
-				isCutting = false;
-			}
-			
-			//Reset the progress bar and clear animation queue, to avoid build up of animation
-			$("#cut-"+treeID[treeIdToKeep]+"-progress").stop(true, false).animate({width: "0%"}, 0, "linear");
-			
+				
+				
 			
 		
-			//Apply screen updates
-			updateScreen();
-		
-			//Random event? 1 in 100 chance
-			if (!eventInProgress) {
-				randomEventChance = Math.floor(Math.random()*(100)) + 1;
-				randomEventCheck(randomEventChance);
-			}
+				//Get XP required for next level
+				nextLevelXP = exp.level_to_xp(currentLevel+1);
 			
-			//Reset values
-			logsMultiplier = 1;
-			xpMultiplier = 1;
-			interval = wcOriginalInterval;
-			resetInterval();
+				//If current XP is greater than the required xp for next level, perform the level up function
+				if (xp >= nextLevelXP) {
+					levelUp(xp);
+				}
+				else {				
+					updateLevelProgress();
+				}
 			
-		}} (treeArray), interval);
+				if(isAutomating[treeIdToKeep] == 1 && !isCutting && !keepButtonDisabled) {
+					$("#cut-"+treeID[treeIdToKeep]+"-auto").attr("class", "btn btn-info");
+				}
 		
-		//Animate the progress bar for cutting trees
-		if (currentBank < bankMax) {
+				if (isAutomating[treeIdToKeep] == 0) {
+					isCutting = false;
+				}
+				
+				//Reset the progress bar and clear animation queue, to avoid build up of animation
+				$("#cut-"+treeID[treeIdToKeep]+"-progress").stop(true, false).animate({width: "0%"}, 0, "linear");
+				
+				
+			
+				//Apply screen updates
+				updateScreen();
+			
+				//Random event? 1 in 100 chance
+				if (!eventInProgress) {
+					randomEventChance = Math.floor(Math.random()*(100)) + 1;
+					randomEventCheck(randomEventChance);
+				}
+				
+				//Reset values
+				logsMultiplier = 1;
+				xpMultiplier = 1;
+				interval = wcOriginalInterval;
+				resetInterval();
+				
+			}} (treeArray), interval);
+			
+			//Animate the progress bar for cutting trees
+			
 			$("#cut-"+treeID[treeArray]+"-progress").animate({width: "100%"}, interval, "linear");
 			$("#cut-"+treeID[treeArray]+"-progress").animate({width: "0%"}, 0, "linear");
-		}
-		else {
-			$("#cut-"+treeID[treeArray]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
-			notify("bankFull");
+		
 		}
 	
+	}
+	else {
+		$("#cut-"+treeID[treeArray]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
+		notify("bankFull");
+		if(automate) {
+			automateCutTree(treeArray);
+		}
 	}
 	
 };
@@ -311,8 +319,13 @@ function automation(treeToAuto) {
 
 function automateCutTree(test) {
 	
-	cutTree(test);
-	automate = setTimeout(function() { automateCutTree(test); }, interval);
+	if (currentBank < bankMax) {
+		cutTree(test);
+		automate = setTimeout(function() { automateCutTree(test); }, interval);
+	}
+	else {
+		automate = setTimeout(function() { automateCutTree(test); }, interval);
+	}
 	
 }
 
@@ -2424,19 +2437,36 @@ function sellLogs(tree) {
 
 function sellTenLogs(tree) {
 	
-	//Award GP for log selling
-	gp = gp + (logsCost[tree] * 10);
-	//Update GP earned
-	wcStatGPEarned = wcStatGPEarned + (logsCost[tree] * 10);
-	//Update logs sold stat
-	wcStatLogsSold = wcStatLogsSold + 10;
-	//Set logs to 0
-	logsInBank[tree]-=10;
-	//Update text on screen
-	updateCurrentBank();
-	$("#gp").text(convertGP(gp));
-	updateBank();
-	updateStats();
+	if (logsInBank[tree] >= 10) {
+		//Award GP for log selling
+		gp = gp + (logsCost[tree] * 10);
+		//Update GP earned
+		wcStatGPEarned = wcStatGPEarned + (logsCost[tree] * 10);
+		//Update logs sold stat
+		wcStatLogsSold = wcStatLogsSold + 10;
+		//Set logs to 0
+		logsInBank[tree]-=10;
+		//Update text on screen
+		updateCurrentBank();
+		$("#gp").text(convertGP(gp));
+		updateBank();
+		updateStats();
+	}
+	else {
+			//Award GP for log selling
+		gp = gp + (logsCost[tree] * logsInBank[tree]);
+		//Update GP earned
+		wcStatGPEarned = wcStatGPEarned + (logsCost[tree] * logsInBank[tree]);
+		//Update logs sold stat
+		wcStatLogsSold = wcStatLogsSold + logsInBank[tree];
+		//Set logs to 0
+		logsInBank[tree] = 0;
+		//Update text on screen
+		updateCurrentBank();
+		$("#gp").text(convertGP(gp));
+		updateBank();
+		updateStats();
+	}
 	
 }
 

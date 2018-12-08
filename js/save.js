@@ -57,7 +57,8 @@ function loadData() {
 	resetInterval();
 	updateBankUpgrades();
 	fishingUpdateScreen();
-	fmUpdateScreen();
+	fmSetLogs(selectedLog);
+	setLocation(fishingCurrentLocation);
 	updateScreen();
 	$.notify(
 		"Progress Loaded!",

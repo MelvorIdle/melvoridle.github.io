@@ -37,6 +37,8 @@ var fishingMilestoneAchieved = [0,0,0,0];
 
 function startFishing(getLocation) {
 	
+	if (currentBank < bankMax ) {
+	
 		if (fishingIsAutomating[getLocation] != 1) {
 			isFishing = true;
 			fishingUpdateScreen();
@@ -137,6 +139,7 @@ function startFishing(getLocation) {
 			//Re-enable Fish button
 			$("#fish-"+fishingLocations[keepGetLocation]).attr("class", "btn btn-success");
 			
+			
 			if (currentBank < bankMax ) {
 				//Update XP
 				if (currentFishingRod == 0) {
@@ -150,12 +153,18 @@ function startFishing(getLocation) {
 				//Update Stats
 				statFishCaught++;
 				updateFishingStats();
+				
+				$("#fishing-rod-1").notify(
+					"<img src='img/"+fish[fishAvailable[fishToCatch]]+"2.png'>",
+					{ position:"right", className: 'success', showDuration: 400, autoHideDelay: 2000, showAnimation: 'slideDown', hideAnimation: 'slideUp', arrowShow: false }
+				);
 			}
 			else {
 				if(fishingAutomate) {
 					startAutoFishing(keepGetLocation);
 				}
 			}
+			
 		
 			
 		
@@ -174,10 +183,7 @@ function startFishing(getLocation) {
 				isFishing = false;
 			}
 			
-			$("#fishing-rod-1").notify(
-				"<img src='img/"+fish[fishAvailable[fishToCatch]]+"2.png'>",
-				{ position:"right", className: 'success', showDuration: 400, autoHideDelay: 2000, showAnimation: 'slideDown', hideAnimation: 'slideUp', arrowShow: false }
-			);
+			
 		
 			
 			fishingInterval = 4000;
@@ -191,14 +197,18 @@ function startFishing(getLocation) {
 		}} (getLocation), fishingInterval);
 	
 		//Animate the progress bar for cutting trees
-		if (currentBank < bankMax) {
-			$("#fish-"+fishingLocations[getLocation]+"-progress").animate({width: "100%"}, fishingInterval, "linear");
-			$("#fish-"+fishingLocations[getLocation]+"-progress").animate({width: "0%"}, 0, "linear");
+		$("#fish-"+fishingLocations[getLocation]+"-progress").animate({width: "100%"}, fishingInterval, "linear");
+		$("#fish-"+fishingLocations[getLocation]+"-progress").animate({width: "0%"}, 0, "linear");
+		
+		
+	}
+	else {
+		$("#fish-"+fishingLocations[getLocation]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
+		notify("bankFull");
+		if(fishingAutomate) {
+			automateFish(getLocation);
 		}
-		else {
-			$("#fish-"+fishingLocations[getLocation]+"-progress").stop(true, true).animate({width: "0%"}, 0, "linear");
-			notify("bankFull");
-		}
+	}
 	
 }
 
@@ -280,6 +290,9 @@ function automateFish(fishTest) {
 	
 	if (currentBank < bankMax ) {
 		startFishing(fishTest);
+		fishingAutomate = setTimeout(function() { automateFish(fishTest); }, fishingInterval);
+	}
+	else {
 		fishingAutomate = setTimeout(function() { automateFish(fishTest); }, fishingInterval);
 	}
 	
@@ -570,18 +583,34 @@ function sellFish(fish) {
 
 function sellTenFish(fish) {
 	
-	//Award GP for log selling
-	gp = gp + (fishCost[fish] * 10);
-	//Update stats
-	statFishSold = statFishSold + 10;
-	statFishGPEarned = statFishGPEarned + (fishCost[fish] * 10);
-	updateFishingStats();
-	//Set logs to 0
-	fishInBank[fish]-=10;
-	//Update text on screen
-	updateCurrentBank();
-	$("#gp").text(convertGP(gp));
-	updateFishingBank();
+	if (fishInBank[fish] >= 10) {
+		//Award GP for log selling
+		gp = gp + (fishCost[fish] * 10);
+		//Update stats
+		statFishSold = statFishSold + 10;
+		statFishGPEarned = statFishGPEarned + (fishCost[fish] * 10);
+		updateFishingStats();
+		//Set logs to 0
+		fishInBank[fish]-=10;
+		//Update text on screen
+		updateCurrentBank();
+		$("#gp").text(convertGP(gp));
+		updateFishingBank();
+	}
+	else {
+		//Award GP for log selling
+		gp = gp + (fishCost[fish] * fishInBank[fish]);
+		//Update stats
+		statFishSold = statFishSold + fishInBank[fish];
+		statFishGPEarned = statFishGPEarned + (fishCost[fish] * fishInBank[fish]);
+		updateFishingStats();
+		//Set logs to 0
+		fishInBank[fish] = 0;
+		//Update text on screen
+		updateCurrentBank();
+		$("#gp").text(convertGP(gp));
+		updateFishingBank();
+	}
 	
 }
 
@@ -767,32 +796,32 @@ function updateFishingStats() {
 
 function setLocation(locationToSet) {
 	
-	currentLocation = locationToSet;
+	fishingCurrentLocation = locationToSet;
 	
-	if (currentLocation == 1) {
+	if (fishingCurrentLocation == 1) {
 		$("#fishing-location").text("Draynor Village");
 	}
-	if (currentLocation == 3) {
+	if (fishingCurrentLocation == 3) {
 		$("#fishing-location").text("Barbarian Outpost");
 	}
-	if (currentLocation == 4) {
+	if (fishingCurrentLocation == 4) {
 		$("#fishing-location").text("Seers' Village");
 	}
-	if (currentLocation == 5) {
+	if (fishingCurrentLocation == 5) {
 		$("#fishing-location").text("Fishing Guild");
 	}
-	if (currentLocation == 6) {
+	if (fishingCurrentLocation == 6) {
 		$("#fishing-location").text("Taverley Dungeon");
 	}
-	if (currentLocation == 7) {
+	if (fishingCurrentLocation == 7) {
 		$("#fishing-location").text("Deep Seas");
 	}
-	if (currentLocation == 0 || currentLocation == 2) {
-		$("#fishing-location").text(fishingLocations[currentLocation].charAt(0).toUpperCase() + fishingLocations[currentLocation].slice(1));
+	if (fishingCurrentLocation == 0 || fishingCurrentLocation == 2) {
+		$("#fishing-location").text(fishingLocations[fishingCurrentLocation].charAt(0).toUpperCase() + fishingLocations[fishingCurrentLocation].slice(1));
 	}
 	
 	for(i=0; i<8; i++) {
-		if(i != currentLocation) {
+		if(i != fishingCurrentLocation) {
 			$("#location-"+fishingLocations[i]).attr("class", "d-none");
 			$("#location-"+fishingLocations[i]+"-progress").attr("class", "card-footer text-muted d-none");
 		}
@@ -801,6 +830,8 @@ function setLocation(locationToSet) {
 			$("#location-"+fishingLocations[i]+"-progress").attr("class", "card-footer text-muted");
 		}
 	}
+	
+	saveData(0);
 	
 }
 

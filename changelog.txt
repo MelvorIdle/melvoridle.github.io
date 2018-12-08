@@ -1,4 +1,13 @@
 =============
+Aplha v0.03.2
+=============
+8th December 2018
+
+- Fixed error with bank value reducing below zero.
+- If automating Woodcutting or Fishing and your bank fills up, it now waits for space to free then continues, rather than disabling.
+- Your last saved fishing location and selected logs to burn now saves. It no longer resets to the lowest level area/log on load.
+
+=============
 Aplha v0.03.1
 =============
 7th December 2018
