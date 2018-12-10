@@ -716,10 +716,10 @@ function updateFishLocations() {
 	}
 	//Auto Fish
 	if (fishingIsAutomating[6] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 6) {
-		$("#fish-taverly-auto").attr("class", "btn btn-outline-info");
+		$("#fish-taverley-auto").attr("class", "btn btn-outline-info");
 	}
 	if (fishingIsAutomating[6] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 7)) {
-		$("#fish-taverly-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-taverley-auto").attr("class", "btn btn-outline-info disabled");
 	}
 	
 	//DEEP SEAS
