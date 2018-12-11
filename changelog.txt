@@ -1,4 +1,16 @@
 =============
+Aplha v0.03.4
+=============
+11th December 2018
+
+CHANGES
+- Compressed the view of Woodcutting to show more trees within the view, and to also minimise the amount of scrolling.
+
+Bug Fixes
+- Fixed a major bug where pressing enter would still activate the buttons, even when it is visually disabled.
+- Fixed an error where maximum level bonfire image would break.
+
+=============
 Aplha v0.03.3
 =============
 8th December 2018

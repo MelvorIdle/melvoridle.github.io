@@ -115,12 +115,10 @@ function cutTree(tree) {
 			if (isAutomating[treeArray] == 0) {
 			
 				isCutting = true;
-				updateScreen();
 			
 			}
-			else {
-				$("#cut-"+treeID[treeArray]).attr("class", "btn btn-success disabled");
-			}
+			
+			updateScreen();
 
 			if(eventInProgress && eventTreeID == treeArray && randomEventID == 4 && !isCuttingUnknown) {
 				interval = 500;
@@ -195,6 +193,7 @@ function cutTree(tree) {
 			
 				if(isAutomating[treeIdToKeep] == 1 && !isCutting && !keepButtonDisabled) {
 					$("#cut-"+treeID[treeIdToKeep]+"-auto").attr("class", "btn btn-info");
+					$("#cut-"+treeID[treeIdToKeep]+"-auto").removeAttr("disabled");
 				}
 		
 				if (isAutomating[treeIdToKeep] == 0) {
@@ -249,6 +248,7 @@ function automation(treeToAuto) {
 	if (isAutomating[treeToAutoArray] == 1) {
 		
 		$("#cut-"+treeID[treeToAutoArray]+"-auto").attr("class", "btn btn-outline-info disabled");
+		$("#cut-"+treeID[treeToAutoArray]+"-auto").attr("disabled", "disabled");
 		$("#cut-"+treeID[treeToAutoArray]+"-auto").text("Disabling Auto Cut");
 		
 		keepButtonDisabled = true;
@@ -261,7 +261,9 @@ function automation(treeToAuto) {
 		if (!eventInProgress) {
 			setTimeout(function(treeToAutoArrayKeep) { return function() {
 				$("#cut-"+treeID[treeToAutoArrayKeep]).attr("class", "btn btn-success");
+				$("#cut-"+treeID[treeToAutoArrayKeep]).removeAttr("disabled");
 				$("#cut-"+treeID[treeToAutoArrayKeep]+"-auto").attr("class", "btn btn-outline-info");
+				$("#cut-"+treeID[treeToAutoArrayKeep]+"-auto").removeAttr("disabled");
 				$("#cut-"+treeID[treeToAutoArrayKeep]+"-auto").text("Enable Auto Cut");
 				isAutomating[treeToAutoArrayKeep] = 0;
 				keepButtonDisabled = false;
@@ -290,6 +292,7 @@ function automation(treeToAuto) {
 			if (isAutomating[i] == 1) {
 				isAutomating[i] = 0;
 				$("#cut-"+treeID[i]+"-auto").attr("class", "btn btn-outline-info");
+				$("#cut-"+treeID[i]+"-auto").removeAttr("disabled");
 				$("#cut-"+treeID[i]+"-auto").text("Enable Auto Cut");
 			}
 		}
@@ -301,7 +304,9 @@ function automation(treeToAuto) {
 		
 		//Update auto button text and disable the cut button
 		$("#cut-"+treeID[treeToAutoArray]).attr("class", "btn btn-success disabled");
+		$("#cut-"+treeID[treeToAutoArray]).attr("disabled", "disabled");
 		$("#cut-"+treeID[treeToAutoArray]+"-auto").attr("class", "btn btn-info disabled");
+		$("#cut-"+treeID[treeToAutoArray]+"-auto").attr("disabled", "disabled");
 		$("#cut-"+treeID[treeToAutoArray]+"-auto").text("Disable Auto Cut");
 		
 		updateScreen();
@@ -605,19 +610,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[0]) {
 					$("#cut-tree").attr("class", "btn btn-warning disabled");
+					$("#cut-tree").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-tree").attr("class", "btn btn-warning");
+					$("#cut-tree").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[0]) {
 					$("#cut-tree").attr("class", "btn btn-success disabled");
+					$("#cut-tree").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-tree").attr("class", "btn btn-success");
+					$("#cut-tree").removeAttr("disabled");
 				}
 				$("#cut-tree-desc").text("A commonly found tree.");
 				$("#cut-tree-desc").attr("class", "card-text");
@@ -626,6 +635,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-tree").attr("class", "btn btn-success");
+			$("#cut-tree").removeAttr("disabled");
 			$("#cut-tree-desc").text("A commonly found tree.");
 			$("#cut-tree-desc").attr("class", "card-text");
 			$("#cut-tree-card").attr("class", "card text-center");
@@ -636,6 +646,7 @@ function updateTrees() {
 	//Oak Tree - Level 15
 	if (currentLevel < 15) {
 		$("#cut-oak").attr("class", "btn btn-success disabled");
+		$("#cut-oak").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -647,9 +658,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 1) {
 				$("#cut-oak").attr("class", "btn btn-success");
+				$("#cut-oak").removeAttr("disabled");
 			}
 			else {
 				$("#cut-oak").attr("class", "btn btn-warning");
+				$("#cut-oak").removeAttr("disabled");
 			}
 		}
 		
@@ -673,19 +686,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[1]) {
 					$("#cut-oak").attr("class", "btn btn-warning disabled");
+					$("#cut-oak").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-oak").attr("class", "btn btn-warning");
+					$("#cut-oak").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[1]) {
 					$("#cut-oak").attr("class", "btn btn-success disabled");
+					$("#cut-oak").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-oak").attr("class", "btn btn-success");
+					$("#cut-oak").removeAttr("disabled");
 				}
 				$("#cut-oak-desc").text("A commonly found tree.");
 				$("#cut-oak-desc").attr("class", "card-text");
@@ -694,6 +711,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-oak").attr("class", "btn btn-success");
+			$("#cut-oak").removeAttr("disabled");
 			$("#cut-oak-desc").text("A commonly found tree.");
 			$("#cut-oak-desc").attr("class", "card-text");
 			$("#cut-oak-card").attr("class", "card text-center");
@@ -704,6 +722,7 @@ function updateTrees() {
 	//Willow Tree - Level 30
 	if (currentLevel < 30) {
 		$("#cut-willow").attr("class", "btn btn-success disabled");
+		$("#cut-willow").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -715,9 +734,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 2) {
 				$("#cut-willow").attr("class", "btn btn-success");
+				$("#cut-willow").removeAttr("disabled");
 			}
 			else {
 				$("#cut-willow").attr("class", "btn btn-warning");
+				$("#cut-willow").removeAttr("disabled");
 			}
 		}
 		
@@ -741,19 +762,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[2]) {
 					$("#cut-willow").attr("class", "btn btn-warning disabled");
+					$("#cut-willow").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-willow").attr("class", "btn btn-warning");
+					$("#cut-willow").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[2]) {
 					$("#cut-willow").attr("class", "btn btn-success disabled");
+					$("#cut-willow").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-willow").attr("class", "btn btn-success");
+					$("#cut-willow").removeAttr("disabled");
 				}
 				$("#cut-willow-desc").text("A commonly found tree.");
 				$("#cut-willow-desc").attr("class", "card-text");
@@ -762,6 +787,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-willow").attr("class", "btn btn-success");
+			$("#cut-willow").removeAttr("disabled");
 			$("#cut-willow-desc").text("A commonly found tree.");
 			$("#cut-willow-desc").attr("class", "card-text");
 			$("#cut-willow-card").attr("class", "card text-center");
@@ -772,6 +798,7 @@ function updateTrees() {
 	//Teak Tree - Level 35
 	if (currentLevel < 35) {
 		$("#cut-teak").attr("class", "btn btn-success disabled");
+		$("#cut-teak").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -783,9 +810,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 3) {
 				$("#cut-teak").attr("class", "btn btn-success");
+				$("#cut-teak").removeAttr("disabled");
 			}
 			else {
 				$("#cut-teak").attr("class", "btn btn-warning");
+				$("#cut-teak").removeAttr("disabled");
 			}
 		}
 		
@@ -809,19 +838,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[3]) {
 					$("#cut-teak").attr("class", "btn btn-warning disabled");
+					$("#cut-teak").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-teak").attr("class", "btn btn-warning");
+					$("#cut-teak").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[3]) {
 					$("#cut-teak").attr("class", "btn btn-success disabled");
+					$("#cut-teak").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-teak").attr("class", "btn btn-success");
+					$("#cut-teak").removeAttr("disabled");
 				}
 				$("#cut-teak-desc").text("A commonly found tree.");
 				$("#cut-teak-desc").attr("class", "card-text");
@@ -830,6 +863,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-teak").attr("class", "btn btn-success");
+			$("#cut-teak").removeAttr("disabled");
 			$("#cut-teak-desc").text("A commonly found tree.");
 			$("#cut-teak-desc").attr("class", "card-text");
 			$("#cut-teak-card").attr("class", "card text-center");
@@ -840,6 +874,7 @@ function updateTrees() {
 	//Maple Tree - Level 45
 	if (currentLevel < 45) {
 		$("#cut-maple").attr("class", "btn btn-success disabled");
+		$("#cut-maple").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -851,9 +886,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 4) {
 				$("#cut-maple").attr("class", "btn btn-success");
+				$("#cut-maple").removeAttr("disabled");
 			}
 			else {
 				$("#cut-maple").attr("class", "btn btn-warning");
+				$("#cut-maple").removeAttr("disabled");
 			}
 		}
 		
@@ -877,19 +914,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[4]) {
 					$("#cut-maple").attr("class", "btn btn-warning disabled");
+					$("#cut-maple").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-maple").attr("class", "btn btn-warning");
+					$("#cut-maple").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[4]) {
 					$("#cut-maple").attr("class", "btn btn-success disabled");
+					$("#cut-maple").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-maple").attr("class", "btn btn-success");
+					$("#cut-maple").removeAttr("disabled");
 				}
 				$("#cut-maple-desc").text("A commonly found tree.");
 				$("#cut-maple-desc").attr("class", "card-text");
@@ -898,6 +939,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-maple").attr("class", "btn btn-success");
+			$("#cut-maple").removeAttr("disabled");
 			$("#cut-maple-desc").text("A commonly found tree.");
 			$("#cut-maple-desc").attr("class", "card-text");
 			$("#cut-maple-card").attr("class", "card text-center");
@@ -908,6 +950,7 @@ function updateTrees() {
 	//Mahogany Tree - Level 50
 	if (currentLevel < 50) {
 		$("#cut-mahogany").attr("class", "btn btn-success disabled");
+		$("#cut-mahogany").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -919,9 +962,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 5) {
 				$("#cut-mahogany").attr("class", "btn btn-success");
+				$("#cut-mahogany").removeAttr("disabled");
 			}
 			else {
 				$("#cut-mahogany").attr("class", "btn btn-warning");
+				$("#cut-mahogany").removeAttr("disabled");
 			}
 		}
 		
@@ -945,19 +990,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[5]) {
 					$("#cut-mahogany").attr("class", "btn btn-warning disabled");
+					$("#cut-mahogany").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-mahogany").attr("class", "btn btn-warning");
+					$("#cut-mahogany").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[5]) {
 					$("#cut-mahogany").attr("class", "btn btn-success disabled");
+					$("#cut-mahogany").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-mahogany").attr("class", "btn btn-success");
+					$("#cut-mahogany").removeAttr("disabled");
 				}
 				$("#cut-mahogany-desc").text("A commonly found tree.");
 				$("#cut-mahogany-desc").attr("class", "card-text");
@@ -966,6 +1015,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-mahogany").attr("class", "btn btn-success");
+			$("#cut-mahogany").removeAttr("disabled");
 			$("#cut-mahogany-desc").text("A commonly found tree.");
 			$("#cut-mahogany-desc").attr("class", "card-text");
 			$("#cut-mahogany-card").attr("class", "card text-center");
@@ -976,6 +1026,7 @@ function updateTrees() {
 	//Yew Tree - Level 60
 	if (currentLevel < 60) {
 		$("#cut-yew").attr("class", "btn btn-success disabled");
+		$("#cut-yew").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -987,9 +1038,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 6) {
 				$("#cut-yew").attr("class", "btn btn-success");
+				$("#cut-yew").removeAttr("disabled");
 			}
 			else {
 				$("#cut-yew").attr("class", "btn btn-warning");
+				$("#cut-yew").removeAttr("disabled");
 			}
 		}
 		
@@ -1013,19 +1066,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[6]) {
 					$("#cut-yew").attr("class", "btn btn-warning disabled");
+					$("#cut-yew").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-yew").attr("class", "btn btn-warning");
+					$("#cut-yew").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[6]) {
 					$("#cut-yew").attr("class", "btn btn-success disabled");
+					$("#cut-yew").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-yew").attr("class", "btn btn-success");
+					$("#cut-yew").removeAttr("disabled");
 				}
 				$("#cut-yew-desc").text("A commonly found tree.");
 				$("#cut-yew-desc").attr("class", "card-text");
@@ -1034,6 +1091,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-yew").attr("class", "btn btn-success");
+			$("#cut-yew").removeAttr("disabled");
 			$("#cut-yew-desc").text("A commonly found tree.");
 			$("#cut-yew-desc").attr("class", "card-text");
 			$("#cut-yew-card").attr("class", "card text-center");
@@ -1044,6 +1102,7 @@ function updateTrees() {
 	//Magic Tree - Level 75
 	if (currentLevel < 75) {
 		$("#cut-magic").attr("class", "btn btn-success disabled");
+		$("#cut-magic").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -1055,9 +1114,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 7) {
 				$("#cut-magic").attr("class", "btn btn-success");
+				$("#cut-magic").removeAttr("disabled");
 			}
 			else {
 				$("#cut-magic").attr("class", "btn btn-warning");
+				$("#cut-magic").removeAttr("disabled");
 			}
 		}
 		
@@ -1081,19 +1142,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[7]) {
 					$("#cut-magic").attr("class", "btn btn-warning disabled");
+					$("#cut-magic").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-magic").attr("class", "btn btn-warning");
+					$("#cut-magic").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[7]) {
 					$("#cut-magic").attr("class", "btn btn-success disabled");
+					$("#cut-magic").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-magic").attr("class", "btn btn-success");
+					$("#cut-magic").removeAttr("disabled");
 				}
 				$("#cut-magic-desc").text("A commonly found tree.");
 				$("#cut-magic-desc").attr("class", "card-text");
@@ -1102,6 +1167,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-magic").attr("class", "btn btn-success");
+			$("#cut-magic").removeAttr("disabled");
 			$("#cut-magic-desc").text("A commonly found tree.");
 			$("#cut-magic-desc").attr("class", "card-text");
 			$("#cut-magic-card").attr("class", "card text-center");
@@ -1112,6 +1178,7 @@ function updateTrees() {
 	//Redwood Tree - Level 90
 	if (currentLevel < 90) {
 		$("#cut-redwood").attr("class", "btn btn-success disabled");
+		$("#cut-redwood").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -1123,9 +1190,11 @@ function updateTrees() {
 			//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 			if(!eventInProgress && eventTreeID != 8) {
 				$("#cut-redwood").attr("class", "btn btn-success");
+				$("#cut-redwood").removeAttr("disabled");
 			}
 			else {
 				$("#cut-redwood").attr("class", "btn btn-warning");
+				$("#cut-redwood").removeAttr("disabled");
 			}
 		}
 		
@@ -1149,19 +1218,23 @@ function updateTrees() {
 				}
 				
 				//Check if the player is cutting during the event, disable button accordingly
-				if (isCutting) {
+				if (isCutting || isAutomating[8]) {
 					$("#cut-redwood").attr("class", "btn btn-warning disabled");
+					$("#cut-redwood").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-redwood").attr("class", "btn btn-warning");
+					$("#cut-redwood").removeAttr("disabled");
 				}
 				
 			} else {
 				if (isCutting || keepButtonDisabled || isAutomating[8]) {
 					$("#cut-redwood").attr("class", "btn btn-success disabled");
+					$("#cut-redwood").attr("disabled", "disabled");
 				}
 				else {
 					$("#cut-redwood").attr("class", "btn btn-success");
+					$("#cut-redwood").removeAttr("disabled");
 				}
 				$("#cut-redwood-desc").text("A commonly found tree.");
 				$("#cut-redwood-desc").attr("class", "card-text");
@@ -1170,6 +1243,7 @@ function updateTrees() {
 		}
 		else {
 			$("#cut-redwood").attr("class", "btn btn-success");
+			$("#cut-redwood").removeAttr("disabled");
 			$("#cut-redwood-desc").text("A commonly found tree.");
 			$("#cut-redwood-desc").attr("class", "card-text");
 			$("#cut-redwood-card").attr("class", "card text-center");
@@ -1180,6 +1254,7 @@ function updateTrees() {
 	//Unknown Tree - Level 99
 	if (currentLevel < 99 || currentAxe < 9) {
 		$("#cut-unknown").attr("class", "btn btn-success disabled");
+		$("#cut-unknown").attr("disabled", "disabled");
 	}
 	else {
 		
@@ -1199,12 +1274,14 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-unknown").attr("class", "btn btn-success disabled");
+				$("#cut-unknown").attr("disabled", "disabled");
 			}
 			
 		}
 		else {
 			
 			$("#cut-unknown").attr("class", "btn btn-success");
+			$("#cut-unknown").removeAttr("disabled");
 			$("#cut-unknown").text("Cut?");
 			
 		}
@@ -1228,6 +1305,7 @@ function updateTrees() {
 		//NORMAL
 		if (currentLevel < 99) {
 			$("#cut-tree").attr("class", "btn btn-success disabled");
+			$("#cut-tree").attr("disabled", "disabled");
 			$("#cut-tree-card").attr("class", "card text-center");
 			$("#tree-level").text("Level: 99");
 			$("#tree-level").attr("style", "color:red");
@@ -1243,9 +1321,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 0) {
 					$("#cut-tree").attr("class", "btn btn-success");
+					$("#cut-tree").removeAttr("disabled");
 				}
 				else {
 					$("#cut-tree").attr("class", "btn btn-warning");
+					$("#cut-tree").removeAttr("disabled");
 				}
 			}
 		
@@ -1271,18 +1351,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-tree").attr("class", "btn btn-warning disabled");
+						$("#cut-tree").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-tree").attr("class", "btn btn-warning");
+						$("#cut-tree").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[0]) {
 						$("#cut-tree").attr("class", "btn btn-success disabled");
+						$("#cut-tree").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-tree").attr("class", "btn btn-success");
+						$("#cut-tree").removeAttr("disabled");
 					}
 					$("#cut-tree-desc").text("A commonly found tree.");
 					$("#cut-tree-desc").attr("class", "card-text");
@@ -1291,6 +1375,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-tree").attr("class", "btn btn-success");
+				$("#cut-tree").removeAttr("disabled");
 				$("#cut-tree-desc").text("A commonly found tree.");
 				$("#cut-tree-desc").attr("class", "card-text");
 				$("#tree-level").text("Level: 99");
@@ -1304,6 +1389,7 @@ function updateTrees() {
 		//OAK
 		if (currentLevel < 100) {
 			$("#cut-oak").attr("class", "btn btn-success disabled");
+			$("#cut-oak").attr("disabled", "disabled");
 			$("#cut-oak-card").attr("class", "card text-center");
 			$("#oak-level").text("Level: 100");
 			$("#oak-level").attr("style", "color:red");
@@ -1318,9 +1404,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 1) {
 					$("#cut-oak").attr("class", "btn btn-success");
+					$("#cut-oak").removeAttr("disabled");
 				}
 				else {
 					$("#cut-oak").attr("class", "btn btn-warning");
+					$("#cut-oak").removeAttr("disabled");
 				}
 			}
 		
@@ -1346,18 +1434,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-oak").attr("class", "btn btn-warning disabled");
+						$("#cut-oak").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-oak").attr("class", "btn btn-warning");
+						$("#cut-oak").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[1]) {
 						$("#cut-oak").attr("class", "btn btn-success disabled");
+						$("#cut-oak").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-oak").attr("class", "btn btn-success");
+						$("#cut-oak").removeAttr("disabled");
 					}
 					$("#cut-oak-desc").text("A commonly found tree.");
 					$("#cut-oak-desc").attr("class", "card-text");
@@ -1366,6 +1458,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-oak").attr("class", "btn btn-success");
+				$("#cut-oak").removeAttr("disabled");
 				$("#cut-oak-desc").text("A commonly found tree.");
 				$("#cut-oak-desc").attr("class", "card-text");
 				$("#oak-level").text("Level: 100");
@@ -1379,6 +1472,7 @@ function updateTrees() {
 		//WILLOW
 		if (currentLevel < 102) {
 			$("#cut-willow").attr("class", "btn btn-success disabled");
+			$("#cut-willow").attr("disabled", "disabled");
 			$("#cut-willow-card").attr("class", "card text-center");
 			$("#willow-level").text("Level: 102");
 			$("#willow-level").attr("style", "color:red");
@@ -1393,9 +1487,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 2) {
 					$("#cut-willow").attr("class", "btn btn-success");
+					$("#cut-willow").removeAttr("disabled");
 				}
 				else {
 					$("#cut-willow").attr("class", "btn btn-warning");
+					$("#cut-willow").removeAttr("disabled");
 				}
 			}
 		
@@ -1421,18 +1517,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-willow").attr("class", "btn btn-warning disabled");
+						$("#cut-willow").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-willow").attr("class", "btn btn-warning");
+						$("#cut-willow").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[2]) {
 						$("#cut-willow").attr("class", "btn btn-success disabled");
+						$("#cut-willow").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-willow").attr("class", "btn btn-success");
+						$("#cut-willow").removeAttr("disabled");
 					}
 					$("#cut-willow-desc").text("A commonly found tree.");
 					$("#cut-willow-desc").attr("class", "card-text");
@@ -1441,6 +1541,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-willow").attr("class", "btn btn-success");
+				$("#cut-willow").removeAttr("disabled");
 				$("#cut-willow-desc").text("A commonly found tree.");
 				$("#cut-willow-desc").attr("class", "card-text");
 				$("#willow-level").text("Level: 102");
@@ -1454,6 +1555,7 @@ function updateTrees() {
 		//teak
 		if (currentLevel < 104) {
 			$("#cut-teak").attr("class", "btn btn-success disabled");
+			$("#cut-teak").attr("disabled", "disabled");
 			$("#cut-teak-card").attr("class", "card text-center");
 			$("#teak-level").text("Level: 104");
 			$("#teak-level").attr("style", "color:red");
@@ -1468,9 +1570,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 3) {
 					$("#cut-teak").attr("class", "btn btn-success");
+					$("#cut-teak").removeAttr("disabled");
 				}
 				else {
 					$("#cut-teak").attr("class", "btn btn-warning");
+					$("#cut-teak").removeAttr("disabled");
 				}
 			}
 		
@@ -1496,18 +1600,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-teak").attr("class", "btn btn-warning disabled");
+						$("#cut-teak").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-teak").attr("class", "btn btn-warning");
+						$("#cut-teak").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[3]) {
 						$("#cut-teak").attr("class", "btn btn-success disabled");
+						$("#cut-teak").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-teak").attr("class", "btn btn-success");
+						$("#cut-teak").removeAttr("disabled");
 					}
 					$("#cut-teak-desc").text("A commonly found tree.");
 					$("#cut-teak-desc").attr("class", "card-text");
@@ -1516,6 +1624,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-teak").attr("class", "btn btn-success");
+				$("#cut-teak").removeAttr("disabled");
 				$("#cut-teak-desc").text("A commonly found tree.");
 				$("#cut-teak-desc").attr("class", "card-text");
 				$("#teak-level").text("Level: 104");
@@ -1529,6 +1638,7 @@ function updateTrees() {
 		//maple
 		if (currentLevel < 106) {
 			$("#cut-maple").attr("class", "btn btn-success disabled");
+			$("#cut-maple").attr("disabled", "disabled");
 			$("#cut-maple-card").attr("class", "card text-center");
 			$("#maple-level").text("Level: 106");
 			$("#maple-level").attr("style", "color:red");
@@ -1543,9 +1653,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 4) {
 					$("#cut-maple").attr("class", "btn btn-success");
+					$("#cut-maple").removeAttr("disabled");
 				}
 				else {
 					$("#cut-maple").attr("class", "btn btn-warning");
+					$("#cut-maple").removeAttr("disabled");
 				}
 			}
 		
@@ -1571,18 +1683,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-maple").attr("class", "btn btn-warning disabled");
+						$("#cut-maple").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-maple").attr("class", "btn btn-warning");
+						$("#cut-maple").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[4]) {
 						$("#cut-maple").attr("class", "btn btn-success disabled");
+						$("#cut-maple").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-maple").attr("class", "btn btn-success");
+						$("#cut-maple").removeAttr("disabled");
 					}
 					$("#cut-maple-desc").text("A commonly found tree.");
 					$("#cut-maple-desc").attr("class", "card-text");
@@ -1591,6 +1707,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-maple").attr("class", "btn btn-success");
+				$("#cut-maple").removeAttr("disabled");
 				$("#cut-maple-desc").text("A commonly found tree.");
 				$("#cut-maple-desc").attr("class", "card-text");
 				$("#maple-level").text("Level: 106");
@@ -1604,6 +1721,7 @@ function updateTrees() {
 		//mahogany
 		if (currentLevel < 108) {
 			$("#cut-mahogany").attr("class", "btn btn-success disabled");
+			$("#cut-mahogany").attr("disabled", "disabled");
 			$("#cut-mahogany-card").attr("class", "card text-center");
 			$("#mahogany-level").text("Level: 108");
 			$("#mahogany-level").attr("style", "color:red");
@@ -1618,9 +1736,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 5) {
 					$("#cut-mahogany").attr("class", "btn btn-success");
+					$("#cut-mahogany").removeAttr("disabled");
 				}
 				else {
 					$("#cut-mahogany").attr("class", "btn btn-warning");
+					$("#cut-mahogany").removeAttr("disabled");
 				}
 			}
 		
@@ -1646,18 +1766,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-mahogany").attr("class", "btn btn-warning disabled");
+						$("#cut-mahogany").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-mahogany").attr("class", "btn btn-warning");
+						$("#cut-mahogany").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[5]) {
 						$("#cut-mahogany").attr("class", "btn btn-success disabled");
+						$("#cut-mahogany").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-mahogany").attr("class", "btn btn-success");
+						$("#cut-mahogany").removeAttr("disabled");
 					}
 					$("#cut-mahogany-desc").text("A commonly found tree.");
 					$("#cut-mahogany-desc").attr("class", "card-text");
@@ -1666,6 +1790,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-mahogany").attr("class", "btn btn-success");
+				$("#cut-mahogany").removeAttr("disabled");
 				$("#cut-mahogany-desc").text("A commonly found tree.");
 				$("#cut-mahogany-desc").attr("class", "card-text");
 				$("#mahogany-level").text("Level: 108");
@@ -1679,6 +1804,7 @@ function updateTrees() {
 		//yew
 		if (currentLevel < 110) {
 			$("#cut-yew").attr("class", "btn btn-success disabled");
+			$("#cut-yew").attr("disabled", "disabled");
 			$("#cut-yew-card").attr("class", "card text-center");
 			$("#yew-level").text("Level: 110");
 			$("#yew-level").attr("style", "color:red");
@@ -1693,9 +1819,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 6) {
 					$("#cut-yew").attr("class", "btn btn-success");
+					$("#cut-yew").removeAttr("disabled");
 				}
 				else {
 					$("#cut-yew").attr("class", "btn btn-warning");
+					$("#cut-yew").removeAttr("disabled");
 				}
 			}
 		
@@ -1721,18 +1849,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-yew").attr("class", "btn btn-warning disabled");
+						$("#cut-yew").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-yew").attr("class", "btn btn-warning");
+						$("#cut-yew").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[6]) {
 						$("#cut-yew").attr("class", "btn btn-success disabled");
+						$("#cut-yew").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-yew").attr("class", "btn btn-success");
+						$("#cut-yew").removeAttr("disabled");
 					}
 					$("#cut-yew-desc").text("A commonly found tree.");
 					$("#cut-yew-desc").attr("class", "card-text");
@@ -1741,6 +1873,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-yew").attr("class", "btn btn-success");
+				$("#cut-yew").removeAttr("disabled");
 				$("#cut-yew-desc").text("A commonly found tree.");
 				$("#cut-yew-desc").attr("class", "card-text");
 				$("#yew-level").text("Level: 110");
@@ -1754,6 +1887,7 @@ function updateTrees() {
 		//magic
 		if (currentLevel < 112) {
 			$("#cut-magic").attr("class", "btn btn-success disabled");
+			$("#cut-magic").attr("disabled", "disabled");
 			$("#cut-magic-card").attr("class", "card text-center");
 			$("#magic-level").text("Level: 112");
 			$("#magic-level").attr("style", "color:red");
@@ -1768,9 +1902,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 7) {
 					$("#cut-magic").attr("class", "btn btn-success");
+					$("#cut-magic").removeAttr("disabled");
 				}
 				else {
 					$("#cut-magic").attr("class", "btn btn-warning");
+					$("#cut-magic").removeAttr("disabled");
 				}
 			}
 		
@@ -1796,18 +1932,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-magic").attr("class", "btn btn-warning disabled");
+						$("#cut-magic").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-magic").attr("class", "btn btn-warning");
+						$("#cut-magic").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[7]) {
 						$("#cut-magic").attr("class", "btn btn-success disabled");
+						$("#cut-magic").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-magic").attr("class", "btn btn-success");
+						$("#cut-magic").removeAttr("disabled");
 					}
 					$("#cut-magic-desc").text("A commonly found tree.");
 					$("#cut-magic-desc").attr("class", "card-text");
@@ -1816,6 +1956,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-magic").attr("class", "btn btn-success");
+				$("#cut-magic").removeAttr("disabled");
 				$("#cut-magic-desc").text("A commonly found tree.");
 				$("#cut-magic-desc").attr("class", "card-text");
 				$("#magic-level").text("Level: 112");
@@ -1829,6 +1970,7 @@ function updateTrees() {
 		//redwood
 		if (currentLevel < 114) {
 			$("#cut-redwood").attr("class", "btn btn-success disabled");
+			$("#cut-redwood").attr("disabled", "disabled");
 			$("#cut-redwood-card").attr("class", "card text-center");
 			$("#redwood-level").text("Level: 114");
 			$("#redwood-level").attr("style", "color:red");
@@ -1843,9 +1985,11 @@ function updateTrees() {
 				//check if there is an event running (To make sure when leveling up, the correct button colour is set)
 				if(!eventInProgress && eventTreeID != 8) {
 					$("#cut-redwood").attr("class", "btn btn-success");
+					$("#cut-redwood").removeAttr("disabled");
 				}
 				else {
 					$("#cut-redwood").attr("class", "btn btn-warning");
+					$("#cut-redwood").removeAttr("disabled");
 				}
 			}
 		
@@ -1871,18 +2015,22 @@ function updateTrees() {
 					//Check if the player is cutting during the event, disable button accordingly
 					if (isCutting) {
 						$("#cut-redwood").attr("class", "btn btn-warning disabled");
+						$("#cut-redwood").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-redwood").attr("class", "btn btn-warning");
+						$("#cut-redwood").removeAttr("disabled");
 					}
 				
 				}
 				else {
 					if (isCutting || keepButtonDisabled || isAutomating[8]) {
 						$("#cut-redwood").attr("class", "btn btn-success disabled");
+						$("#cut-redwood").attr("disabled", "disabled");
 					}
 					else {
 						$("#cut-redwood").attr("class", "btn btn-success");
+						$("#cut-redwood").removeAttr("disabled");
 					}
 					$("#cut-redwood-desc").text("A commonly found tree.");
 					$("#cut-redwood-desc").attr("class", "card-text");
@@ -1891,6 +2039,7 @@ function updateTrees() {
 			}
 			else {
 				$("#cut-redwood").attr("class", "btn btn-success");
+				$("#cut-redwood").removeAttr("disabled");
 				$("#cut-redwood-desc").text("A commonly found tree.");
 				$("#cut-redwood-desc").attr("class", "card-text");
 				$("#redwood-level").text("Level: 114");
@@ -1915,10 +2064,12 @@ function updateMilestone() {
 		
 		if (isAutomating[0] != 1 && !keepButtonDisabled && !isCutting) {
 			$("#cut-tree-auto").attr("class", "btn btn-outline-info");
+			$("#cut-tree-auto").removeAttr("disabled");
 		}
 		
 		if (isAutomating[0] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-tree-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-tree-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[0] == 0) {
@@ -1935,20 +2086,24 @@ function updateMilestone() {
 			
 			if(endGameActivated && currentLevel >= 100) {
 				$("#cut-oak-auto").attr("class", "btn btn-outline-info");
+				$("#cut-oak-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 100) {
 				$("#cut-oak-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-oak-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-oak-auto").attr("class", "btn btn-outline-info");
+				$("#cut-oak-auto").removeAttr("disabled");
 			}
 			
 		}
 		
 		if (isAutomating[1] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-oak-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-oak-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[1] == 0) {
@@ -1963,19 +2118,23 @@ function updateMilestone() {
 		if (isAutomating[2] != 1 && !keepButtonDisabled && !isCutting) {
 			if(endGameActivated && currentLevel >= 102) {
 				$("#cut-willow-auto").attr("class", "btn btn-outline-info");
+				$("#cut-willow-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 102) {
 				$("#cut-willow-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-willow-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-willow-auto").attr("class", "btn btn-outline-info");
+				$("#cut-willow-auto").removeAttr("disabled");
 			}
 		}
 		
 		if (isAutomating[2] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-willow-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-willow-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[2] == 0) {
@@ -1990,19 +2149,23 @@ function updateMilestone() {
 		if (isAutomating[3] != 1 && !keepButtonDisabled && !isCutting) {
 			if(endGameActivated && currentLevel >= 104) {
 				$("#cut-teak-auto").attr("class", "btn btn-outline-info");
+				$("#cut-teak-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 104) {
 				$("#cut-teak-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-teak-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-teak-auto").attr("class", "btn btn-outline-info");
+				$("#cut-teak-auto").removeAttr("disabled");
 			}
 		}
 		
 		if (isAutomating[3] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-teak-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-teak-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[3] == 0) {
@@ -2017,19 +2180,23 @@ function updateMilestone() {
 		if (isAutomating[4] != 1 && !keepButtonDisabled && !isCutting) {
 			if(endGameActivated && currentLevel >= 106) {
 				$("#cut-maple-auto").attr("class", "btn btn-outline-info");
+				$("#cut-maple-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 106) {
 				$("#cut-maple-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-maple-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-maple-auto").attr("class", "btn btn-outline-info");
+				$("#cut-maple-auto").removeAttr("disabled");
 			}
 		}
 		
 		if (isAutomating[4] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-maple-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-maple-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[4] == 0) {
@@ -2044,19 +2211,23 @@ function updateMilestone() {
 		if (isAutomating[5] != 1 && !keepButtonDisabled && !isCutting) {
 			if(endGameActivated && currentLevel >= 108) {
 				$("#cut-mahogany-auto").attr("class", "btn btn-outline-info");
+				$("#cut-mahogany-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 108) {
 				$("#cut-mahogany-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-mahogany-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-mahogany-auto").attr("class", "btn btn-outline-info");
+				$("#cut-mahogany-auto").removeAttr("disabled");
 			}
 		}
 		
 		if (isAutomating[5] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-mahogany-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-mahogany-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[5] == 0) {
@@ -2071,19 +2242,23 @@ function updateMilestone() {
 		if (isAutomating[6] != 1 && !keepButtonDisabled && !isCutting) {
 			if(endGameActivated && currentLevel >= 110) {
 				$("#cut-yew-auto").attr("class", "btn btn-outline-info");
+				$("#cut-yew-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 110) {
 				$("#cut-yew-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-yew-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-yew-auto").attr("class", "btn btn-outline-info");
+				$("#cut-yew-auto").removeAttr("disabled");
 			}
 		}
 		
 		if (isAutomating[6] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-yew-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-yew-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[6] == 0) {
@@ -2098,19 +2273,23 @@ function updateMilestone() {
 		if (isAutomating[7] != 1 && !keepButtonDisabled && !isCutting) {
 			if(endGameActivated && currentLevel >= 112) {
 				$("#cut-magic-auto").attr("class", "btn btn-outline-info");
+				$("#cut-magic-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 112) {
 				$("#cut-magic-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-magic-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-magic-auto").attr("class", "btn btn-outline-info");
+				$("#cut-magic-auto").removeAttr("disabled");
 			}
 		}
 		
 		if (isAutomating[7] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-magic-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-magic-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[7] == 0) {
@@ -2125,19 +2304,23 @@ function updateMilestone() {
 		if (isAutomating[8] != 1 && !keepButtonDisabled && !isCutting) {
 			if(endGameActivated && currentLevel >= 114) {
 				$("#cut-redwood-auto").attr("class", "btn btn-outline-info");
+				$("#cut-redwood-auto").removeAttr("disabled");
 			}
 			
 			if(endGameActivated && currentLevel < 114) {
 				$("#cut-redwood-auto").attr("class", "btn btn-outline-info disabled");
+				$("#cut-redwood-auto").attr("disabled", "disabled");
 			}
 			
 			if(!endGameActivated) {
 				$("#cut-redwood-auto").attr("class", "btn btn-outline-info");
+				$("#cut-redwood-auto").removeAttr("disabled");
 			}
 		}
 		
 		if (isAutomating[8] != 1 && (keepButtonDisabled || isCutting)) {
 			$("#cut-redwood-auto").attr("class", "btn btn-outline-info disabled");
+			$("#cut-redwood-auto").attr("disabled", "disabled");
 		}
 		
 		if (milestoneAchieved[8] == 0) {

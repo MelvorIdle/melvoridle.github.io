@@ -45,6 +45,7 @@ function startFishing(getLocation) {
 		}
 		else {
 			$("#fish-"+fishingLocations[getLocation]).attr("class", "btn btn-success disabled");
+			$("#fish-"+fishingLocations[getLocation]).attr("disabled", "disabled");
 		}
 		
 		if (getLocation == 7) { 
@@ -134,10 +135,12 @@ function startFishing(getLocation) {
 		
 			if(fishingIsAutomating[keepGetLocation] == 1 && !isFishing && !fishingKeepButtonDisabled) {
 				$("#fish-"+fishingLocations[keepGetLocation]+"-auto").attr("class", "btn btn-info");
+				$("#fish-"+fishingLocations[keepGetLocation]+"-auto").removeAttr("disabled");
 			}
 		
 			//Re-enable Fish button
 			$("#fish-"+fishingLocations[keepGetLocation]).attr("class", "btn btn-success");
+			$("#fish-"+fishingLocations[keepGetLocation]).removeAttr("disabled");
 			
 			
 			if (currentBank < bankMax ) {
@@ -218,6 +221,7 @@ function startAutoFishing(autoLocation) {
 	if (fishingIsAutomating[autoLocation] == 1) {
 		
 		$("#fish-"+fishingLocations[autoLocation]+"-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-"+fishingLocations[autoLocation]+"-auto").attr("disabled", "disabled");
 		$("#fish-"+fishingLocations[autoLocation]+"-auto").text("Disabling Auto Fish");
 		
 		fishingKeepButtonDisabled = true;
@@ -230,7 +234,9 @@ function startAutoFishing(autoLocation) {
 		//if (!eventInProgress) {
 			setTimeout(function(getLocationKeep) { return function() {
 				$("#fish-"+fishingLocations[getLocationKeep]).attr("class", "btn btn-success");
+				$("#fish-"+fishingLocations[getLocationKeep]).removeAttr("disabled");
 				$("#fish-"+fishingLocations[getLocationKeep]+"-auto").attr("class", "btn btn-outline-info");
+				$("#fish-"+fishingLocations[getLocationKeep]+"-auto").removeAttr("disabled");
 				$("#fish-"+fishingLocations[getLocationKeep]+"-auto").text("Enable Auto Fish");
 				fishingIsAutomating[getLocationKeep] = 0;
 				fishingKeepButtonDisabled = false;
@@ -259,6 +265,7 @@ function startAutoFishing(autoLocation) {
 			if (fishingIsAutomating[i] == 1) {
 				fishingIsAutomating[i] = 0;
 				$("#fish-"+fishingLocations[i]+"-auto").attr("class", "btn btn-outline-info");
+				$("#fish-"+fishingLocations[i]+"-auto").removeAttr("disabled");
 				$("#fish-"+fishingLocations[i]+"-auto").text("Enable Auto Fish");
 			}
 		}
@@ -270,7 +277,9 @@ function startAutoFishing(autoLocation) {
 		
 		//Update auto button text and disable the fish button
 		$("#fish-"+fishingLocations[autoLocation]).attr("class", "btn btn-success disabled");
+		$("#fish-"+fishingLocations[autoLocation]).attr("disabled", "disabled");
 		$("#fish-"+fishingLocations[autoLocation]+"-auto").attr("class", "btn btn-info disabled");
+		$("#fish-"+fishingLocations[autoLocation]+"-auto").attr("disabled", "disabled");
 		$("#fish-"+fishingLocations[autoLocation]+"-auto").text("Disable Auto fish");
 		
 		fishingUpdateScreen();
@@ -620,121 +629,153 @@ function updateFishLocations() {
 	//Fish
 	if (fishingCurrentLevel < 1 || fishingIsAutomating[0] || isFishing) {
 		$("#fish-lumbridge").attr("class", "btn btn-success disabled");
+		$("#fish-lumbridge").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-lumbridge").attr("class", "btn btn-success");
+		$("#fish-lumbridge").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[0] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 0) {
 		$("#fish-lumbridge-auto").attr("class", "btn btn-outline-info");
+		$("#fish-lumbridge-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[0] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 1)) {
 		$("#fish-lumbridge-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-lumbridge-auto").attr("disabled", "disabled");
 	}
 	
 	//DRAYNOR VILLAGE
 	if (fishingCurrentLevel < 1 || fishingIsAutomating[1] || isFishing) {
 		$("#fish-draynor").attr("class", "btn btn-success disabled");
+		$("#fish-draynor").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-draynor").attr("class", "btn btn-success");
+		$("#fish-draynor").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[1] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 1) {
 		$("#fish-draynor-auto").attr("class", "btn btn-outline-info");
+		$("#fish-draynor-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[1] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 2)) {
 		$("#fish-draynor-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-draynor-auto").attr("disabled", "disabled");
 	}
 	
 	//KARAMJA
 	if (fishingCurrentLevel < 5 || fishingIsAutomating[2] || isFishing) {
 		$("#fish-karamja").attr("class", "btn btn-success disabled");
+		$("#fish-karamja").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-karamja").attr("class", "btn btn-success");
+		$("#fish-karamja").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[2] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 2) {
 		$("#fish-karamja-auto").attr("class", "btn btn-outline-info");
+		$("#fish-karamja-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[2] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 3)) {
 		$("#fish-karamja-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-karamja-auto").attr("disabled", "disabled");
 	}
 	
 	//BARBARIAN OUTPOST
 	if (fishingCurrentLevel < 1 || fishingIsAutomating[3] || isFishing) {
 		$("#fish-barbarian").attr("class", "btn btn-success disabled");
+		$("#fish-barbarian").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-barbarian").attr("class", "btn btn-success");
+		$("#fish-barbarian").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[3] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 3) {
 		$("#fish-barbarian-auto").attr("class", "btn btn-outline-info");
+		$("#fish-barbarian-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[3] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 4)) {
 		$("#fish-barbarian-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-barbarian-auto").attr("disabled", "disabled");
 	}
 	
 	//SEERS' VILLAGE
 	if (fishingCurrentLevel < 10 || fishingIsAutomating[4] || isFishing) {
 		$("#fish-seers").attr("class", "btn btn-success disabled");
+		$("#fish-seers").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-seers").attr("class", "btn btn-success");
+		$("#fish-seers").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[4] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 4) {
 		$("#fish-seers-auto").attr("class", "btn btn-outline-info");
+		$("#fish-seers-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[4] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 5)) {
 		$("#fish-seers-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-seers-auto").attr("disabled", "disabled");
 	}
 	
 	//FISHING GUILD
 	if (fishingCurrentLevel < 10 || fishingIsAutomating[5] || isFishing) {
 		$("#fish-fishingguild").attr("class", "btn btn-success disabled");
+		$("#fish-fishingguild").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-fishingguild").attr("class", "btn btn-success");
+		$("#fish-fishingguild").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[5] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 5) {
 		$("#fish-fishingguild-auto").attr("class", "btn btn-outline-info");
+		$("#fish-fishingguild-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[5] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 6)) {
 		$("#fish-fishingguild-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-fishingguild-auto").attr("disabled", "disabled");
 	}
 	
 	//TAVERLEY CAVES
 	if (fishingCurrentLevel < 60 || fishingIsAutomating[6] || isFishing) {
 		$("#fish-taverley").attr("class", "btn btn-success disabled");
+		$("#fish-taverley").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-taverley").attr("class", "btn btn-success");
+		$("#fish-taverley").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[6] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 6) {
-		$("#fish-taverley-auto").attr("class", "btn btn-outline-info");
+		$("#fish-taverly-auto").attr("class", "btn btn-outline-info");
+		$("#fish-taverly-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[6] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 7)) {
-		$("#fish-taverley-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-taverly-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-taverly-auto").attr("disabled", "disabled");
 	}
 	
 	//DEEP SEAS
 	if (fishingCurrentLevel < 85 || fishingIsAutomating[7] || isFishing) {
 		$("#fish-deepseas").attr("class", "btn btn-success disabled");
+		$("#fish-deepseas").attr("disabled", "disabled");
 	}
 	else {
 		$("#fish-deepseas").attr("class", "btn btn-success");
+		$("#fish-deepseas").removeAttr("disabled");
 	}
 	//Auto Fish
 	if (fishingIsAutomating[7] != 1 && !fishingKeepButtonDisabled && !isFishing && currentFishingRod > 7) {
 		$("#fish-deepseas-auto").attr("class", "btn btn-outline-info");
+		$("#fish-deepseas-auto").removeAttr("disabled");
 	}
 	if (fishingIsAutomating[7] != 1 && (fishingKeepButtonDisabled || isFishing || currentFishingRod < 8)) {
 		$("#fish-deepseas-auto").attr("class", "btn btn-outline-info disabled");
+		$("#fish-deepseas-auto").attr("disabled", "disabled");
 	}
 	
 }

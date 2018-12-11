@@ -28,7 +28,7 @@
 		<!-- Game CSS -->
 		<link rel="stylesheet" type="text/css" href="interface.css" />
 	
-		<title>Melvor Idle - Alpha v0.03.3</title>
+		<title>Melvor Idle - Alpha v0.03.4</title>
 	</head>
 	
 	<body>
@@ -36,7 +36,7 @@
 	<div class="container">
 		<div class="card" style="border: 0px">
 			<ul class="list-inline card-header text-center">
-				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="changelog.txt" target="_blank">Alpha v0.03.3</a></li>
+				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="changelog.txt" target="_blank">Alpha v0.03.4</a></li>
 				<li class="list-inline-item">&nbsp;</li>
 				<li id="current-gp" class="list-inline-item"><image src="img/coins2.png" /> <span id="gp" data-toggle="tooltip" data-placement="bottom" title="0"></span></li>
 				<li class="list-inline-item" id="current-bank"><a href="#set4" class="nav-link" data-toggle="modal" data-target="#bankTab"><img id ="current-bank-image" src="img/bank.png" /> <span id="current-bank-text">0</span> / <span id="bank-limit-text">83</span></span></a>
@@ -101,13 +101,13 @@
 								
 								<div class="row">
 						
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-tree-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/normal_tree.png"><br><span id="normal-tree-name">Normal Tree</span><br><small id="tree-level">Level: 1</small></h5>
 										<p class="card-text" id="cut-tree-desc">A commonly found tree.</p>
-										<a id="cut-tree" href="#" class="btn btn-success" onClick="cutTree(1); return false;">Cut</a>
-										<a id="cut-tree-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(1); return false;">Enable Auto Cut</a>
+										<button id="cut-tree" class="btn btn-success" onClick="cutTree(1); return false;">Cut</button>
+										<button id="cut-tree-auto" class="btn btn-outline-danger disabled" onClick="automation(1); return false;">Enable Auto Cut</button>
 										
 									</div>
 									<div class="card-footer text-muted">
@@ -118,13 +118,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-oak-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/oak_tree.png"><br><span id="oak-tree-name">Oak Tree</span><br /><small id="oak-level" style="color: red">Level: 15</small></h5>
 										<p class="card-text" id="cut-oak-desc">A beautiful old oak.</p>
-										<a id="cut-oak" href="#" class="btn btn-success disabled" onClick="cutTree(2); return false;">Cut</a>
-										<a id="cut-oak-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(2); return false;">Enable Auto Cut</a>
+										<button id="cut-oak" class="btn btn-success disabled" onClick="cutTree(2); return false;">Cut</button>
+										<button id="cut-oak-auto" class="btn btn-outline-danger disabled" onClick="automation(2); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -134,13 +134,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-willow-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/willow_tree.png"><br><span id="willow-tree-name">Willow Tree</span><br /><small id="willow-level" style="color: red">Level: 30</small></h5>
 										<p class="card-text" id="cut-willow-desc">A droopy tree.</p>
-										<a id="cut-willow" href="#" class="btn btn-success disabled" onClick="cutTree(3); return false;">Cut</a>
-										<a id="cut-willow-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(3); return false;">Enable Auto Cut</a>
+										<button id="cut-willow" class="btn btn-success disabled" onClick="cutTree(3); return false;">Cut</button>
+										<button id="cut-willow-auto" class="btn btn-outline-danger disabled" onClick="automation(3); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -151,13 +151,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-teak-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/teak_tree.png"><br><span id="teak-tree-name">Teak Tree</span><br /><small id="teak-level" style="color: red">Level: 35</small></h5>
 										<p class="card-text" id="cut-teak-desc">A beautiful old teak tree.</p>
-										<a id="cut-teak" href="#" class="btn btn-success disabled" onClick="cutTree(4); return false;">Cut</a>
-										<a id="cut-teak-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(4); return false;">Enable Auto Cut</a>
+										<button id="cut-teak" class="btn btn-success disabled" onClick="cutTree(4); return false;">Cut</button>
+										<button id="cut-teak-auto" class="btn btn-outline-danger disabled" onClick="automation(4); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -167,13 +167,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-maple-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/maple_tree.png"><br><span id="maple-tree-name">Maple Tree</span><br /><small id="maple-level" style="color: red">Level: 45</small></h5>
 										<p class="card-text" id="cut-maple-desc">I bet this makes good syrup!</p>
-										<a id="cut-maple" href="#" class="btn btn-success disabled" onClick="cutTree(5); return false;">Cut</a>
-										<a id="cut-maple-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(5); return false;">Enable Auto Cut</a>
+										<button id="cut-maple" class="btn btn-success disabled" onClick="cutTree(5); return false;">Cut</button>
+										<button id="cut-maple-auto" class="btn btn-outline-danger disabled" onClick="automation(5); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -183,13 +183,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-mahogany-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/mahogany_tree.png"><br><span id="mahogany-tree-name">Mahogany Tree</span><br /><small id="mahogany-level" style="color: red">Level: 50</small></h5>
 										<p class="card-text" id="cut-mahogany-desc">A beautiful, old mahogany tree.</p>
-										<a id="cut-mahogany" href="#" class="btn btn-success disabled" onClick="cutTree(6); return false;">Cut</a>
-										<a id="cut-mahogany-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(6); return false;">Enable Auto Cut</a>
+										<button id="cut-mahogany" class="btn btn-success disabled" onClick="cutTree(6); return false;">Cut</button>
+										<button id="cut-mahogany-auto" class="btn btn-outline-danger disabled" onClick="automation(6); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -199,13 +199,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-yew-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/yew_tree.png"><br><span id="yew-tree-name">Yew Tree</span><br /><small id="yew-level" style="color: red">Level: 60</small></h5>
 										<p class="card-text" id="cut-yew-desc">A splendid tree.</p>
-										<a id="cut-yew" href="#" class="btn btn-success disabled" onClick="cutTree(7); return false;">Cut</a>
-										<a id="cut-yew-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(7); return false;">Enable Auto Cut</a>
+										<button id="cut-yew" class="btn btn-success disabled" onClick="cutTree(7); return false;">Cut</button>
+										<button id="cut-yew-auto" class="btn btn-outline-danger disabled" onClick="automation(7); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -215,13 +215,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-magic-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/magic_tree.png"><br><span id="magic-tree-name">Magic Tree</span><br /><small id="magic-level" style="color: red">Level: 75</small></h5>
 										<p class="card-text" id="cut-magic-desc">The tree shimmers with a magical force.</p>
-										<a id="cut-magic" href="#" class="btn btn-success disabled" onClick="cutTree(8); return false;">Cut</a>
-										<a id="cut-magic-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(8); return false;">Enable Auto Cut</a>
+										<button id="cut-magic" class="btn btn-success disabled" onClick="cutTree(8); return false;">Cut</button>
+										<button id="cut-magic-auto" class="btn btn-outline-danger disabled" onClick="automation(8); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -231,13 +231,13 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-redwood-card">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/redwood_tree.png"><br><span id="redwood-tree-name">Redwood Tree</span><br /><small id="redwood-level" style="color: red">Level: 90</small></h5>
 										<p class="card-text" id="cut-redwood-desc">An enormous majestic tree.</p>
-										<a id="cut-redwood" href="#" class="btn btn-success disabled" onClick="cutTree(9); return false;">Cut</a>
-										<a id="cut-redwood-auto" href="#" class="btn btn-outline-danger disabled" onClick="automation(9); return false;">Enable Auto Cut</a>
+										<button id="cut-redwood" class="btn btn-success disabled" onClick="cutTree(9); return false;">Cut</button>
+										<button id="cut-redwood-auto" class="btn btn-outline-danger disabled" onClick="automation(9); return false;">Enable Auto Cut</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -247,12 +247,12 @@
 								</div>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="card text-center" id="cut-unknown-card" style="">
 									<div class="card-body">
 										<h5 class="card-title"><img src="img/unknown_tree.png"><br><span id="unknown-tree-name">???</span><br /><small id="unknown-level" style="color: red">Level: 99</small></h5>
 										<p class="card-text" id="cut-unknown-desc">???</p>
-										<a id="cut-unknown" href="#" class="btn btn-success disabled" onClick="cutTree(10); return false;">Cut?</a>
+										<button id="cut-unknown" class="btn btn-success disabled" onClick="cutTree(10); return false;">Cut?</button>
 									</div>
 									<div class="card-footer text-muted">
 										<div class="progress active">
@@ -540,16 +540,16 @@
 																<p class="card-text" id="fishing-desc"><small>Available Fish:</small><br>
 																<img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp" id="shrimp">
 																<img src="img/sardine-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 5: Sardine" id="sardine"></p>
-																<a id="fish-lumbridge" href="#" class="btn btn-success" onclick="startFishing(0); return false;">Fish</a>
-																<a id="fish-lumbridge-auto" href="#" class="btn btn-outline-info" onclick="startAutoFishing(0); return false;">Enable Auto Fish</a>
+																<button id="fish-lumbridge" class="btn btn-success" onclick="startFishing(0); return false;">Fish</button>
+																<button id="fish-lumbridge-auto" class="btn btn-outline-info" onclick="startAutoFishing(0); return false;">Enable Auto Fish</button>
 															</div>
 															
 															<div id="location-draynor" class="d-none">
 																<p class="card-text" id="fishing-desc"><small>Available Fish:</small><br>
 																<img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp" id="shrimp-2">
 																<img src="img/herring-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 10: Herring" id="herring"></p>
-																<a id="fish-draynor" href="#" class="btn btn-success" onclick="startFishing(1); return false;">Fish</a>
-																<a id="fish-draynor-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(1); return false;">Enable Auto Fish</a>
+																<button id="fish-draynor" class="btn btn-success" onclick="startFishing(1); return false;">Fish</button>
+																<button id="fish-draynor-auto" class="btn btn-outline-danger disabled" onclick="startAutoFishing(1); return false;">Enable Auto Fish</button>
 															</div>
 															
 															<div id="location-karamja" class="d-none">
@@ -558,8 +558,8 @@
 																<img src="img/herring-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 10: Herring" id="herring-2">
 																<img src="img/trout-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 20: Trout" id="trout">
 																<img src="img/salmon-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 35: Salmon" id="salmon"></p>
-																<a id="fish-karamja" href="#" class="btn btn-success" onclick="startFishing(2); return false;">Fish</a>
-																<a id="fish-karamja-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(2); return false;">Enable Auto Fish</a>
+																<button id="fish-karamja" class="btn btn-success" onclick="startFishing(2); return false;">Fish</button>
+																<button id="fish-karamja-auto" class="btn btn-outline-danger disabled" onclick="startAutoFishing(2); return false;">Enable Auto Fish</button>
 															</div>
 															
 															<div id="location-barbarian" class="d-none">
@@ -567,8 +567,8 @@
 																<img src="img/shrimp.png" data-toggle="tooltip" data-placement="bottom" title="Level 1: Shrimp" id="shrimp-3">
 																<img src="img/trout-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 20: Trout" id="trout-2">
 																<img src="img/salmon-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 35: Salmon" id="salmon-2"></p>
-																<a id="fish-barbarian" href="#" class="btn btn-success" onclick="startFishing(3); return false;">Fish</a>
-																<a id="fish-barbarian-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(3); return false;">Enable Auto Fish</a>
+																<button id="fish-barbarian" class="btn btn-success" onclick="startFishing(3); return false;">Fish</button>
+																<button id="fish-barbarian-auto" class="btn btn-outline-danger disabled" onclick="startAutoFishing(3); return false;">Enable Auto Fish</button>
 															</div>
 															
 															<div id="location-seers" class="d-none">
@@ -576,8 +576,8 @@
 																<img src="img/herring-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 10: Herring" id="herring-3">
 																<img src="img/lobster-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 40: Lobster" id="lobster">
 																<img src="img/shark-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 70: Shark" id="shark"></p>
-																<a id="fish-seers" href="#" class="btn btn-success" onclick="startFishing(4); return false;">Fish</a>
-																<a id="fish-seers-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(4); return false;">Enable Auto Fish</a>
+																<button id="fish-seers" class="btn btn-success" onclick="startFishing(4); return false;">Fish</button>
+																<button id="fish-seers-auto" class="btn btn-outline-danger disabled" onclick="startAutoFishing(4); return false;">Enable Auto Fish</button>
 															</div>
 															
 															<div id="location-fishingguild" class="d-none">
@@ -586,24 +586,24 @@
 																<img src="img/lobster-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 40: Lobster" id="lobster-2">
 																<img src="img/swordfish-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 50: Swordfish" id="swordfish">
 																<img src="img/shark-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 70: Shark" id="shark-2"></p>
-																<a id="fish-fishingguild" href="#" class="btn btn-success" onclick="startFishing(5); return false;">Fish</a>
-																<a id="fish-fishingguild-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(5); return false;">Enable Auto Fish</a>
+																<button id="fish-fishingguild" class="btn btn-success" onclick="startFishing(5); return false;">Fish</button>
+																<button id="fish-fishingguild-auto" class="btn btn-outline-danger disabled" onclick="startAutoFishing(5); return false;">Enable Auto Fish</button>
 															</div>
 															
 															<div id="location-taverley" class="d-none">
 																<p class="card-text" id="fishing-desc"><small>Available Fish:</small><br>
 																<img src="img/crab-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 60: Crab" id="crab">
 																<img src="img/cave-fish-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 75: Cave Fish" id="cavefish"></p>
-																<a id="fish-taverley" href="#" class="btn btn-success" onclick="startFishing(6); return false;">Fish</a>
-																<a id="fish-taverley-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(6); return false;">Enable Auto Fish</a>
+																<button id="fish-taverley" class="btn btn-success" onclick="startFishing(6); return false;">Fish</button>
+																<button id="fish-taverley-auto" class="btn btn-outline-danger disabled" onclick="startAutoFishing(6); return false;">Enable Auto Fish</button>
 															</div>
 															
 															<div id="location-deepseas" class="d-none">
 																<p class="card-text" id="fishing-desc"><small>Available Fish:</small><br>
 																<img src="img/manta-ray-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 85: Manta Ray" id="mantaray">
 																<img src="img/whale-disabled.png" data-toggle="tooltip" data-placement="bottom" title="Level 95: Whale" id="whale"></p>
-																<a id="fish-deepseas" href="#" class="btn btn-success" onclick="startFishing(7); return false;">Fish</a>
-																<a id="fish-deepseas-auto" href="#" class="btn btn-outline-danger disabled" onclick="startAutoFishing(7); return false;">Enable Auto Fish</a>
+																<button id="fish-deepseas" class="btn btn-success" onclick="startFishing(7); return false;">Fish</button>
+																<button id="fish-deepseas-auto" class="btn btn-outline-danger disabled" onclick="startAutoFishing(7); return false;">Enable Auto Fish</button>
 															</div>
 										
 														</div>
@@ -908,10 +908,10 @@
 							<span id="fm-setlogs-level">Level: 1</span></p>
 							</div>
 							<div class="card-body col-3">
-							<a href="#" class="btn btn-warning" id="fm-burn-logs" onClick="burnLogs(0); return false;">Burn</a><br>
-							<a href="#" class="btn btn-outline-warning btn-sm" id="fm-autoburn" onClick="startAutoBurn(); return false;">Auto Burn</a>
+							<button class="btn btn-warning" id="fm-burn-logs" onClick="burnLogs(0); return false;">Burn</button><br>
+							<button class="btn btn-outline-warning btn-sm" id="fm-autoburn" onClick="startAutoBurn(); return false;">Auto Burn</button>
 							<small id="fm-autoburn-log"></small>
-							<a href="#" class="btn btn-primary btn-sm disabled" id="fm-light-bonfire" onClick="lightBonfire(); return false;">Light Bonfire</a>
+							<button class="btn btn-primary btn-sm disabled" id="fm-light-bonfire" onClick="lightBonfire(); return false;">Light Bonfire</button>
 							<small id="fm-bonfire-cost"></small>
 							</div>
 						  <div class="card-body col-6 text-center">

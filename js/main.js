@@ -22,6 +22,7 @@ var allVars = [
 	"fishingCurrentLocation", "selectedLog"
 ];
 
+
 //Exerience equation
 function exp(){
  

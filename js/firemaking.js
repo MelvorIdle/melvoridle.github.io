@@ -33,7 +33,9 @@ function burnLogs(log) {
 	if (logsInBank[log] > 0) {
 		
 		$("#fm-burn-logs").attr("class", "btn btn-warning disabled");
+		$("#fm-burn-logs").attr("disabled", "disabled");
 		$("#fm-add-to-bonfire").attr("class", "btn btn-primary btn-sm disabled");
+		$("#fm-add-to-bonfire").attr("disabled", "disabled");
 		logsInBank[log]--;
 		isBurning = true;
 		fmUpdateScreen();
@@ -85,6 +87,7 @@ function startAutoBurn() {
 	if (isAutoBurning) {
 		
 		$("#fm-autoburn").attr("class", "btn btn-outline-warning btn-sm disabled");
+		$("#fm-autoburn").attr("disabled", "disabled");
 		$("#fm-autoburn-log").text("");
 		
 		//Clear the current automation variable
@@ -106,6 +109,7 @@ function startAutoBurn() {
 		
 		//Update auto button text and disable the burn button
 		$("#fm-autoburn").attr("class", "btn btn-warning btn-sm");
+		$("#fm-autoburn").removeAttr("disabled");
 		isAutoBurning = true;
 		fmUpdateScreen();
 		autoBurningLog = selectedLog;
@@ -263,27 +267,34 @@ function fmUpdateScreen() {
 function fmUpdateLogs() {
 	
 	if (logsInBank[selectedLog] == 0 || fmCurrentLevel < fmLogsLevel[selectedLog] || isBurning || isAutoBurning) {
-		$("#fm-burn-logs").attr("class", "btn btn-warning disabled");		
+		$("#fm-burn-logs").attr("class", "btn btn-warning disabled");	
+		$("#fm-burn-logs").attr("disabled", "disabled");		
 	}
 	else {
-		$("#fm-burn-logs").attr("class", "btn btn-warning");	
+		$("#fm-burn-logs").attr("class", "btn btn-warning");
+		$("#fm-burn-logs").removeAttr("disabled");
 	}
 	
 	if (isAutoBurning) {
 		$("#fm-autoburn").attr("class", "btn btn-warning btn-sm");
+		$("#fm-autoburn").removeAttr("disabled");
 	}
 	else if ((isBurning && !isAutoBurning) || fmMilestoneAchieved[selectedLog] != 1 || logsInBank[selectedLog] == 0) {
 		$("#fm-autoburn").attr("class", "btn btn-outline-warning btn-sm disabled");
+		$("#fm-autoburn").attr("disabled", "disabled");
 	}
 	else if (!isBurning && !isAutoBurning && fmMilestoneAchieved[selectedLog] == 1 && logsInBank[selectedLog] > 0) {
 		$("#fm-autoburn").attr("class", "btn btn-outline-warning btn-sm");
+		$("#fm-autoburn").removeAttr("disabled");
 	}
 	
 	if (bonfireLevel > 0 && !fmBonfireActive && logsInBank[bonfireLevel-1] >= 10) {
 		$("#fm-light-bonfire").attr("class", "btn btn-primary btn-sm");
+		$("#fm-light-bonfire").removeAttr("disabled");
 	}
 	else {
 		$("#fm-light-bonfire").attr("class", "btn btn-primary btn-sm disabled");
+		$("#fm-light-bonfire").attr("disabled", "disabled");
 	}
 	
 }
@@ -383,7 +394,9 @@ function updateBonfireShop() {
 	else {
 			
 		$("#bonfire-level-upgrade").text("Maxed");
-		$("#bonfire-upgrade-cost-image").attr("src", "");
+		$("#bonfire-upgrade-cost-image").attr("src", "img/checked.png");
+		$("#bonfire-upgrade-cost-image").attr("height", "");
+		$("#bonfire-upgrade-cost-image").attr("width", "");
 		$("#bonfire-upgrade-cost").text("");
 		$("#bonfire-upgrade-bonus-text").text("");
 		$("#bonfire-upgrade-logs").text("");
@@ -391,6 +404,7 @@ function updateBonfireShop() {
 		$("#bonfire-upgrade-duration-text").text("");
 			
 		$("#bonfire-upgrade-button").attr("class", "btn btn-warning btn-sm disabled");
+		$("#bonfire-upgrade-button").attr("disabled", "disabled");
 
 		}
 	
