@@ -28,7 +28,7 @@
 		<!-- Game CSS -->
 		<link rel="stylesheet" type="text/css" href="interface.css" />
 	
-		<title>Melvor Idle - Alpha v0.03.4</title>
+		<title>Melvor Idle - Alpha v0.03.5</title>
 	</head>
 	
 	<body>
@@ -36,12 +36,13 @@
 	<div class="container">
 		<div class="card" style="border: 0px">
 			<ul class="list-inline card-header text-center">
-				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="changelog.txt" target="_blank">Alpha v0.03.4</a></li>
+				<li class="list-inline-item"><image src="img/logo_32_2.png" /> Melvor Idle - <a href="changelog.txt" target="_blank">Alpha v0.03.5</a></li>
 				<li class="list-inline-item">&nbsp;</li>
 				<li id="current-gp" class="list-inline-item"><image src="img/coins2.png" /> <span id="gp" data-toggle="tooltip" data-placement="bottom" title="0"></span></li>
-				<li class="list-inline-item" id="current-bank"><a href="#set4" class="nav-link" data-toggle="modal" data-target="#bankTab"><img id ="current-bank-image" src="img/bank.png" /> <span id="current-bank-text">0</span> / <span id="bank-limit-text">83</span></span></a>
+				<li class="list-inline-item" id="current-bank"><a class="nav-link" data-toggle="modal" data-target="#bankTab"><img id ="current-bank-image" src="img/bank.png" /> <span id="current-bank-text">0</span> / <span id="bank-limit-text">83</span></span></a>
 				</li>
 				<li class="list-inline-item"><a id="load" href="#" class="btn btn-warning btn-sm" onClick="loadData(); return false;">Load Saved Game</a></li>
+				<li class="list-inline-item"><a id="import" href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#importExport">Import/Export Save</a></li>
 			</ul>
 		</div>
 			
@@ -1347,7 +1348,34 @@
 		</div>
 		</div>
 		
-		
+		<!-- Import & Export Save -->
+		<div class="modal fade" id="importExport" tabindex="-1" role="dialog" aria-labelledby="importExport" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Import / Export Save</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			<div class="row">
+				<div class="col-sm-6">
+				<button class="btn btn-info" onclick="exportSave();">Export Save</button>
+				<input class="form-control" id="exportSaveField" type="text" value='Exported-save will be here'>
+				</div>
+				<div class="col-sm-6">
+				<button class="btn btn-info" onclick="importSave();">Import Save</button>
+				<input class="form-control" id="importSaveField" type="text" value='Paste your save here'>
+				</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+			</div>
+		</div>
+		</div>
 		
 		<!-- Delete Save -->
 		<div class="modal fade" id="deleteSave" tabindex="-1" role="dialog" aria-labelledby="deleteSave" aria-hidden="true">

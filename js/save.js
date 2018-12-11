@@ -96,6 +96,117 @@ function autosaveToggle() {
 	
 }
 
+function exportSave() {
+	
+	var toSave = {
+        gp: gp,
+		xp: xp,
+		nextLevelProgress: nextLevelProgress,
+		currentLevel: currentLevel,
+		currentLevelXP: currentLevelXP,
+		nextLevelXP: nextLevelXP,
+		currentAxe: currentAxe,
+		currentBank: currentBank,
+		bankMax: bankMax,
+		axePurchased: axePurchased,
+		milestoneAchieved: milestoneAchieved,
+		logsInBank: logsInBank,
+		currentBankUpgrade: currentBankUpgrade,
+		endGameActivated: endGameActivated,
+		wcStatTreesCut: wcStatTreesCut,
+		wcStatLogsSold: wcStatLogsSold,
+		wcStatGPEarned: wcStatGPEarned,
+		wcStatBirdNestsFound: wcStatBirdNestsFound,
+		wcStatRandomEvents: wcStatRandomEvents,
+		fishingXP: fishingXP,
+		fishingNextLevelProgress: fishingNextLevelProgress, 
+		fishingCurrentLevel: fishingCurrentLevel, 
+		fishingCurrentLevelXP: fishingCurrentLevelXP,
+		fishInBank: fishInBank,
+		currentFishingRod: currentFishingRod,
+		fishingRodPurchased: fishingRodPurchased,
+		fishingRodImage: fishingRodImage, 
+		fishingNextLevelXP: fishingNextLevelXP,
+		statFishCaught: statFishCaught,
+		statFishSold: statFishSold,
+		statFishGPEarned: statFishGPEarned,
+		fishingMilestoneAchieved: fishingMilestoneAchieved,
+		fmXP: fmXP,
+		fmNextLevelProgress: fmNextLevelProgress,
+		fmCurrentLevel: fmCurrentLevel,
+		fmCurrentLevelXP: fmCurrentLevelXP,
+		fmNextLevelXP: fmNextLevelXP,
+		bonfireLevel: bonfireLevel,
+		fmStatGPBurnt: fmStatGPBurnt,
+		fmStatLogsBurnt: fmStatLogsBurnt,
+		fmMilestoneAchieved: fmMilestoneAchieved,
+		fishingCurrentLocation: fishingCurrentLocation,
+		selectedLog: selectedLog
+		
+    };
+
+    var saved = JSON.stringify(toSave);
+    var exportSaved = btoa(saved);
+    var exportField = document.getElementById("exportSaveField");
+    exportField.value = exportSaved;
+	
+}
+
+function importSave() {
+    var importField = document.getElementById("importSaveField");
+    // var importSave = prompt("You need to import the code from the export-save button.", "Put your save here!");
+    var cleanSave = atob(importField.value);
+    var savegame = JSON.parse(cleanSave);
+    save = JSON.parse(cleanSave);
+
+	gp = savegame.gp;
+	xp = savegame.xp;
+	nextLevelProgress = savegame.nextLevelProgress;
+	currentLevel = savegame.currentLevel;
+	currentLevelXP = savegame.currentLevelXP;
+	nextLevelXP = savegame.nextLevelXP;
+	currentAxe = savegame.currentAxe;
+	currentBank = savegame.currentBank;
+	bankMax = savegame.bankMax;
+	axePurchased = savegame.axePurchased;
+	milestoneAchieved = savegame.milestoneAchieved;
+	logsInBank = savegame.logsInBank;
+	currentBankUpgrade = savegame.currentBankUpgrade;
+	endGameActivated = savegame.endGameActivated;
+	wcStatTreesCut = savegame.wcStatTreesCut;
+	wcStatLogsSold = savegame.wcStatLogsSold;
+	wcStatGPEarned = savegame.wcStatGPEarned;
+	wcStatBirdNestsFound = savegame.wcStatBirdNestsFound;
+	wcStatRandomEvents = savegame.wcStatRandomEvents;
+	fishingXP = savegame.fishingXP;
+	fishingNextLevelProgress = savegame.fishingNextLevelProgress; 
+	fishingCurrentLevel = savegame.fishingCurrentLevel; 
+	fishingCurrentLevelXP = savegame.fishingCurrentLevelXP;
+	fishInBank = savegame.fishInBank;
+	currentFishingRod = savegame.currentFishingRod;
+	fishingRodPurchased = savegame.fishingRodPurchased;
+	fishingRodImage = savegame.fishingRodImage; 
+	fishingNextLevelXP = savegame.fishingNextLevelXP;
+	statFishCaught = savegame.statFishCaught;
+	statFishSold = savegame.statFishSold;
+	statFishGPEarned = savegame.statFishGPEarned;
+	fishingMilestoneAchieved = savegame.fishingMilestoneAchieved;
+	fmXP = savegame.fmXP;
+	fmNextLevelProgress = savegame.fmNextLevelProgress;
+	fmCurrentLevel = savegame.fmCurrentLevel;
+	fmCurrentLevelXP = savegame.fmCurrentLevelXP;
+	fmNextLevelXP = savegame.fmNextLevelXP;
+	bonfireLevel = savegame.bonfireLevel;
+	fmStatGPBurnt = savegame.fmStatGPBurnt;
+	fmStatLogsBurnt = savegame.fmStatLogsBurnt;
+	fmMilestoneAchieved = savegame.fmMilestoneAchieved;
+	fishingCurrentLocation = savegame.fishingCurrentLocation;
+	selectedLog = savegame.selectedLog;
+
+    saveData(0);
+	loadData();
+};
+
 window.onload = function() {
 	loadData();
 }
