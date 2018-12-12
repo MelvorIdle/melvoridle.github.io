@@ -2781,12 +2781,8 @@ function birdNest(tree, chance) {
 	
 }
 
-//set level to 99
-function setSaveMax() {
-	currentLevel=99;
-	gp=10000000;
-	xp=13034435;
-	nextLevelXP=exp.level_to_xp(currentLevel+1);
-	updateLevelProgress();
-	updateScreen();
+function disablePrestige() {
+	endGameActivated = false;
+	saveData(0);
+	location.reload();
 }
