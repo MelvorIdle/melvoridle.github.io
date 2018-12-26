@@ -1,4 +1,12 @@
 =============
+Aplha v0.03.6
+=============
+26th December 2018
+
+- Fixed an issue where fishing a Whale would break XP
+
+
+=============
 Aplha v0.03.5
 =============
 11th December 2018
