@@ -51,6 +51,14 @@ function loadData() {
 	for (i=0; i<12; i++) {
 		$("#b-"+fish[i]+"-cost").text(fishCost[i]);
 	}
+	
+	//fix fishing xp
+	if (fishingXP < exp.level_to_xp(fishingCurrentLevel)) {
+		fishingXP = exp.level_to_xp(fishingCurrentLevel);
+		fishingUpdateLevelProgress();		
+	}
+	
+	
 	eventInProgress = false;
 	if(eventTimeout){ clearTimeout(eventTimeout)};
 	interval = 2000;
