@@ -5,8 +5,9 @@
 // @include http://www.melvoridle.com/index.php
 // @include https://melvoridle.com/index.php
 // @include https://www.melvoridle.com/index.php
+// @grant none
 // @require https://github.com/coolrox95/melvoridle.github.io/blob/master/wikiscripts/formatPercent.js
-// @version 0.1
+// @version 0.1.1
 // ==/UserScript==
 
 //Support functions for wiki scripts
