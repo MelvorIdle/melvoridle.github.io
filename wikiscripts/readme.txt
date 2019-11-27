@@ -1,6 +1,8 @@
 Here are several scripts that I used to create information for the wiki.
 Note: I am not responsible for breaking your game if you use these scripts.
 
+A userscript (WIP) for greasemonkey has been added as wikiSupportFunctions.user.js
+
 Most of the scripts have now been refactored to be functions contained within wikiSupportFunctions.js
 Below are descriptions of the functions contained:
 
