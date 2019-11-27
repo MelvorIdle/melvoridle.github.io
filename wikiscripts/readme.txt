@@ -1,6 +1,11 @@
 Here are several scripts that I used to create information for the wiki.
 Note: I am not responsible for breaking your game if you use these scripts.
 
+The scripts are designed to be copied and then pasted into your browsers console.
+First copy and paste formatPercent.js into your browser console.
+For functions that return strings copy wikiSupportFunctions.js
+For functions that log their output in the console copy wikiSupportFunctionsConsole.js
+
 Most of the scripts have now been refactored to be functions contained within wikiSupportFunctions.js
 Below are descriptions of the functions contained:
 
