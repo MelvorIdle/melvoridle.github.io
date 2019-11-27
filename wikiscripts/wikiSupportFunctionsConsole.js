@@ -1,4 +1,4 @@
-//Support functions for wiki scripts
+//Support functions for wiki scripts that output to console instead of returning a string
 
 function startTable(outputStr) {
     outputStr += '{| class="wikitable"';
