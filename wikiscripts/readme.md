@@ -4,7 +4,7 @@ Contained here are 5 scripts used to generate tables for the wiki.
 
 commonElements.js contains functions and classes that create common wiki elements
 
-keyFormatters.js contains functions to format the keys of objects contained within the various object arrays in the game's source.
+keyFormatters.js contains functions to format the properties of objects contained within the various arrays in the game's source.
 
 selectionFunctions.js contains functions that return a boolean value to serve as a condition to extract subsets from object arrays
 
