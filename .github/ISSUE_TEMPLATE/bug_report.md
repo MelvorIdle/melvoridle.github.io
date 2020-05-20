@@ -28,3 +28,6 @@ Please tell us what browser you are using and what version.
 
 **Console output**
 Please open the console by pressing F12 and copy it here.
+
+**Are you using any scripts?**
+Please let us know if you are using scripts the time this bug occurred.
