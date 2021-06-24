@@ -1,4 +1,4 @@
-# Melvor Idle - Alpha v0.19.2
+# Melvor Idle - Alpha v0.20
 
 This is the official Git repository / issue tracker for the web-based idle game [Melvor Idle](https://www.melvoridle.com/).
 
