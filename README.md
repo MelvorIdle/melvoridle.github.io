@@ -8,4 +8,4 @@ Please post all bug reports in the "issues" section, so I can easily track and m
 
 ## Suggestions
 
-Suggestions for the game are alway welcome. You can post these via the "issues" section as well. Please use the "Suggestion" template.
+Suggestions for the game are alway welcome. Please read through the list of [frequent suggestions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/Frequent-Suggestions) before submitting a suggestion. You can post these via the "issues" section as well. Please use the "Suggestion" template.
