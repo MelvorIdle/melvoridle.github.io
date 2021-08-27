@@ -77,7 +77,7 @@ body:
       label: Are you using any scripts or extensions?
       description: Please let us know if you were using any scripts or browser extensions that modify the game at the time the bug occured.
       options:
-        - Yes
-        - No
+        - 'Yes'
+        - 'No'
     validations:
       required: true
