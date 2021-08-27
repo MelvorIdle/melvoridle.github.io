@@ -33,3 +33,51 @@ body:
       description: A clear and concise description of what you expected to happen
     validations:
       required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console output
+      description: If you are using the game on a desktop browser, please open the console by pressing F12 and copy its contents here.
+    validations:
+      required: false
+  - type: checkboxes
+    id: platform
+    attributes:
+      label: Which platforms are you experiencing this bug on?
+      description: Please select all that are applicable.
+      options:
+        - label: Chrome
+        - label: Firefox
+        - label: Edge
+        - label: Safari
+        - label: Mobile App (iOS)
+        - label: Mobile App (Android)
+        - label: Steam
+        - label: Other (Please Specify)
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Which version of the game are you experiencing this bug on?
+      options:
+        - Alpha v0.21
+    validations:
+      required: true
+  - type: dropdown
+    id: scripts
+    attributes:
+      label: Are you using any scripts or extensions?
+      description: Please let us know if you were using any scripts or browser extensions that modify the game at the time the bug occured.
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
