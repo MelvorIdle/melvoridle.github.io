@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
         value: |
-          Thank you for submitting a bug report. Please search if your issue already exists before submitting a report.
+          Thank you for submitting a bug report. Please search if your issue [already exists](https://github.com/MelvorIdle/melvoridle.github.io/labels/bug) before submitting a report.
   - type: textarea
     id: description
     attributes:
