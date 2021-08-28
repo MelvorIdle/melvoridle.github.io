@@ -77,7 +77,7 @@ body:
       label: Game Subversion
       description: |
         This is the version that appears in brackets next to the game version in the sidebar. 
-        ![Subversion Example Image](https://github.com/coolrox95/melvoridle.github.io/blob/master/images/subversionExample.png)
+        ![Subversion Example Image](https://raw.githubusercontent.com/coolrox95/melvoridle.github.io/master/images/subversionExample.png)
       placeholder: "?1109"
     validations:
       required: true
