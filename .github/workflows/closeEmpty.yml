@@ -16,7 +16,7 @@ jobs:
           body: |
             This issue has been automatically closed due to not using one of the available issue templates.
       - name: Close issue
-          uses: actions-cool/issues-helper@v2.4.0
-          with:
-            actions: 'close-issue'
-            token: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions-cool/issues-helper@v2.4.0
+        with:
+          actions: 'close-issue'
+          token: ${{ secrets.GITHUB_TOKEN }}
