@@ -77,7 +77,7 @@ body:
       label: Game Subversion
       description: |
         This is the version that appears in brackets next to the game version in the sidebar. ![Subversion Example Image](/images/subversion.png)
-      placeholder: 1109
+      placeholder: "1109"
     validations:
       required: true
   - type: dropdown
