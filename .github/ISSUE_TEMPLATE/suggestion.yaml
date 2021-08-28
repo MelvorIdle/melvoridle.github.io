@@ -23,7 +23,7 @@ body:
       label: Why are you suggesting this?
     validations:
       required: true
-   - type: textarea
+  - type: textarea
     id: benefits
     attributes:
       label: How does your suggestion benefit the game?
