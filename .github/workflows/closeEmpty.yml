@@ -5,7 +5,7 @@ on:
 jobs:
   close-empty:
     runs-on: ubuntu-latest
-    if: github.event.issue.labels == ''
+    if: github.event.issue.labels.length == 0
     steps:
       - name: Create comment
         uses: actions-cool/issues-helper@v2.4.0
