@@ -1,5 +1,5 @@
-name: Spelling or Grammar mistake
-description: File a spelling or grammar issue
+name: Spelling or Grammar Mistake
+description: File a report on text with a spelling or grammar mistake in it
 title: "[Spelling/Grammar]: <title>"
 labels: [spelling/grammar]
 body:
