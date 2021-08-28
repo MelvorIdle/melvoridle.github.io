@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Thank you for submitting a suggestion. 
-        Please search for if your suggestion has [already been made](https://github.com/MelvorIdle/melvoridle.github.io/issues?q=is%3Aopen+is%3Aissue+label%3ASuggestion), or if it is on the [list of frequent suggestions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/FrequentSuggestions) before submitting it.
+        Please search for if your suggestion has [already been made](https://github.com/MelvorIdle/melvoridle.github.io/issues?q=is%3Aopen+is%3Aissue+label%3ASuggestion), or if it is on the [list of frequent suggestions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/Frequent-Suggestions) before submitting it.
   - type: textarea
     id: suggestion
     attributes:
