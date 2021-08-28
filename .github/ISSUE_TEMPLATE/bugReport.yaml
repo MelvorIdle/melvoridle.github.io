@@ -71,6 +71,15 @@ body:
         - Alpha v0.21
     validations:
       required: true
+  - type: input
+    id: subversion
+    attributes:
+      label: Game Subversion
+      description: |
+        This is the version that appears in brackets next to the game version in the sidebar. ![Subversion Example Image](/images/subversion.png)
+      placeholder: 1109
+    validations:
+      required: true
   - type: dropdown
     id: scripts
     attributes:
