@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
         value: |
-          Thank you for submitting a spelling or grammar issue. Please search if your issue (already exists)[https://github.com/MelvorIdle/melvoridle.github.io/labels/spelling%2Fgrammar] before submitting.
+          Thank you for submitting a spelling or grammar issue. Please search if your issue [already exists](https://github.com/MelvorIdle/melvoridle.github.io/labels/spelling%2Fgrammar) before submitting.
   - type: textarea
     id: description
     attributes:
