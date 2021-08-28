@@ -1,5 +1,5 @@
 name: Suggestion
-description: Suggest a change, new feature, or new content for the game.
+description: Suggest a change, new feature, or new content for the game
 title: "[Suggestion]: <title>"
 labels: [Suggestion]
 body:
@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Thank you for submitting a suggestion. 
-        Please search for if your suggestion has already been made, or if it is on the [list of frequent suggestions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/Frequent-Suggestions) before submitting it.
+        Please search for if your suggestion has already been made, or if it is on the [list of frequent suggestions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/FrequentSuggestions) before submitting it.
   - type: textarea
     id: suggestion
     attributes:
