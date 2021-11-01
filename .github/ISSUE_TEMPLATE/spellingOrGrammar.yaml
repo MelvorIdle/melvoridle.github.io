@@ -1,0 +1,22 @@
+name: Spelling or Grammar Mistake
+description: File a report on text with a spelling or grammar mistake in it
+title: "[Spelling/Grammar]: <title>"
+labels: [spelling/grammar]
+body:
+  - type: markdown
+    attributes:
+        value: |
+          Thank you for submitting a spelling or grammar issue. Please search if your issue [already exists](https://github.com/MelvorIdle/melvoridle.github.io/labels/spelling%2Fgrammar) before submitting.
+  - type: textarea
+    id: description
+    attributes:
+      label: What text is wrong?
+      description: Please describe which text has a mistake in it or provide a screenshot of it.
+    validations:
+      required: true
+  - type: textarea
+    id: fixedText
+    attributes:
+      label: What is the correct spelling or grammar?
+    validations:
+      required: true

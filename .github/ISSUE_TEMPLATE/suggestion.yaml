@@ -1,0 +1,31 @@
+name: Suggestion
+description: Suggest a change, new feature, or new content for the game
+title: "[Suggestion]: <title>"
+labels: [Suggestion]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a suggestion. 
+        Please search for if your suggestion has [already been made](https://github.com/MelvorIdle/melvoridle.github.io/issues?q=is%3Aopen+is%3Aissue+label%3ASuggestion), or if it is on the [list of frequent suggestions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/Frequent-Suggestions) before submitting it.
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What is your suggestion?
+      description: |
+        Please be as detailed as possible when making suggestions.
+        It is recommended that you provide (mock up) art to illustrate things where relevant in order to make your suggestion more clear.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why are you suggesting this?
+    validations:
+      required: true
+  - type: textarea
+    id: benefits
+    attributes:
+      label: How does your suggestion benefit the game?
+    validations:
+      required: true
