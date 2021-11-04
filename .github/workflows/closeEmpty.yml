@@ -14,7 +14,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: |
-            This issue has been automatically closed due to not using one of the available issue templates. ${{ github.event.issue.labels[0] == null }}
+            This issue has been automatically closed due to not using one of the available issue templates. Please select one of the [available templates](https://github.com/MelvorIdle/melvoridle.github.io/issues/new/choose) and resubmit your issue.
+            
+            If this has been done in error due to accidently removing the label from the issue, please add the appropriate label and re-open the issue.
       - name: Close issue
         uses: actions-cool/issues-helper@v2.4.0
         with:
