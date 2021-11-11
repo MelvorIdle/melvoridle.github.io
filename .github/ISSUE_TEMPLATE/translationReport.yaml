@@ -1,0 +1,16 @@
+name: Translation Error
+description: File a report on text in the game with UNDEFINED TRANSLATION
+title: "[Translation Error]: <title>"
+labels: ["Localisation Bug"]
+body:
+  - type: markdown
+    attributes:
+        value: |
+          Thank you for submitting a Translation Error. Please search if your issue [already exists](https://github.com/MelvorIdle/melvoridle.github.io/issues?q=is%3Aopen+is%3Aissue+label%3A%22Localisation+Bug%22) before submitting.
+  - type: textarea
+    id: description
+    attributes:
+      label: Which text in the game has a translation error?
+      description: Please describe which text has the error in it or provide a screenshot of it.
+    validations:
+      required: true
