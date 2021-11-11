@@ -71,6 +71,7 @@ body:
         - Alpha v0.21
         - Alpha v0.22
         - Alpha v0.22.1
+        - Beta v1.0
     validations:
       required: true
   - type: input
