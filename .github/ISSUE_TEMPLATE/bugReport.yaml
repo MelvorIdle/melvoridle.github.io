@@ -72,16 +72,7 @@ body:
         - Alpha v0.22
         - Alpha v0.22.1
         - Beta v1.0
-    validations:
-      required: true
-  - type: input
-    id: subversion
-    attributes:
-      label: Game Subversion
-      description: |
-        This is the version that appears in brackets next to the game version in the sidebar. 
-        ![Subversion Example Image](https://raw.githubusercontent.com/coolrox95/melvoridle.github.io/master/images/subversionExample.png)
-      placeholder: "?1209"
+        - v1.0
     validations:
       required: true
   - type: dropdown
