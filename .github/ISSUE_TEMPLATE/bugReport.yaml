@@ -68,10 +68,8 @@ body:
     attributes:
       label: Which version of the game are you experiencing this bug on?
       options:
-        - Alpha v0.21
-        - Alpha v0.22
-        - Alpha v0.22.1
         - Beta v1.0
+        - v1.0
     validations:
       required: true
   - type: input
@@ -80,8 +78,8 @@ body:
       label: Game Subversion
       description: |
         This is the version that appears in brackets next to the game version in the sidebar. 
-        ![Subversion Example Image](https://raw.githubusercontent.com/coolrox95/melvoridle.github.io/master/images/subversionExample.png)
-      placeholder: "?1209"
+        ![Subversion Example Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample.png)
+      placeholder: "?1341"
     validations:
       required: true
   - type: dropdown
