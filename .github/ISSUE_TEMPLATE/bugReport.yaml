@@ -68,8 +68,8 @@ body:
     attributes:
       label: Which version of the game are you experiencing this bug on?
       options:
-        - Beta v1.0
-        - v1.0
+        - v1.0.1
+        - v1.0.2
     validations:
       required: true
   - type: input
