@@ -33,6 +33,14 @@ body:
       description: A clear and concise description of what you expected to happen
     validations:
       required: false
+  - type: input
+    id: savestring
+    attributes:
+      label: Save Link
+      description: If possible, please provide a save link for the character on which the bug is occuring. If you are unsure how to do this, please follow [these instructions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/How-to-Create-a-Save-Link).
+      placeholder: https://melvoridle.com/save/xxx
+    validations:
+      required: false
   - type: textarea
     id: screenshots
     attributes:
