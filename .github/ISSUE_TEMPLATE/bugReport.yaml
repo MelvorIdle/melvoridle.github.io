@@ -76,8 +76,8 @@ body:
     attributes:
       label: Which version of the game are you experiencing this bug on?
       options:
+        - v1.1.0
         - v1.0.5
-        - v1.0.4
     validations:
       required: true
   - type: input
@@ -93,8 +93,8 @@ body:
   - type: dropdown
     id: scripts
     attributes:
-      label: Are you using any scripts or extensions?
-      description: Please let us know if you were using any scripts or browser extensions that modify the game at the time the bug occured.
+      label: Are you using any mods?
+      description: Please let us know if you were using any mods at the time the bug occured.
       options:
         - 'Yes'
         - 'No'
