@@ -76,8 +76,8 @@ body:
     attributes:
       label: Which version of the game are you experiencing this bug on?
       options:
+        - v1.1.1
         - v1.1.0
-        - v1.0.5
     validations:
       required: true
   - type: input
