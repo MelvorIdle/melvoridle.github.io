@@ -36,8 +36,8 @@ body:
   - type: input
     id: savestring
     attributes:
-      label: Save Link
-      description: If possible, please provide a save link for the character on which the bug is occuring. If you are unsure how to do this, please follow [these instructions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/How-to-Create-a-Save-Link).
+      label: Save Link - Required if issue occurs with a save
+      description: (IMPORTANT) If the issue occurs with one of your saves, please provide a save link for the character on which the bug is occuring. If you are unsure how to do this, please follow [these instructions](https://github.com/MelvorIdle/melvoridle.github.io/wiki/How-to-Create-a-Save-Link).
       placeholder: https://melvoridle.com/save/xxx
     validations:
       required: false
