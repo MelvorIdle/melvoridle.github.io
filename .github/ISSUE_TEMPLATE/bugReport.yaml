@@ -65,9 +65,10 @@ body:
         - label: Firefox
         - label: Edge
         - label: Safari
+        - label: Steam
         - label: Mobile App (iOS)
         - label: Mobile App (Android)
-        - label: Steam
+        - label: Mobile App (Android Beta)
         - label: Other (Please Specify)
     validations:
       required: true
