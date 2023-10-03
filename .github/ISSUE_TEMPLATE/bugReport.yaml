@@ -72,6 +72,16 @@ body:
         - label: Other (Please Specify)
     validations:
       required: true
+  - type: checkboxes
+    id: entitlements
+    attributes:
+      label: Which expansions are purchased and active at the time of the bug?
+      description: Please select all that are applicable.
+      options:
+        - label: Throne of the Herald
+        - label: Atlas of Discovery
+    validations:
+      required: false
   - type: dropdown
     id: version
     attributes:
