@@ -66,6 +66,7 @@ body:
         - label: Edge
         - label: Safari
         - label: Steam
+        - label: Epic Games
         - label: Mobile App (iOS)
         - label: Mobile App (Android)
         - label: Mobile App (Android Beta)
