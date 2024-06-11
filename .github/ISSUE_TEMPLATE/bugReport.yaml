@@ -89,7 +89,7 @@ body:
       label: Which version of the game are you experiencing this bug on?
       options:
         - v1.2.2
-        - v1.3 (public_test)
+        - v1.3
     validations:
       required: true
   - type: input
@@ -97,9 +97,11 @@ body:
     attributes:
       label: Game Subversion
       description: |
-        This is the version that appears in brackets next to the game version in the sidebar. 
-        ![Subversion Example Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample.png)
-      placeholder: "?1341"
+        This is the version that appears in brackets next to the game version in the sidebar or character select screen. 
+        ![Subversion Example Sidebar Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample.png)
+        ![Subversion Example Character Select Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample2.png)
+        ![Subversion Example Character Select Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample3.png)
+      placeholder: "?11181"
     validations:
       required: true
   - type: dropdown
