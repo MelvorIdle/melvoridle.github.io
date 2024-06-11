@@ -98,9 +98,7 @@ body:
       label: Game Subversion
       description: |
         This is the version that appears in brackets next to the game version in the sidebar or character select screen. 
-        ![Subversion Example Sidebar Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample.png)
-        ![Subversion Example Character Select Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample2.png)
-        ![Subversion Example Character Select Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample3.png)
+        ![Subversion Example Sidebar Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample.png)![Subversion Example Character Select Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample2.png)![Subversion Example Character Select Image](https://raw.githubusercontent.com/MelvorIdle/melvoridle.github.io/master/images/subversionExample3.png)
       placeholder: "?11181"
     validations:
       required: true
