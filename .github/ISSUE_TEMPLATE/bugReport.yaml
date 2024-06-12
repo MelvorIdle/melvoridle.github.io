@@ -81,6 +81,7 @@ body:
       options:
         - label: Throne of the Herald
         - label: Atlas of Discovery
+        - label: Into the Abyss
     validations:
       required: false
   - type: dropdown
@@ -88,8 +89,8 @@ body:
     attributes:
       label: Which version of the game are you experiencing this bug on?
       options:
-        - v1.2.2
         - v1.3
+        - v1.2.2
     validations:
       required: true
   - type: input
