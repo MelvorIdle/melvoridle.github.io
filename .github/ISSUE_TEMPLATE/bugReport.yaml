@@ -7,8 +7,8 @@ body:
     attributes:
         value: |
           Thank you for submitting a bug report. Please search if your issue [already exists](https://github.com/MelvorIdle/melvoridle.github.io/labels/bug) before submitting a report.
-          [!IMPORTANT]
-          If you are using mods, please disable them and try to reproduce the issue without mods before submitting a report
+          > [!IMPORTANT]
+          > If you are using mods, please disable them and try to reproduce the issue without mods before submitting a report
   - type: textarea
     id: description
     attributes:
