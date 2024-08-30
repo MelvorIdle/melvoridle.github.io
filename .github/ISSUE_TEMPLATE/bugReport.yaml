@@ -92,7 +92,7 @@ body:
       label: Which version of the game are you experiencing this bug on?
       options:
         - v1.3
-        - v1.2.2
+        - v1.3.1 (Beta)
     validations:
       required: true
   - type: input
