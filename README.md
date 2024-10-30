@@ -1,5 +1,5 @@
 
-# Melvor Idle - v1.3
+# Melvor Idle - v1.3.1
 
 This is the official Git repository / issue tracker for the web-based idle game [Melvor Idle](https://www.melvoridle.com/).
 
