@@ -76,6 +76,32 @@ body:
         - label: Other (Please Specify)
     validations:
       required: true
+  - type: input
+    id: operatingsystem
+    attributes:
+      label: What Operating System are you using?
+      description: |
+        examples:
+          - Windows 10 Pro, 22H2, 19045.5131
+          - macOS Sequoia 15.1.1
+          - iOS 18.2
+          - Android 14
+        If you are unsure of how to obtain this information, please follow this [guide](https://github.com/MelvorIdle/melvoridle.github.io/wiki/How-to-Obtain-your-Operating-System-and-Hardware-Details)
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: What device/hardware are you using?
+      description: |
+        examples:
+          - MacBook Air M1, 2020. Apple M1, 8GB
+          - iPhone 11 Pro
+          - Google Pixel 5
+          - Intel i5-8600K, 16GB RAM, NVIDIA GeForce RTX 2070
+        If you are unsure of how to obtain this information, please follow this [guide](https://github.com/MelvorIdle/melvoridle.github.io/wiki/How-to-Obtain-your-Operating-System-and-Hardware-Details)
+    validations:
+      required: true
   - type: checkboxes
     id: entitlements
     attributes:
