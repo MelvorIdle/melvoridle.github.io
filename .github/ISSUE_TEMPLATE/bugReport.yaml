@@ -71,8 +71,9 @@ body:
         - label: Steam (Offline Beta)
         - label: Epic Games
         - label: Mobile App (iOS)
+        - label: Mobile App (iOS, Offline Beta)
         - label: Mobile App (Android)
-        - label: Mobile App (Android Beta)
+        - label: Mobile App (Android, Offline Beta)
         - label: Other (Please Specify)
     validations:
       required: true
